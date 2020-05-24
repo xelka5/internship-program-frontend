@@ -1,3 +1,5 @@
+LABEL maintainer="Internship Program"
+
 FROM node as build
 
 WORKDIR /app

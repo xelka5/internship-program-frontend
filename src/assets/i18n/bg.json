@@ -1,0 +1,28 @@
+{
+  "COMMON_MENU": {
+    "ACCOUNT_SETTINGS": "Настройки",
+    "LOGOUT": "Излизане"
+  },
+
+  "ADMIN_MENU": {
+    "ACTIVE_APPLICATIONS": "Активни заявки",
+    "PENDING_APPROVALS": "Чакащи одобрения",
+    "STATISTICS": "Статистики"
+  },
+
+  "EMPLOYER_MENU": {
+    "CREATE_PROGRAM": "Нов стаж",
+    "CONTACT_ADMINISTRATION": "Контакт на администрация",
+    "PENDING_APPLICATIONS": "Чакащи заявки"
+  },
+
+  "INTERN_MENU": {
+    "NEW_INTERNSHIP": "Нови стажове",
+    "ACTIVE_INTERNSHIPS": "Активни стажове",
+    "MY_APPLICATIONS": "Моите заявки"
+  },
+
+  "GUEST_MENU": {
+    "ABOUT": "За нас"
+  }
+}

@@ -1,0 +1,64 @@
+.navbar-light {
+    background-color: white!important;
+    height: 4em;
+    display: block;
+
+    .logo {
+        max-height: 2em;
+        cursor: pointer;
+        outline: none;
+    }
+    
+    .btn-custom {
+        background: #005356;
+        color: white;
+        margin-left: 1rem;
+        border-color: #005356;
+        border-radius: 0;
+    }
+
+    .bars {
+        color: #005356;
+        display:none;
+    }
+    
+    .btn-outline-success {
+        color: #005356;
+        border-color: #005356;
+    }
+    
+    .btn-outline-success:hover {
+        background: #005356;
+        color: white;
+        border-color: #005356;
+    }
+
+    .navbar-toggler {
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .spacer {
+        margin-top: 1.3rem;
+        margin-left: auto!important;
+        margin-right: auto!important;
+        
+        .btn-custom {
+            margin: 0!important;
+        }
+    }
+    .image-container {
+        width: 100%;
+    }
+    .logo {
+        margin: 0;
+        display: inline-block
+    }
+
+    .bars {
+        padding-right: 0.5em;
+        display: inline-block!important;
+        font-size: 2em;
+    }
+}

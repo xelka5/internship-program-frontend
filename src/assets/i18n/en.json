@@ -1,0 +1,28 @@
+{
+  "COMMON_MENU": {
+    "ACCOUNT_SETTINGS": "Account Settings",
+    "LOGOUT": "Logout"
+  },
+
+  "ADMIN_MENU": {
+    "ACTIVE_APPLICATIONS": "Active Applications",
+    "PENDING_APPROVALS": "Pending approvals",
+    "STATISTICS": "Statistics"
+  },
+
+  "EMPLOYER_MENU": {
+    "CREATE_PROGRAM": "Create new program",
+    "CONTACT_ADMINISTRATION": "Contact administration",
+    "PENDING_APPLICATIONS": "Pending applications"
+  },
+
+  "INTERN_MENU": {
+    "NEW_INTERNSHIP": "New internships",
+    "ACTIVE_INTERNSHIPS": "Active internships",
+    "MY_APPLICATIONS": "My applications"
+  },
+
+  "GUEST_MENU": {
+    "ABOUT": "About us"
+  }
+}
