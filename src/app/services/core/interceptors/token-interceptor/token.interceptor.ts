@@ -10,6 +10,7 @@ import { CommunicationUtils } from 'src/app/utils/communication-utils';
 export class TokenInterceptor implements HttpInterceptor {
 
   private LOGIN_URL: string = 'oauth/token';
+  private REGISTRATION_URL: string = 'api/users/registration';
 
   constructor(public authService: AuthService, public communicationUtils: CommunicationUtils) { }
 
@@ -33,6 +34,8 @@ export class TokenInterceptor implements HttpInterceptor {
       });
 
       request = request.clone({headers});
+    } else if(request.url.includes(this.REGISTRATION_URL)) {
+      // continue without modifying request
     } else {
       request = this.addTokenToRequest(request);
     }

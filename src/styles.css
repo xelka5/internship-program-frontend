@@ -1,4 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css?family=Montserrat:500,700");
+
 .page-wrapper.toggled .sidebar {
-    left: -300px;
+  left: -300px;
+}
+
+body {
+  font-family: 'Montserrat';
+  font-weight: 500;
+}
+
+/* 
+ * Toastr custom class settings
+ */
+.toast-top-center {
+  margin-top: 2em;
+}
+
+.ngx-toastr {
+  font-size: 12px;
+}
+
+.toast-success {
+  background-color: #0098a1;
 }

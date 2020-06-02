@@ -5,6 +5,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { GRANT_TYPE_PASSWORD } from 'src/app/shared/constants/global-constants';
 import { HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private loginService: LoginService, private authService: AuthService, private router: Router) {}
+  constructor(private loginService: LoginService, private authService: AuthService, private router: Router, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -28,6 +29,8 @@ export class LoginComponent implements OnInit {
     this.loginService.performLogin(this.createRequestBody()).subscribe(response => {
       this.authService.storeToken(response);
       this.router.navigateByUrl('/dashboard');
+    }, err => {
+      this.toastr.warning('Wrong username or password!');
     });
   }
 

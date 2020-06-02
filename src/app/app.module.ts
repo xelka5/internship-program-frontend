@@ -6,10 +6,12 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RoutingModule } from './modules/routing.module';
 import { JwtModule } from "@auth0/angular-jwt";
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxModule } from './modules/ngx.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 /**
  * Components
@@ -48,9 +50,11 @@ export function TranslationLoaderFactory(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     RoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     JwtModule.forRoot(jwtModuleConfig),
     NgxModule,
     TranslateModule.forRoot({
