@@ -33,6 +33,10 @@ import { tokenInterceptorProvider } from './services/core/interceptors/token-int
  * Configuration
  */
 import { jwtModuleConfig } from './services/core/auth';
+import { AccountSettingsComponent } from './components/account-settings/account-settings.component';
+import { AddInternshipComponent } from './components/add-internship/add-internship.component';
+import { ListInternshipsComponent } from './components/list-internships/list-internships.component';
+import { SearchInternshipsComponent } from './components/search-internships/search-internships.component';
 
 export function TranslationLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -46,7 +50,11 @@ export function TranslationLoaderFactory(http: HttpClient) {
     HomeComponent,
     DashboardComponent,
     SidebarComponent,
-    SiteHeaderComponent
+    SiteHeaderComponent,
+    AccountSettingsComponent,
+    AddInternshipComponent,
+    ListInternshipsComponent,
+    SearchInternshipsComponent
   ],
   imports: [
     BrowserModule,

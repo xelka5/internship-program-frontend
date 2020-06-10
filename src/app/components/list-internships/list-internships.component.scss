@@ -1,0 +1,114 @@
+$primary_color: #0098a1;
+$secondary_color: #014878;
+
+.card {
+  .card-header {
+    color: white;
+    background-color: $primary_color;
+    border: none;
+  }
+    
+  .card-body {
+    .field {
+      display: inline-block;
+    }
+
+    .title-field {
+      border-bottom: solid 1px $primary_color;
+    }
+
+    label {
+      font-size: 13px;
+      color: $primary_color;
+
+      span {
+        color: black;
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+form {
+  width: 100%;
+
+  .form-group {
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-control {
+    box-shadow: none;
+    border-color: #ddd;
+  }
+  
+  .form-control:focus {
+    border-color: $primary_color;
+  }
+  
+  .form-control,
+  .btn {
+    min-height: 40px;
+    border-radius: 2px;
+    transition: all 0.5s;
+  }
+  
+  .btn {
+    background: $primary_color;
+    border: none;
+    line-height: normal;
+    width: 120px;
+    
+    &:focus {
+      box-shadow: none;
+    } 
+  
+    &:hover {
+      background-color: $secondary_color;
+    }
+  }
+  
+  label {
+    display: inline-block;
+    margin-bottom: 0.1rem;
+    font-size: 12px;
+  }
+  
+  .error-message {
+    color: red;
+  }
+}
+
+.btn {
+  background: $primary_color;
+  border: none;
+  line-height: normal;
+  width: 140px;
+  min-height: 40px;
+  border-radius: 2px;
+  transition: all 0.5s;
+  font-size:14px;
+  
+  &:focus {
+    box-shadow: none;
+  } 
+
+  &:hover {
+    background-color: $secondary_color;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    height: 100%;
+
+    .card-header {
+      border-radius: 0;
+    }
+  
+    .card-body {
+      .salary-field {
+        float: left!important;
+      }
+    }
+  }
+}

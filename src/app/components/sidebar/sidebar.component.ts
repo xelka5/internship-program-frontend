@@ -6,6 +6,10 @@ import { AuthService } from 'src/app/services/core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { TokenInfoService } from 'src/app/services/core/token-info/token-info.service';
 import { TokenData } from 'src/app/interfaces/token/token-info';
+import { UserService } from 'src/app/services/api/user/user.service';
+import { UserRole } from 'src/app/shared/enums/user-role';
+import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sidebar',
@@ -23,6 +27,7 @@ export class SidebarComponent implements OnInit {
 
   userName: string;
   userRole: string;
+  profileImageUrl: string;
 
   currentLanguage: string;
 
@@ -31,15 +36,44 @@ export class SidebarComponent implements OnInit {
   menus = [];
 
   constructor(private sidebarService: SidebarService, private authService: AuthService, 
-    private translateService: TranslateService, private tokenInfoService: TokenInfoService) {
-      let tokenData: TokenData = this.tokenInfoService.getTokenData(this.authService.getToken());
-      this.userName = tokenData.user_name;
-      this.userRole = tokenData.authorities[0];
-
-      this.menus = sidebarService.getMenuList(this.userRole);
+    private translateService: TranslateService, private userService: UserService, private toastr: ToastrService) {
+      
    }
 
   ngOnInit() {
+    this.initDefaultLanguage();
+    this.profileImageUrl = 'assets/images/default_user.png';
+
+    this.userService.getUserInformation().subscribe(result => {
+      this.handleSuccessUserDetailsFetch(result);
+    }, err => {
+      this.toastr.error('Something went wrong');
+    });
+
+  }
+
+  public handleSuccessUserDetailsFetch(result: any): void {
+    if(result.role === UserRole.INTERN) {
+      this.userName = result.userDetails.firstName + ' ' + result.userDetails.lastName;
+      this.userRole = UserRole.INTERN;
+    } else if(result.role === UserRole.EMPLOYER) {
+      this.userName = result.userDetails.companyName;
+      this.userRole = UserRole.EMPLOYER;
+    } else if(result.role === UserRole.ADMIN) {
+      this.userName = result.account.username;
+      this.userRole = UserRole.ADMIN;
+    }
+
+    let profileImageName = result.account.profileImageName;
+
+    if(profileImageName) {
+      this.profileImageUrl = `${environment.apiUrl}/` + profileImageName;
+    }
+
+    this.menus = this.sidebarService.getMenuList(this.userRole);
+  }
+
+  public initDefaultLanguage(): void {
     let browserLang = this.translateService.getBrowserLang();
     if (this.langs.indexOf(browserLang) > -1) {
       this.setDefaultLang(browserLang);

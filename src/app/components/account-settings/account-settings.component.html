@@ -1,0 +1,155 @@
+<div class="card">
+  <h5 class="card-header">Edit account</h5>
+
+  <div class="card-body">
+    <div class="col-12 col-lg-6 d-inline-block align-top">
+      <form [formGroup]="accountForm">
+        <div class="box mb-4">
+          <div class="image-preview">
+            <img *ngIf="previewUrl" class="profile-image" [src]="previewUrl">
+          </div>
+
+          <div class="upload-options">
+            <label>
+              <span class="fa fa-plus"></span>
+              <input type="file" class="image-upload" (change)="onFileChanged($event)">
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label *ngIf="!isInvalidFormControl(accountForm, 'username')">Username</label>
+
+          <div *ngIf="isInvalidFormControl(accountForm, 'username')" class="error-message">
+            <label *ngIf="accountForm.controls['username'].errors.required">Username is required.</label>
+            <label *ngIf="accountForm.controls['username'].errors.minlength">Username must be at least 4 characters long.</label>
+          </div>
+
+          <input [ngStyle]="isInvalidFormControl(accountForm, 'username') && {'border-color': '#ff0000'}" type="text"
+            class="form-control" placeholder="Enter username" formControlName="username">
+        </div>
+
+      </form>
+    </div>
+
+    <div *ngIf="role === INTERN" class="col-12 col-lg-6 d-inline-block align-top">
+      <form [formGroup]="internDetailsForm">
+        <div class="form-group">
+          <label *ngIf="!isInvalidFormControl(internDetailsForm, 'firstName')">First name</label>
+
+          <div *ngIf="isInvalidFormControl(internDetailsForm, 'firstName')" class="error-message">
+            <label *ngIf="internDetailsForm.controls['firstName'].errors.required">First name is required.</label>
+          </div>
+
+          <input [ngStyle]="isInvalidFormControl(internDetailsForm, 'firstName') && {'border-color': '#ff0000'}" type="text"
+            class="form-control" placeholder="Enter first name" formControlName="firstName">
+        </div>
+
+        <div class="form-group">
+          <label *ngIf="!isInvalidFormControl(internDetailsForm, 'lastName')">Last name</label>
+
+          <div *ngIf="isInvalidFormControl(internDetailsForm, 'lastName')" class="error-message">
+            <label *ngIf="internDetailsForm.controls['lastName'].errors.required">Last name is required.</label>
+          </div>
+
+          <input [ngStyle]="isInvalidFormControl(internDetailsForm, 'lastName') && {'border-color': '#ff0000'}" type="text"
+            class="form-control" placeholder="Enter last name" formControlName="lastName">
+        </div>
+
+        <div class="form-group">
+          <label *ngIf="!isInvalidFormControl(internDetailsForm, 'age')">Age</label>
+
+          <div *ngIf="isInvalidFormControl(internDetailsForm, 'age')" class="error-message">
+            <label *ngIf="internDetailsForm.controls['age'].errors">Age must be set between 16 and 65.</label>
+          </div>
+
+          <input [ngStyle]="isInvalidFormControl(internDetailsForm, 'age') && {'border-color': '#ff0000'}" type="number"
+            class="form-control" placeholder="Enter age" formControlName="age">
+        </div>
+
+        <div class="form-group">
+          <label *ngIf="!isInvalidFormControl(internDetailsForm, 'university')">University</label>
+
+          <div *ngIf="isInvalidFormControl(internDetailsForm, 'university')" class="error-message">
+            <label *ngIf="internDetailsForm.controls['university'].errors.required">University is required.</label>
+          </div>
+
+          <input [ngStyle]="isInvalidFormControl(internDetailsForm, 'university') && {'border-color': '#ff0000'}" type="text"
+            class="form-control" placeholder="Enter university name" formControlName="university">
+        </div>
+
+        <div class="form-group">
+          <label *ngIf="!isInvalidFormControl(internDetailsForm, 'course')">Course</label>
+
+          <div *ngIf="isInvalidFormControl(internDetailsForm, 'course')" class="error-message">
+            <label *ngIf="internDetailsForm.controls['course'].errors.required">Course is required.</label>
+          </div>
+
+          <input [ngStyle]="isInvalidFormControl(internDetailsForm, 'course') && {'border-color': '#ff0000'}" type="text"
+            class="form-control" placeholder="Enter course" formControlName="course">
+        </div>
+
+        <div class="form-group">
+          <label *ngIf="!isInvalidFormControl(internDetailsForm, 'previousEducation')">Previous education</label>
+
+          <div *ngIf="isInvalidFormControl(internDetailsForm, 'previousEducation')" class="error-message">
+            <label *ngIf="internDetailsForm.controls['previousEducation'].errors.required">Previous education is required.</label>
+          </div>
+
+          <input [ngStyle]="isInvalidFormControl(internDetailsForm, 'previousEducation') && {'border-color': '#ff0000'}" type="text"
+            class="form-control" placeholder="Enter previous school or college" formControlName="previousEducation">
+        </div>
+
+        <div class="form-group">
+          <label>Start date of studying</label>
+
+          <input type="text" class="form-control" placeholder="Enter start date" formControlName="startDate">
+        </div>
+      </form>
+    </div>
+    <div *ngIf="role === EMPLOYER" class="col-12 col-lg-6 d-inline-block align-top">
+      <form [formGroup]="employerDetailsForm" >
+        <div class="form-group">
+          <label *ngIf="!isInvalidFormControl(employerDetailsForm, 'companyName')">Company name</label>
+          <div *ngIf="isInvalidFormControl(employerDetailsForm, 'companyName')" class="error-message">
+            <label *ngIf="employerDetailsForm.controls['companyName'].errors.required">
+              Company name is required.
+            </label>
+          </div>
+          <input [ngStyle]="isInvalidFormControl(employerDetailsForm, 'companyName') && {'border-color': '#ff0000'}" type="text" class="form-control" placeholder="Enter company name" formControlName="companyName">
+        </div>
+        <div class="form-group">
+          <label *ngIf="!isInvalidFormControl(employerDetailsForm, 'numberOfWorkers')">Number of workers</label>
+          <div *ngIf="isInvalidFormControl(employerDetailsForm, 'numberOfWorkers')" class="error-message">
+            <label *ngIf="employerDetailsForm.controls['numberOfWorkers'].errors.required">
+              Number of workers is required.
+            </label>
+          </div>
+          <input [ngStyle]="isInvalidFormControl(employerDetailsForm, 'numberOfWorkers') && {'border-color': '#ff0000'}" type="number" class="form-control" placeholder="Enter number of workers" formControlName="numberOfWorkers">
+        </div>
+        <div class="form-group">
+          <label *ngIf="!isInvalidFormControl(employerDetailsForm, 'descriptionNotes')">Company description</label>
+          <div *ngIf="isInvalidFormControl(employerDetailsForm, 'descriptionNotes')" class="error-message">
+            <label *ngIf="employerDetailsForm.controls['descriptionNotes'].errors.required">
+              Company description is required.
+            </label>
+          </div>
+          <textarea [ngStyle]="isInvalidFormControl(employerDetailsForm, 'descriptionNotes') && {'border-color': '#ff0000'}" class="form-control" rows="5" formControlName="descriptionNotes">Short company description</textarea>
+        </div>
+        <div class="form-group">
+          <label *ngIf="!isInvalidFormControl(employerDetailsForm, 'historyNotes')">Company history</label>
+          <div *ngIf="isInvalidFormControl(employerDetailsForm, 'historyNotes')" class="error-message">
+            <label *ngIf="employerDetailsForm.controls['historyNotes'].errors.required">
+              Company history is required.
+            </label>
+          </div>
+          <textarea [ngStyle]="isInvalidFormControl(employerDetailsForm, 'historyNotes') && {'border-color': '#ff0000'}" class="form-control" rows="5" formControlName="historyNotes">About company history</textarea>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-12 mt-2">
+      <button class="btn btn-primary float-right" (click)="editAccount()" [disabled]="!checkAllFormsValid()">Edit profile</button>
+    </div>
+  </div>
+</div>

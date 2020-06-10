@@ -8,10 +8,10 @@ import { UserService } from 'src/app/services/api/user/user.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.userService.getMeTest().subscribe(result => { console.log(result) });
+    
   }
 
 }

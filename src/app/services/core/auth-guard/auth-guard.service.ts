@@ -13,7 +13,7 @@ export class AuthGuardService {
   canActivate(): boolean {
     if (!this.auth.isAuthenticated()) {
       this.authService.clearTokenStorage();
-      this.router.navigate(['']);
+      this.router.navigate(['/login']);
       return false;
     }
     return true;

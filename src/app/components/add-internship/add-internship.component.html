@@ -1,0 +1,71 @@
+<div class="card">
+  <h5 class="card-header">Add new internship</h5>
+
+  <div class="card-body">
+    <form [formGroup]="internshipForm">
+      <div class="col-12 col-lg-6 d-inline-block align-top">
+        <div class="form-group">
+          <label *ngIf="!isInvalidFormControl(internshipForm, 'title')">Title</label>
+
+          <div *ngIf="isInvalidFormControl(internshipForm, 'title')" class="error-message">
+            <label *ngIf="internshipForm.controls['title'].errors.required">Title is required.</label>
+          </div>
+
+          <input [ngStyle]="isInvalidFormControl(internshipForm, 'title') && {'border-color': '#ff0000'}" type="text"
+            class="form-control" placeholder="Enter first name" formControlName="title">
+        </div>
+
+        <div class="form-group">
+          <label *ngIf="!isInvalidFormControl(internshipForm, 'description')">Description</label>
+
+          <div *ngIf="isInvalidFormControl(internshipForm, 'description')" class="error-message">
+            <label *ngIf="internshipForm.controls['description'].errors.required">Description is required</label>
+          </div>
+
+          <textarea [ngStyle]="isInvalidFormControl(internshipForm, 'description') && {'border-color': '#ff0000'}" rows="8"
+            class="form-control" placeholder="Enter description" formControlName="description"></textarea>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6 d-inline-block align-top">
+        <div class="form-group">
+          <label *ngIf="!isInvalidFormControl(internshipForm, 'startDate')">Internship start date</label>
+
+          <div *ngIf="isInvalidFormControl(internshipForm, 'startDate')" class="error-message">
+            <label *ngIf="internshipForm.controls['startDate'].errors.required">Start date is required.</label>
+          </div>
+
+          <input [ngStyle]="isInvalidFormControl(internshipForm, 'startDate') && {'border-color': '#ff0000'}" type="text" 
+            class="form-control mb-3" placeholder="Datepicker" bsDatepicker formControlName="startDate" />
+        </div>
+
+        <div class="form-group">
+          <label *ngIf="!isInvalidFormControl(internshipForm, 'maxNumberOfStudents')">Maximum number of students</label>
+
+          <div *ngIf="isInvalidFormControl(internshipForm, 'maxNumberOfStudents')" class="error-message">
+            <label *ngIf="internshipForm.controls['maxNumberOfStudents'].errors.required">Maximum number of students is required.</label>
+          </div>
+
+          <input [ngStyle]="isInvalidFormControl(internshipForm, 'maxNumberOfStudents') && {'border-color': '#ff0000'}" type="number"
+            class="form-control" placeholder="Enter maximum number of students" formControlName="maxNumberOfStudents">
+        </div>
+
+        <div class="form-group">
+          <label *ngIf="!isInvalidFormControl(internshipForm, 'salary')">Salary</label>
+
+          <div *ngIf="isInvalidFormControl(internshipForm, 'salary')" class="error-message">
+            <label *ngIf="internshipForm.controls['salary'].errors.required">Salary is required.</label>
+          </div>
+
+          <input [ngStyle]="isInvalidFormControl(internshipForm, 'salary') && {'border-color': '#ff0000'}" type="text"
+            class="form-control" placeholder="Enter salary" formControlName="salary">
+        </div>
+
+      </div>
+    </form>
+    
+    <div class="col-12 mt-2">
+      <button class="btn btn-primary float-right" (click)="addInternship()" [disabled]="!checkFormValid()">Add</button>
+    </div>
+
+  </div>
+</div>

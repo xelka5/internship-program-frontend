@@ -4,11 +4,18 @@ export var employerMenu = [
         type: 'header'
     },
     {
+        title: 'EMPLOYER_MENU.MY_PROGRAMS',
+        icon: 'fa fa-briefcase',
+        active: false,
+        type: 'simple',
+        route: '/dashboard/my-internships'
+    },
+    {
         title: 'EMPLOYER_MENU.CREATE_PROGRAM',
         icon: 'fa fa-briefcase',
         active: false,
         type: 'simple',
-        route: '/dashboard/active'
+        route: '/dashboard/add-internship'
     },
     {
         title: 'EMPLOYER_MENU.CONTACT_ADMINISTRATION',

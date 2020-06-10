@@ -1,4 +1,4 @@
-export interface RegistrationResponse {
+export interface UserDetailsResponse {
     email: string,
     isSuccess: boolean
 }

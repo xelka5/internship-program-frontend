@@ -1,15 +1,18 @@
-<div class="page-wrapper p-0" [ngClass]="{'toggled' : getSideBarState()}">
-    <app-sidebar></app-sidebar>
-    <main class="page-content">
-        <app-site-header (toggleSidebarEmitter)="toggleSidebar()"></app-site-header>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="form-group col-md-12 p-0">
-                    <hr>
-                    <router-outlet></router-outlet>
-                </div>
-            </div>  
+<div class="page-wrapper p-0" [ngClass]="{ toggled: getSideBarState() }">
+  <app-sidebar></app-sidebar>
+  <main class="page-content">
+    <app-site-header (toggleSidebarEmitter)="toggleSidebar()"></app-site-header>
+    <div class="container">
+      <div class="row">
+        <div class="form-group col-md-12 p-0">
+          <router-outlet></router-outlet>
         </div>
-        <div class="overlay" (click)="toggleSidebar()" [ngClass]="{'show' : !getSideBarState()}"></div>
-    </main>
+      </div>
+    </div>
+    <div
+      class="overlay"
+      (click)="toggleSidebar()"
+      [ngClass]="{ show: !getSideBarState() }"
+    ></div>
+  </main>
 </div>

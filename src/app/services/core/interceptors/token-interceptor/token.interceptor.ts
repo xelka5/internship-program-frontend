@@ -4,7 +4,6 @@ import { AuthService } from '../../auth/auth.service';
 import { Observable, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { REFRESH_TOKEN_LABEL } from 'src/app/shared/constants/global-constants';
-import { CommunicationUtils } from 'src/app/utils/communication-utils';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -12,7 +11,7 @@ export class TokenInterceptor implements HttpInterceptor {
   private LOGIN_URL: string = 'oauth/token';
   private REGISTRATION_URL: string = 'api/users/registration';
 
-  constructor(public authService: AuthService, public communicationUtils: CommunicationUtils) { }
+  constructor(public authService: AuthService) { }
 
   /**
    * Intercepting and attaching proper authorization token to the request.

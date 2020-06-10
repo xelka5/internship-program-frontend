@@ -8,7 +8,7 @@ export var internMenu = [
         icon: 'fa fa-briefcase',
         active: false,
         type: 'simple',
-        route: '/dashboard/active'
+        route: '/dashboard/search-internships'
     },
     {
         title: 'INTERN_MENU.ACTIVE_INTERNSHIPS',

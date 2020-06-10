@@ -25,7 +25,6 @@
         <div *ngIf="step === 1" class="form-data-container col-12 col-sm-6">
           <div class="form-group">
             <label *ngIf="!isInvalidFormControl(accountForm, 'email')">Email</label>
-
             <div *ngIf="isInvalidFormControl(accountForm, 'email')" class="error-message">
               <label *ngIf="accountForm.controls['email'].errors.required">
                 Email is required.
@@ -61,8 +60,16 @@
             <input [ngStyle]="isInvalidFormControl(accountForm, 'password') && {'border-color': '#ff0000'}" type="password" class="form-control" placeholder="Enter password" formControlName="password">
           </div>
           <div class="form-group">
-            <label>Confirm password</label>
-            <input type="password" class="form-control" placeholder="Confirm password" formControlName="passwordConfirm">
+            <label *ngIf="!isInvalidFormControl(accountForm, 'passwordConfirm')">Confirm Password</label>
+            <div *ngIf="isInvalidFormControl(accountForm, 'passwordConfirm')" class="error-message">
+              <label *ngIf="accountForm.controls['passwordConfirm'].errors.required">
+                Password confirmation is required.
+              </label>
+              <label *ngIf="accountForm.controls['passwordConfirm'].errors.minlength">
+                Confirmation must be at least 8 characters long.
+              </label>
+            </div>
+            <input [ngStyle]="isInvalidFormControl(accountForm, 'passwordConfirm') && {'border-color': '#ff0000'}" type="password" class="form-control" placeholder="Confirm password" formControlName="passwordConfirm">
           </div>
         </div>
       </form>

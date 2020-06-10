@@ -4,6 +4,11 @@ import { RegistrationService } from 'src/app/services/api/registration/registrat
 import { UserRole } from 'src/app/shared/enums/user-role';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { switchMap, map } from 'rxjs/operators';
+import { RegistrationRequest } from 'src/app/interfaces/registration/registration-request';
+import { Observable, of } from 'rxjs';
+import { CheckEmailExistsResponse } from 'src/app/interfaces/check-email/check-email-exists-response';
+import { UserService } from 'src/app/services/api/user/user.service';
 
 @Component({
   selector: 'app-registration',
@@ -12,7 +17,7 @@ import { Router } from '@angular/router';
 })
 export class RegistrationComponent implements OnInit {
 
-  selectedFile: File;
+  selectedProfileImage: File;
   previewUrl;
 
   accountForm: FormGroup;
@@ -27,16 +32,34 @@ export class RegistrationComponent implements OnInit {
   INTERN: string = UserRole.INTERN;
   EMPLOYER: string =  UserRole.EMPLOYER;
 
-  constructor(private registrationService: RegistrationService, private toastr: ToastrService,
-    private router: Router) { }
+  constructor(private registrationService: RegistrationService,
+    private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
     this.initForms();
   }
 
   nextStep(): void {
-    if(this.isValidForm()) {
-      this.step++;
+    if(this.step === 1) {
+      if(this.passwordsNotMatching()) {
+        this.toastr.warning('Password not confirmed. Try again.');
+        this.accountForm.get('password').reset();
+        this.accountForm.get('passwordConfirm').reset();
+      }
+      this.checkEmailAlreadyExists().subscribe(result => {
+        if(result.emailExists) {
+          this.toastr.warning('Given email is already registered');
+          return;
+        }
+
+        if(this.isValidForm()) {
+          this.step++;
+        }
+      });
+    } else {
+      if(this.isValidForm()) {
+        this.step++;
+      }
     }
   }
 
@@ -44,11 +67,18 @@ export class RegistrationComponent implements OnInit {
     this.step--;
   }
 
+  passwordsNotMatching(): boolean { 
+    let password = this.accountForm.get('password').value;
+    let confirmPassword = this.accountForm.get('passwordConfirm').value;
+
+    return password !== confirmPassword;     
+  }
+
   submitRegistration(): void {
-    let finalRegistrationData = {
-      'account': this.accountForm.value,
-      'role': this.role,
-      'userDetails': null
+    let finalRegistrationData: RegistrationRequest = {
+      account: this.accountForm.value,
+      role: this.role,
+      userDetails: null
     }
 
     if(this.role === this.INTERN) {
@@ -59,11 +89,28 @@ export class RegistrationComponent implements OnInit {
         Object.assign(this.employerForm.value, this.employerDetailsForm.value);
     }
 
-    this.registrationService.performRegistration(finalRegistrationData).subscribe(result => {
+    this.registrationService.performRegistration(finalRegistrationData)
+    .pipe(
+      switchMap(result => {
+        if(this.selectedProfileImage) {
+          return this.registrationService.uploadProfileImage(this.selectedProfileImage, result.email);
+        }
+        return of(result);
+      })
+    )
+    .subscribe(result => {
       this.toastr.success('Successful registration');
       this.router.navigateByUrl('/login');
+    }, err => {
+      this.toastr.error('Something went wrong, please try again');
+      this.resetForms();
     });
   }
+
+  checkEmailAlreadyExists(): Observable<CheckEmailExistsResponse> {
+    return this.registrationService.checkIfEmailAlreadyExists({ emailToCheck: this.accountForm.get('email').value});
+  }
+
 
   isInvalidFormControl(form: FormGroup, control: string): boolean {
     return form.controls[control].invalid && 
@@ -71,10 +118,16 @@ export class RegistrationComponent implements OnInit {
   }
 
   onFileChanged(event): void {
-    this.selectedFile = event.target.files[0];
+
+    if(!event.target.files[0].type.includes('image')) {
+      this.toastr.warning('Please upload an image');
+      return;
+    }
+
+    this.selectedProfileImage = event.target.files[0];
 
     var reader = new FileReader();      
-    reader.readAsDataURL(this.selectedFile); 
+    reader.readAsDataURL(this.selectedProfileImage); 
     reader.onload = (_event) => { 
       this.previewUrl = reader.result; 
     }
@@ -103,7 +156,10 @@ export class RegistrationComponent implements OnInit {
         Validators.required,
         Validators.minLength(8),
       ]),
-      passwordConfirm: new FormControl('')
+      passwordConfirm: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+      ])
     });
 
     this.internForm = new FormGroup({
@@ -153,6 +209,16 @@ export class RegistrationComponent implements OnInit {
         Validators.required
       ])
     });
+  }
+
+  resetForms(): void {
+    this.accountForm.reset();
+    this.employerForm.reset();
+    this.internForm.reset();
+    this.internDetailsForm.reset();
+    this.employerDetailsForm.reset();
+    this.selectedProfileImage = null;
+    this.step = 1;
   }
 
   isValidForm(): boolean {

@@ -23,3 +23,22 @@ body {
 .toast-success {
   background-color: #0098a1;
 }
+
+/**
+ * Datepicker custom settings
+ */
+.bs-datepicker-head {
+  background-color: #0098a1!important;
+}
+
+/**
+ * Modal custom settings
+ */
+.modal-header .close {
+  color: #0098a1;
+  font-size: 2rem;
+}
+
+.modal-header .close:focus {
+  outline: none;
+}

@@ -5,9 +5,15 @@
     display: inline-block;
     width: 100%;
     transition: padding-left .3s ease;
+    min-height: 100vh;
 
-    .container-fluid .row hr {
-      margin: 0!important;
+    .container {
+      min-height: calc(100vh - 4em);
+      padding-top: 2em;
+
+      .row {
+        margin: 0;
+      }
     }
 
     @media screen and (min-width: 768px) {
@@ -15,8 +21,17 @@
     }
 
     @media screen and (max-width: 768px) {
-      hr {
+      .form-group {
         margin: 0!important;
+      }
+
+      .container {
+        padding: 0;
+        max-width: 768px;
+
+        .row {
+          min-height: 100vh;
+        }
       }
     }
 

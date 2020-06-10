@@ -29,9 +29,11 @@ $secondary_color: #014878;
       border: none;
       line-height: normal;
     }
-    .btn:hover,
     .btn:focus {
-      background: $secondary_color;
+      box-shadow: none;
+    } 
+    .btn:hover {
+      background-color: $secondary_color;
     }
     .close {
       position: absolute;
@@ -81,8 +83,7 @@ $secondary_color: #014878;
 
 @media (max-width: 320px) {
   .login-form {
-    width: 280px;
-    margin: auto;
+    width: 280px!important;
 
     form {
       padding: 10px;

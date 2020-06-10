@@ -12,7 +12,8 @@
 
   "EMPLOYER_MENU": {
     "CREATE_PROGRAM": "Нов стаж",
-    "CONTACT_ADMINISTRATION": "Контакт на администрация",
+    "MY_PROGRAMS": "Стажовете ни",
+    "CONTACT_ADMINISTRATION": "Контакт на админи",
     "PENDING_APPLICATIONS": "Чакащи заявки"
   },
 
