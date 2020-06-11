@@ -8,6 +8,8 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import * as jwt_decode from 'jwt-decode';
+import { TokenDecoded } from 'src/app/interfaces/token/token-decoded';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +31,13 @@ export class AuthService extends BaseHttpService {
   public isAuthenticated(): boolean {
     const token = this.getToken();
     return !this.jwtHelper.isTokenExpired(token);
+  }
+
+  public checkRoleAuthentication(role: string): boolean {
+    const token = this.getToken();
+    const tokenDecoded: TokenDecoded = jwt_decode(token);
+
+    return tokenDecoded.authorities[0] === role && !this.jwtHelper.isTokenExpired(token);
   }
 
   public logout(): void {

@@ -22,7 +22,7 @@ export var internMenu = [
         icon: 'fa fa-sticky-note',
         active: false,
         type: 'simple',
-        route: '/dashboard/notes'
+        route: '/dashboard/my-applications'
     },
     {
         title: 'COMMON_MENU.ACCOUNT_SETTINGS',

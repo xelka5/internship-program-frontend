@@ -23,25 +23,7 @@ export class ListInternshipsComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>, trackingNumber: string) {
-    
-    this.internshipForm = new FormGroup({
-      title: new FormControl('', [
-        Validators.required
-      ]),
-      description: new FormControl('', [
-        Validators.required
-      ]),
-      maxNumberOfStudents: new FormControl('', [
-        Validators.required
-      ]),
-      startDate: new FormControl('', [
-        Validators.required
-      ]),
-      salary: new FormControl('', [
-        Validators.required
-      ]),
-      trackingNumber: new FormControl('')
-    });
+    this.initEditForm();
 
     this.internshipService.getInternshipByTrackingNumber(trackingNumber).subscribe(result => {
       this.internshipForm.patchValue(result);
@@ -70,6 +52,27 @@ export class ListInternshipsComponent implements OnInit {
       this.toastr.success('Internship program edited');
       this.getAllInternships();
       this.modalRef.hide();
+    });
+  }
+
+  private initEditForm() {
+    this.internshipForm = new FormGroup({
+      title: new FormControl('', [
+        Validators.required
+      ]),
+      description: new FormControl('', [
+        Validators.required
+      ]),
+      maxNumberOfStudents: new FormControl('', [
+        Validators.required
+      ]),
+      startDate: new FormControl('', [
+        Validators.required
+      ]),
+      salary: new FormControl('', [
+        Validators.required
+      ]),
+      trackingNumber: new FormControl('')
     });
   }
 

@@ -29,6 +29,55 @@ $secondary_color: #014878;
   }
 }
 
+form {
+  width: 100%;
+
+  .form-group {
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-control {
+    box-shadow: none;
+    border-color: #ddd;
+  }
+  
+  .form-control:focus {
+    border-color: $primary_color;
+  }
+  
+  .form-control,
+  .btn {
+    min-height: 40px;
+    border-radius: 2px;
+    transition: all 0.5s;
+  }
+  
+  .btn {
+    background: $primary_color;
+    border: none;
+    line-height: normal;
+    width: 120px;
+    
+    &:focus {
+      box-shadow: none;
+    } 
+  
+    &:hover {
+      background-color: $secondary_color;
+    }
+  }
+  
+  label {
+    display: inline-block;
+    margin-bottom: 0.1rem;
+    font-size: 12px;
+  }
+  
+  .error-message {
+    color: red;
+  }
+}
+
 .btn {
   background: $primary_color;
   border: none;
@@ -48,3 +97,13 @@ $secondary_color: #014878;
   }
 }
   
+@media screen and (max-width: 768px) {
+  .card {
+    height: 100%;
+
+    .card-header {
+      border-radius: 0;
+    }
+  
+  }
+}

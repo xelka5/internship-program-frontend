@@ -4,8 +4,6 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 import { AuthService } from 'src/app/services/core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
-import { TokenInfoService } from 'src/app/services/core/token-info/token-info.service';
-import { TokenData } from 'src/app/interfaces/token/token-info';
 import { UserService } from 'src/app/services/api/user/user.service';
 import { UserRole } from 'src/app/shared/enums/user-role';
 import { environment } from 'src/environments/environment';

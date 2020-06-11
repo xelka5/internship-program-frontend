@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TokenData } from 'src/app/interfaces/token/token-info';
+import { TokenDecoded } from 'src/app/interfaces/token/token-decoded';
 import * as jwt_decode from 'jwt-decode';
 
 
@@ -10,7 +10,7 @@ export class TokenInfoService {
 
   constructor() {}
 
-  getTokenData(token: string): TokenData {
+  getTokenData(token: string): TokenDecoded {
     return jwt_decode(token); 
   }
 

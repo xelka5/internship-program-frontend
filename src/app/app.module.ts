@@ -12,7 +12,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 /**
  * Components
  */
@@ -21,8 +20,8 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { SiteHeaderComponent } from './components/site-header/site-header.component';
+import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
+import { SiteHeaderComponent } from './components/shared/site-header/site-header.component';
 
 /**
  * Providers
@@ -37,6 +36,7 @@ import { AccountSettingsComponent } from './components/account-settings/account-
 import { AddInternshipComponent } from './components/add-internship/add-internship.component';
 import { ListInternshipsComponent } from './components/list-internships/list-internships.component';
 import { SearchInternshipsComponent } from './components/search-internships/search-internships.component';
+import { MyApplicationsComponent } from './components/my-applications/my-applications.component';
 
 export function TranslationLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -54,7 +54,8 @@ export function TranslationLoaderFactory(http: HttpClient) {
     AccountSettingsComponent,
     AddInternshipComponent,
     ListInternshipsComponent,
-    SearchInternshipsComponent
+    SearchInternshipsComponent,
+    MyApplicationsComponent
   ],
   imports: [
     BrowserModule,

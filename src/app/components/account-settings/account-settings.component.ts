@@ -6,6 +6,7 @@ import { UserDetails } from 'src/app/interfaces/user/user-details';
 import { UserRole } from 'src/app/shared/enums/user-role';
 import { environment } from 'src/environments/environment';
 import { switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-account-settings',
@@ -150,6 +151,7 @@ export class AccountSettingsComponent implements OnInit {
         if(this.selectedProfileImage) {
           return this.userService.uploadProfileImage(this.selectedProfileImage, result.email);
         }
+        return of(result);
       })
     ).subscribe(result => {
       this.toastr.success('Successfully updated account');

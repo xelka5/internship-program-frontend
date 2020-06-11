@@ -1,0 +1,51 @@
+<div class="card">
+  <h5 class="card-header">My applications</h5>
+
+  <div class="card-body">
+    <p *ngIf="applications && applications.length == 0 else showMyApplications">No internships available</p>
+
+    <ng-template #showMyApplications>
+      <div *ngFor="let application of applications">
+        <div class="item mb-5">
+          <div class="row">
+            <div class="col-12 col-md-7 col-xl-9">
+              <p class="title-field">{{application.title}}</p>
+            </div>
+            <div class="col-12 col-md-5 col-xl-3">
+              <div class="float-right">
+                <label>Start: <span>{{application.startDate | date:'fullDate'}}</span></label>
+              </div>
+            </div>
+          </div>
+      
+          <div class="row mb-2">
+            <div class="col-12">
+              <label>Details:</label>
+              <p>{{application.details}}</p>
+            </div>
+          </div>
+      
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <label class="mr-2">Number of students:</label>
+              <p class="field">{{application.maxNumberOfStudents}}</p>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="float-right salary-field">
+                <label class="mr-2">Salary:</label>
+                <p class="field">{{application.salary}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <button class="btn btn-primary">Apply</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
