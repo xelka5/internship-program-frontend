@@ -16,13 +16,15 @@ export class ListInternshipsComponent implements OnInit {
   modalRef: BsModalRef;
   internshipForm: FormGroup;
 
+  internshipTrackingNumber: string;
+
   constructor(private internshipService: InternshipService, private modalService: BsModalService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getAllInternships();
   }
 
-  openModal(template: TemplateRef<any>, trackingNumber: string) {
+  openEditModal(template: TemplateRef<any>, trackingNumber: string): void {
     this.initEditForm();
 
     this.internshipService.getInternshipByTrackingNumber(trackingNumber).subscribe(result => {
@@ -30,6 +32,12 @@ export class ListInternshipsComponent implements OnInit {
     })
 
     this.modalRef = this.modalService.show(template, {class: 'modal-lg'});
+  }
+
+  openDeleteModal(template: TemplateRef<any>, trackingNumber: string): void {
+    this.internshipTrackingNumber = trackingNumber;
+
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
   isInvalidFormControl(form: FormGroup, control: string): boolean {
@@ -50,6 +58,14 @@ export class ListInternshipsComponent implements OnInit {
   editInternship(): void {
     this.internshipService.editInternship(this.internshipForm.value).subscribe(result => {
       this.toastr.success('Internship program edited');
+      this.getAllInternships();
+      this.modalRef.hide();
+    });
+  }
+
+  deleteInternship(): void {
+    this.internshipService.deleteInternship(this.internshipTrackingNumber).subscribe(result => {
+      this.toastr.success('Internship program deleted');
       this.getAllInternships();
       this.modalRef.hide();
     });

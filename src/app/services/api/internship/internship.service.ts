@@ -15,6 +15,10 @@ export class InternshipService extends BaseHttpService {
     return this.get(`${environment.apiUrl}/api/internships`);
   }
 
+  public getActiveInternInternships(): Observable<Internship[]> {
+    return this.get(`${environment.apiUrl}/api/internships/active`);
+  }
+
   public getAllInternshipsForEmployer(): Observable<Internship[]> {
     return this.get(`${environment.apiUrl}/api/internships/employer`);
   }
@@ -29,6 +33,10 @@ export class InternshipService extends BaseHttpService {
 
   public editInternship(internshipRequest: Internship): Observable<BaseHttpResponse> {
     return this.put(`${environment.apiUrl}/api/internships/employer`, internshipRequest);
+  }
+
+  public deleteInternship(trackingNumber: string): Observable<BaseHttpResponse> {
+    return this.delete(`${environment.apiUrl}/api/internships/employer/` + trackingNumber);
   }
 
 }

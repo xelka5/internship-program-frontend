@@ -8,42 +8,48 @@
       <div *ngFor="let internship of internships">
         <div class="item mb-5">
           <div class="row">
-            <div class="col-12 col-md-7 col-xl-9">
-              <p class="title-field">{{internship.title}}</p>
-            </div>
-            <div class="col-12 col-md-5 col-xl-3">
-              <div class="float-right">
-                <label>Start: <span>{{internship.startDate | date:'fullDate'}}</span></label>
+            <div class="col-12 col-xl-2 side-block">
+              <div class="col-6 col-md-12 emp-container">
+                <p class="text-center">{{internship.employer.companyName}}</p>
+                <img class="profile-image" src="{{apiUrl}}/{{internship.employer.profileImageName}}" alt="emp">
               </div>
             </div>
-          </div>
-      
-          <div class="row mb-2">
-            <div class="col-12">
-              <label>Details:</label>
-              <p>{{internship.description}}</p>
-            </div>
-          </div>
-      
-          <div class="row">
-            <div class="col-12 col-md-6">
-              <label class="mr-2">Number of students:</label>
-              <p class="field">{{internship.maxNumberOfStudents}}</p>
-            </div>
-            <div class="col-12 col-md-6">
-              <div class="float-right salary-field">
-                <label class="mr-2">Salary:</label>
-                <p class="field">{{internship.salary}}</p>
+            <div class="col-12 col-xl-10">
+              <div class="col-12">
+                <p class="title-field">{{internship.title}}</p>
               </div>
+
+              <div class="row">
+                <div class="col-12 col-lg-4">
+                  <label class="mr-2">Number of students:</label>
+                  <p class="field">{{internship.maxNumberOfStudents}}</p>
+                </div>
+                <div class="col-12 col-lg-4">
+                  <div class="salary-field">
+                    <label class="mr-2">Salary:</label>
+                    <p class="field">{{internship.salary}}</p>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-4">
+                  <label>Start: <span>{{internship.startDate | date:'fullDate'}}</span></label>
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <div class="col-12">
+                  <label>Details:</label>
+                  <p>{{internship.description}}</p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <button class="btn btn-primary" (click)="openModal(applyModal, internship.trackingNumber)">Apply</button>
+                </div>
+              </div>
+
             </div>
           </div>
-
-          <div class="row">
-            <div class="col-12">
-              <button class="btn btn-primary" (click)="openModal(applyModal, internship.trackingNumber)">Apply</button>
-            </div>
-          </div>
-
         </div>
       </div>
     </ng-template>

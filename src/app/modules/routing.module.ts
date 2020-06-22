@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { RegistrationComponent } from '../components/registration/registration.component';
 import { LoginComponent } from '../components/login/login.component';
-import { HomeComponent } from '../components/home/home.component';
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
 import { AuthGuardService as AuthGuard, RoleGuardService as RoleGuard } from '../services/core/auth-guard'
 
@@ -13,11 +12,13 @@ import { ListInternshipsComponent } from '../components/list-internships/list-in
 import { SearchInternshipsComponent } from '../components/search-internships/search-internships.component';
 import { UserRole } from '../shared/enums/user-role';
 import { MyApplicationsComponent } from '../components/my-applications/my-applications.component';
+import { PendingApplicationsComponent } from '../components/pending-applications/pending-applications.component';
+import { ActiveInternshipsComponent } from '../components/active-internships/active-internships.component';
+import { InternReportsComponent } from '../components/intern-reports/intern-reports.component';
 
 const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
-  { path: '', component: HomeComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
     children: [
       { path: 'account-settings', component: AccountSettingsComponent },
@@ -33,6 +34,18 @@ const routes: Routes = [
           expectedRole: UserRole.EMPLOYER
         }
       },
+      { path: 'pending-applications', component: PendingApplicationsComponent,
+        canActivate: [RoleGuard], 
+        data: { 
+          expectedRole: UserRole.EMPLOYER
+        }
+      },
+      { path: 'intern-reports', component: InternReportsComponent,
+        canActivate: [RoleGuard], 
+        data: { 
+          expectedRole: UserRole.EMPLOYER
+        }
+      },
       { path: 'search-internships', component: SearchInternshipsComponent, 
         canActivate: [RoleGuard], 
         data: { 
@@ -40,6 +53,13 @@ const routes: Routes = [
         }  
       },
       { path: 'my-applications', component: MyApplicationsComponent,
+        canActivate: [RoleGuard], 
+        data: { 
+          expectedRole: UserRole.INTERN
+        }
+      },
+      {
+        path: 'active-internships', component: ActiveInternshipsComponent,
         canActivate: [RoleGuard], 
         data: { 
           expectedRole: UserRole.INTERN

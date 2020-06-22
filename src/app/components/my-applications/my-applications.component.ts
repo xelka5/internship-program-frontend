@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Application } from 'src/app/interfaces/application/application';
 import { ApplicationDetails } from 'src/app/interfaces/application/application-details';
 import { ApplicationService } from 'src/app/services/api/application/application.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-my-applications',
@@ -10,13 +11,14 @@ import { ApplicationService } from 'src/app/services/api/application/application
 })
 export class MyApplicationsComponent implements OnInit {
 
+  apiUrl: string = environment.apiUrl;
+
   applications: ApplicationDetails[];
 
   constructor(private applicationService: ApplicationService) { }
 
   ngOnInit(): void {
     this.applicationService.getInternApplications().subscribe(result => {
-      console.log(result);
       this.applications = result;
     });
   }

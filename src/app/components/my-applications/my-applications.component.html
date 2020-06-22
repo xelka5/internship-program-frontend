@@ -2,49 +2,38 @@
   <h5 class="card-header">My applications</h5>
 
   <div class="card-body">
-    <p *ngIf="applications && applications.length == 0 else showMyApplications">No internships available</p>
+    <p *ngIf="applications && applications.length == 0 else showMyApplications">No applications available.</p>
 
     <ng-template #showMyApplications>
       <div *ngFor="let application of applications">
-        <div class="item mb-5">
+        <div class="item">
           <div class="row">
-            <div class="col-12 col-md-7 col-xl-9">
-              <p class="title-field">{{application.title}}</p>
+            <div class="col-12 col-xl-2 side-block">
+              <div class="col-6 col-md-12 emp-container">
+                <p class="text-center">{{application.internshipDetails.employer.companyName}}</p>
+                <img class="profile-image" src="{{apiUrl}}/{{application.internshipDetails.employer.profileImageName}}" alt="emp">
+              </div>
+              <div class="col-6 col-md-12">
+                <div>Status: <span class="badge badge-info">{{application.status}}</span></div>
+              </div>
             </div>
-            <div class="col-12 col-md-5 col-xl-3">
-              <div class="float-right">
-                <label>Start: <span>{{application.startDate | date:'fullDate'}}</span></label>
+            <div class="col-12 col-xl-10">
+              <div>
+                <label class="mr-2">Internship: </label>
+                <p class="mr-2">{{application.internshipDetails.title}}</p>
+              </div>
+              <div>
+                <label>Application notes:</label>
+                <p>{{application.details}}</p>
+              </div>
+              <div *ngIf="application.responseNotes">
+                <label>Employer message:</label>
+                <p>{{application.responseNotes}}</p>
               </div>
             </div>
           </div>
-      
-          <div class="row mb-2">
-            <div class="col-12">
-              <label>Details:</label>
-              <p>{{application.details}}</p>
-            </div>
-          </div>
-      
-          <div class="row">
-            <div class="col-12 col-md-6">
-              <label class="mr-2">Number of students:</label>
-              <p class="field">{{application.maxNumberOfStudents}}</p>
-            </div>
-            <div class="col-12 col-md-6">
-              <div class="float-right salary-field">
-                <label class="mr-2">Salary:</label>
-                <p class="field">{{application.salary}}</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-12">
-              <button class="btn btn-primary">Apply</button>
-            </div>
-          </div>
-
         </div>
+        <hr>
       </div>
     </ng-template>
   </div>

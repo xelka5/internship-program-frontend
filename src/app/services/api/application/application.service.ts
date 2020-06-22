@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
 import { Application } from 'src/app/interfaces/application/application';
 import { ApplicationDetails } from 'src/app/interfaces/application/application-details';
+import { ApplicationResponse } from 'src/app/interfaces/application/application-response';
 
 @Injectable({
   providedIn: 'root'
@@ -17,20 +18,16 @@ export class ApplicationService extends BaseHttpService {
     return this.get(`${environment.apiUrl}/api/applications`);
   }
 
-  // public getAllInternshipsForEmployer(): Observable<Internship[]> {
-  //   return this.get(`${environment.apiUrl}/api/internships/employer`);
-  // }
-
-  // public getInternshipByTrackingNumber(trackingNumber: string): Observable<Internship> {
-  //   return this.get(`${environment.apiUrl}/api/internships/employer/` + trackingNumber);
-  // }
+  public getPendingApplications(): Observable<ApplicationDetails[]> {
+    return this.get(`${environment.apiUrl}/api/applications/employer/pending`);
+  }
 
   public addNewApplication(applicationRequest: Application): Observable<BaseHttpResponse> {
     return this.post(`${environment.apiUrl}/api/applications`, applicationRequest);
   }
 
-  // public editInternship(internshipRequest: Internship): Observable<BaseHttpResponse> {
-  //   return this.put(`${environment.apiUrl}/api/internships/employer`, internshipRequest);
-  // }
+  public updateApplication(applicationResponse: ApplicationResponse): Observable<BaseHttpResponse> {
+    return this.put(`${environment.apiUrl}/api/applications/employer`, applicationResponse);
+  }
 
 }

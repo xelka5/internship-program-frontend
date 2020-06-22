@@ -1,0 +1,134 @@
+<div class="card">
+  <h5 class="card-header">Pending applications</h5>
+
+  <div class="card-body">
+    <p *ngIf="pendingApplications && pendingApplications.length == 0 else showPendingApplications">No pending applications</p>
+    
+    <ng-template #showPendingApplications>
+      <div *ngFor="let pendingApplication of pendingApplications">
+        <div class="item">
+          <div class="row">
+            <div class="col-12 col-xl-2 side-block">
+              <div class="col-6 col-md-12 emp-container">
+                <p class="text-center">{{pendingApplication.intern.firstName}} {{pendingApplication.intern.lastName}}</p>
+                <img class="profile-image mb-3" src="{{apiUrl}}/{{pendingApplication.intern.profileImageName}}" alt="intern">
+                <button class="btn btn-primary profile-button" (click)="openProfileModal(showProfileModal, pendingApplication.intern.email)">Profile</button>
+              </div>
+            </div>
+            <div class="col-12 col-xl-10">
+              <div class="row">
+                <div class="col-12">
+                  <label>Internship:</label>
+                  <p>{{pendingApplication.internshipDetails.title}}</p>
+                </div>
+              </div>
+                
+              <div class="row mb-2">
+                <div class="col-12">
+                  <label>Details:</label>
+                  <p>{{pendingApplication.details}}</p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <button class="btn btn-primary mr-2" (click)="openAcceptModal(acceptApplicationModal, pendingApplication.trackingNumber)">Accept</button>
+                  <button class="btn btn-danger" (click)="openRejectModal(rejectApplicationModal, pendingApplication.trackingNumber)">Reject</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<ng-template #showProfileModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Intern details:</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container" *ngIf="internDetails">
+      <div class="col-12 col-lg-6">
+        <div class="col-12">
+          <label>Names:</label>
+          <p>{{internDetails.userDetails.firstName}} {{internDetails.userDetails.lastName}}</p>
+        </div>
+        <div class="col-12">
+          <img class="profile-image mb-3" src="{{apiUrl}}/{{internDetails.account.profileImageName}}" alt="intern">
+        </div>
+        <div class="col-12 d-inline-flex">
+          <label>Age:</label>
+          <p>{{internDetails.userDetails.age}}</p>
+        </div>
+        <div class="col-12 d-inline-flex">
+          <label>University:</label>
+          <p>{{internDetails.userDetails.university}}</p>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="col-12 d-inline-flex">
+          <label>Course:</label>
+          <p>{{internDetails.userDetails.course}}</p>
+        </div>
+        <div class="col-12 d-inline-flex">
+          <label>Start year of study:</label>
+        <p>{{internDetails.userDetails.startDate | date:'yyyy' }}</p>
+        </div>
+        <div class="col-12 d-inline-flex">
+          <label>Previous education:</label>
+          <p>{{internDetails.userDetails.previousEducation}}</p>
+        </div>
+        <div class="col-12 d-inline-flex">
+          <label>Skills:</label>
+          <ul>
+            <li *ngFor="let skill of internDetails.userDetails.skills">
+              {{skill}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #acceptApplicationModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Accept application:</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="applicationResponseForm">
+      <div class="col-12">
+        <label>Acceptance notes:</label>
+        <textarea rows="8" class="form-control mb-2" placeholder="Enter notes" formControlName="responseNotes"></textarea>
+        <button class="btn btn-primary float-right" (click)="applicationResponse(true)">Send</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #rejectApplicationModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Reject application:</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="applicationResponseForm">
+      <div class="col-12">
+        <label>Rejection notes:</label>
+        <textarea rows="8" class="form-control mb-2" placeholder="Enter notes" formControlName="responseNotes"></textarea>
+        <button class="btn btn-primary float-right" (click)="applicationResponse(false)">Send</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

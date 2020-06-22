@@ -1,4 +1,5 @@
 import { UserDetails } from '../user/user-details';
+import { EmployerDetails } from '../application/employer-details';
 
 export interface Internship {
     trackingNumber:string;
@@ -7,5 +8,5 @@ export interface Internship {
     startDate: Date;
     maxNumberOfStudents: number;
     salary: string;
-    user?: UserDetails;
+    employer?: EmployerDetails;
 }

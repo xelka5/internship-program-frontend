@@ -1,0 +1,213 @@
+<div class="card">
+  <h5 class="card-header">My active internships</h5>
+
+  <div class="card-body">
+    <p *ngIf="internships && internships.length == 0 else showInternships">No active internships, <a class="redirect-link" routerLink="/dashboard/search-internships">search new</a></p>
+
+    <ng-template #showInternships>
+      <div *ngFor="let internship of internships">
+        <div class="item mb-5">
+          <div class="row">
+            <div class="col-12 col-xl-2 side-block">
+              <div class="col-6 col-md-12 emp-container">
+                <p class="text-center">{{internship.employer.companyName}}</p>
+                <img class="profile-image" src="{{apiUrl}}/{{internship.employer.profileImageName}}" alt="emp">
+                <button class="btn btn-primary profile-button mt-2" (click)="openInternshipDetailsModal(showInternshipDetailsModal, internship.trackingNumber)">Internship details</button>
+              </div>
+            </div>
+            <div class="col-12 col-xl-10">
+              <div class="col-12">
+                <p class="title-field">{{internship.title}}</p>
+              </div>
+
+              <div class="row">
+                <div class="col-12 col-lg-4">
+                  <label class="mr-2">Number of students:</label>
+                  <p class="field">{{internship.maxNumberOfStudents}}</p>
+                </div>
+                <div class="col-12 col-lg-4">
+                  <div class="salary-field">
+                    <label class="mr-2">Salary:</label>
+                    <p class="field">{{internship.salary}}</p>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-4">
+                  <label>Start: <span>{{internship.startDate | date:'fullDate'}}</span></label>
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <div class="col-12">
+                  <label>Details:</label>
+                  <p>{{internship.description}}</p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <button class="btn btn-primary mr-3" (click)="openReportModal(showReportModal, internship.trackingNumber)">Send report</button>
+                  <button class="btn btn-primary" (click)="openMyReportsModal(showMyReportsModal, internship.trackingNumber)">My reports</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<ng-template #showInternshipDetailsModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Internship details:</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container" *ngIf="selectedInternship">
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <div class="d-inline-flex">
+            <label>Title:</label>
+            <p>{{selectedInternship.title}}</p>
+          </div>
+          <div class="d-inline-flex">
+            <label>Employer:</label>
+            <p>{{selectedInternship.employer.companyName}}</p>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="d-inline-flex">
+            <label>Salary:</label>
+            <p>{{selectedInternship.salary}}</p>
+          </div>
+          <div class="d-inline-flex">
+            <label>Start date:</label>
+            <p>{{selectedInternship.startDate | date:'fullDate' }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <label>Description:</label>
+          <p class="ml-2">{{selectedInternship.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #showReportModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">New report:</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container" *ngIf="selectedInternship">
+      <form [formGroup]="reportForm">
+        <div class="row">
+          <div class="col-12 col-lg-6">
+            <div class="form-group">
+              <label *ngIf="!isInvalidFormControl(reportForm, 'reportDetails')">Report details</label>
+    
+              <div *ngIf="isInvalidFormControl(reportForm, 'reportDetails')" class="error-message">
+                <label *ngIf="reportForm.controls['reportDetails'].errors.required">Report details are required</label>
+              </div>
+    
+              <textarea [ngStyle]="isInvalidFormControl(reportForm, 'reportDetails') && {'border-color': '#ff0000'}" rows="5"
+                class="form-control" placeholder="Enter report details" formControlName="reportDetails"></textarea>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="form-group">
+              <label *ngIf="!isInvalidFormControl(reportForm, 'reportStartDate')">Report from date</label>
+
+              <div *ngIf="isInvalidFormControl(reportForm, 'reportStartDate')" class="error-message">
+                <label *ngIf="reportForm.controls['reportStartDate'].errors.required">Report from date is required</label>
+              </div>
+
+              <input [ngStyle]="isInvalidFormControl(reportForm, 'reportStartDate') && {'border-color': '#ff0000'}" type="text" 
+                class="form-control mb-3" placeholder="From date" bsDatepicker formControlName="reportStartDate" />
+            </div>
+
+            <div class="form-group">
+              <label *ngIf="!isInvalidFormControl(reportForm, 'reportEndDate')">To date:</label>
+
+              <div *ngIf="isInvalidFormControl(reportForm, 'reportEndDate')" class="error-message">
+                <label *ngIf="reportForm.controls['reportEndDate'].errors.required">Report to date is required</label>
+              </div>
+
+              <input [ngStyle]="isInvalidFormControl(reportForm, 'reportEndDate') && {'border-color': '#ff0000'}" type="text" 
+              class="form-control mb-3" placeholder="To date" bsDatepicker formControlName="reportEndDate" />
+            </div>
+          </div>
+          <div class="col-12 mt-2">
+            <button *ngIf="!isEdit" class="btn btn-primary float-right" (click)="addNewReport()" [disabled]="!checkFormValid()">Create report</button>
+            <button *ngIf="isEdit" class="btn btn-primary float-right" (click)="editReport()" [disabled]="!checkFormValid()">Edit report</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #showMyReportsModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">My reports:</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container" *ngIf="myReportsForInternship">
+      <div *ngIf="myReportsForInternship.length === 0">
+        <p>No reports so far, <span class="create-report-link" (click)="createNewReportRedirect(showReportModal)">create new</span></p>
+      </div>
+      <div *ngIf="myReportsForInternship.length > 0">
+        <div *ngFor="let report of myReportsForInternship">
+          <div class="row">
+            <div class="col-12 col-lg-5">
+              <div>
+                <label>Report details:</label>
+                <p>{{report.reportDetails}}</p>
+              </div>
+            </div>
+            <div class="col-12 col-lg-7 d-inline-flex">
+              <div class="w-100 d-report-date">
+                <label>Report from:</label>
+                <p>{{report.reportStartDate | date:'dd-MM-yyyy' }}</p>
+              </div>
+              <div class="w-100 d-report-date">
+                <label>Report to:</label>
+                <p>{{report.reportEndDate | date:'dd-MM-yyyy' }}</p>
+              </div>
+            </div>
+            <div class="d-block w-100">
+              <span class="float-right mr-4" (click)="openDeleteReportModal(showDeleteReportModal, report.trackingNumber)"><i class="fa fa-trash"></i></span>
+              <span class="float-right mr-4" (click)="openEditReportModal(showReportModal, report.trackingNumber)"><i class="fa fa-pencil-square-o"></i></span>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #showDeleteReportModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Are you sure:</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body d-inline-flex m-auto">
+    <button class="btn btn-danger btn-short mr-3">No</button>
+    <button class="btn btn-primary btn-short" (click)="deleteReport()">Yes</button>
+  </div>
+</ng-template>

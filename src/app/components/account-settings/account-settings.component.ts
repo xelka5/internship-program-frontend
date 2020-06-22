@@ -27,6 +27,7 @@ export class AccountSettingsComponent implements OnInit {
 
   INTERN: string = UserRole.INTERN;
   EMPLOYER: string =  UserRole.EMPLOYER;
+  ADMIN: string = UserRole.ADMIN;
 
   constructor(private userService: UserService, private toastr: ToastrService) { }
 
@@ -45,7 +46,7 @@ export class AccountSettingsComponent implements OnInit {
       course: new FormControl('', [
         Validators.required
       ]),
-      startDate: new FormControl('', [
+      startDate: new FormControl(null, [
         Validators.required
       ]),
       previousEducation: new FormControl('', [
@@ -105,9 +106,14 @@ export class AccountSettingsComponent implements OnInit {
 
   checkAllFormsValid(): boolean {
     let userDetailsValid: boolean;
+    
+    if(this.role === this.ADMIN) {
+      return this.accountForm.get('username').valid;
+    }
+    
     if(this.role === this.INTERN) {
       userDetailsValid = this.internDetailsForm.valid;
-    } else {
+    } else if(this.role === this.EMPLOYER) {
       userDetailsValid = this.employerDetailsForm.valid;
     }
 

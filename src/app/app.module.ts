@@ -18,10 +18,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
-import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 import { SiteHeaderComponent } from './components/shared/site-header/site-header.component';
+import { AccountSettingsComponent } from './components/account-settings/account-settings.component';
+import { AddInternshipComponent } from './components/add-internship/add-internship.component';
+import { ListInternshipsComponent } from './components/list-internships/list-internships.component';
+import { SearchInternshipsComponent } from './components/search-internships/search-internships.component';
+import { MyApplicationsComponent } from './components/my-applications/my-applications.component';
+import { PendingApplicationsComponent } from './components/pending-applications/pending-applications.component';
+import { ActiveInternshipsComponent } from './components/active-internships/active-internships.component';
 
 /**
  * Providers
@@ -32,11 +38,8 @@ import { tokenInterceptorProvider } from './services/core/interceptors/token-int
  * Configuration
  */
 import { jwtModuleConfig } from './services/core/auth';
-import { AccountSettingsComponent } from './components/account-settings/account-settings.component';
-import { AddInternshipComponent } from './components/add-internship/add-internship.component';
-import { ListInternshipsComponent } from './components/list-internships/list-internships.component';
-import { SearchInternshipsComponent } from './components/search-internships/search-internships.component';
-import { MyApplicationsComponent } from './components/my-applications/my-applications.component';
+import { InternReportsComponent } from './components/intern-reports/intern-reports.component';
+
 
 export function TranslationLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -47,7 +50,6 @@ export function TranslationLoaderFactory(http: HttpClient) {
     AppComponent,
     LoginComponent,
     RegistrationComponent,
-    HomeComponent,
     DashboardComponent,
     SidebarComponent,
     SiteHeaderComponent,
@@ -55,7 +57,10 @@ export function TranslationLoaderFactory(http: HttpClient) {
     AddInternshipComponent,
     ListInternshipsComponent,
     SearchInternshipsComponent,
-    MyApplicationsComponent
+    MyApplicationsComponent,
+    PendingApplicationsComponent,
+    ActiveInternshipsComponent,
+    InternReportsComponent
   ],
   imports: [
     BrowserModule,

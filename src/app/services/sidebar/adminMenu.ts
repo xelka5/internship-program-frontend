@@ -4,7 +4,7 @@ export var adminMenu = [
         type: 'header'
     },
     {
-        title: 'ADMIN_MENU.ACTIVE_APPLICATIONS',
+        title: 'ADMIN_MENU.ALL_INTERNSHIPS',
         icon: 'fa fa-archive',
         active: false,
         type: 'simple',

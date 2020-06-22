@@ -15,7 +15,7 @@ export var internMenu = [
         icon: 'fa fa-archive',
         active: false,
         type: 'simple',
-        route: '/dashboard/archive'
+        route: '/dashboard/active-internships'
     },
     {
         title: 'INTERN_MENU.MY_APPLICATIONS',

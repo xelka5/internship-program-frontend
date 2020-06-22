@@ -18,18 +18,18 @@ export var employerMenu = [
         route: '/dashboard/add-internship'
     },
     {
-        title: 'EMPLOYER_MENU.CONTACT_ADMINISTRATION',
+        title: 'EMPLOYER_MENU.INTERNS_REPORTS',
         icon: 'fa fa-archive',
         active: false,
         type: 'simple',
-        route: '/dashboard/archive'
+        route: '/dashboard/intern-reports'
     },
     {
         title: 'EMPLOYER_MENU.PENDING_APPLICATIONS',
         icon: 'fa fa-list',
         active: false,
         type: 'simple',
-        route: '/dashboard/assigned-developers'
+        route: '/dashboard/pending-applications'
     },
     {
         title: 'COMMON_MENU.ACCOUNT_SETTINGS',

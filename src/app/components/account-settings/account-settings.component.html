@@ -101,9 +101,14 @@
         </div>
 
         <div class="form-group">
-          <label>Start date of studying</label>
+          <label *ngIf="!isInvalidFormControl(internDetailsForm, 'startDate')">Start date:</label>
 
-          <input type="text" class="form-control" placeholder="Enter start date" formControlName="startDate">
+          <div *ngIf="isInvalidFormControl(internDetailsForm, 'startDate')" class="error-message">
+            <label *ngIf="internDetailsForm.controls['startDate'].errors.required">Start date of studying is required</label>
+          </div>
+
+          <input [ngStyle]="isInvalidFormControl(internDetailsForm, 'startDate') && {'border-color': '#ff0000'}" type="text" 
+          class="form-control mb-3" placeholder="Start date" bsDatepicker formControlName="startDate" />
         </div>
       </form>
     </div>

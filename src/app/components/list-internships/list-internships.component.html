@@ -3,16 +3,19 @@
   <h5 class="card-header">My internships</h5>
 
   <div class="card-body">
-    <p *ngIf="internships && internships.length == 0 else showInternships">No internships available, <a class="add-internship-redirect "routerLink="/dashboard/add-internship">create new</a></p>
+    <p *ngIf="internships && internships.length == 0 else showInternships">No internships available, <a class="redirect-link" routerLink="/dashboard/add-internship">create new</a></p>
 
     <ng-template #showInternships>
       <div *ngFor="let internship of internships">
         <div class="item mb-5">
           <div class="row">
-            <div class="col-12 col-md-7 col-xl-9">
+            <div class="col-12">
               <p class="title-field">{{internship.title}}</p>
             </div>
-            <div class="col-12 col-md-5 col-xl-3">
+          </div>
+
+          <div class="row">
+            <div class="col-12">
               <div class="float-right">
                 <label>Start: <span>{{internship.startDate | date:'fullDate'}}</span></label>
               </div>
@@ -27,12 +30,12 @@
           </div>
       
           <div class="row">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6 col-lg-4">
               <label class="mr-2">Number of students:</label>
               <p class="field">{{internship.maxNumberOfStudents}}</p>
             </div>
-            <div class="col-12 col-md-6">
-              <div class="float-right salary-field">
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="salary-field">
                 <label class="mr-2">Salary:</label>
                 <p class="field">{{internship.salary}}</p>
               </div>
@@ -41,7 +44,8 @@
 
           <div class="row">
             <div class="col-12">
-              <button class="btn btn-primary" (click)="openModal(editInternshipModal, internship.trackingNumber)">Edit internship</button>
+              <button class="btn btn-primary mr-2" (click)="openEditModal(editInternshipModal, internship.trackingNumber)">Edit internship</button>
+              <button class="btn btn-danger" (click)="openDeleteModal(deleteInternshipModal, internship.trackingNumber)">Delete internship</button>
             </div>
           </div>
 
@@ -123,5 +127,18 @@
     <div class="col-12 mt-2">
       <button class="btn btn-primary float-right" (click)="editInternship()" [disabled]="!checkFormValid()">Edit</button>
     </div>
+  </div>
+</ng-template>
+
+<ng-template #deleteInternshipModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Are you sure:</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body d-inline-flex m-auto">
+    <button class="btn btn-danger btn-short mr-3" (click)="modalRef.hide()">No</button>
+    <button class="btn btn-primary btn-short" (click)="deleteInternship()">Yes</button>
   </div>
 </ng-template>

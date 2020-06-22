@@ -6,6 +6,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApplicationService } from 'src/app/services/api/application/application.service';
 import { Application } from 'src/app/interfaces/application/application';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-search-internships',
@@ -15,6 +16,8 @@ import { Application } from 'src/app/interfaces/application/application';
 export class SearchInternshipsComponent implements OnInit {
 
   internships: Internship[];
+  apiUrl: string = environment.apiUrl;
+
   modalRef: BsModalRef;
   applicationForm: FormGroup;
   internshipTrackingNumber: string;

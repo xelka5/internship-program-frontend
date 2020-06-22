@@ -1,0 +1,27 @@
+<div class="card">
+  <h5 class="card-header">My internships</h5>
+
+  <div class="card-body">
+    <p *ngIf="internships && internships.length == 0 else showInternships">No internships available, <a class="redirect-link" routerLink="/dashboard/add-internship">create new</a></p>
+
+    <ng-template #showInternships>
+      <div *ngFor="let internship of internships">
+        <div class="item mb-5">
+          <div class="row">
+            <div class="col-12">
+              <p class="title-field">{{internship.title}}</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <button class="btn btn-primary mr-2">All reports</button>
+              <button class="btn btn-primary btn-wide">Active interns</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

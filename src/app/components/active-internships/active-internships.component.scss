@@ -1,5 +1,7 @@
 $primary_color: #0098a1;
 $secondary_color: #014878;
+$error_color: #a93540;
+$error_hover_color: #882730;
 
 .card {
   .card-header {
@@ -39,6 +41,10 @@ $secondary_color: #014878;
         color: black;
         font-size: 15px;
       }
+    }
+
+    .redirect-link {
+      color: $primary_color;
     }
   }
 }
@@ -85,11 +91,19 @@ form {
     display: inline-block;
     margin-bottom: 0.1rem;
     font-size: 12px;
+
+    .error-message {
+      color: red!important;
+    }
   }
-  
-  .error-message {
-    color: red;
-  }
+}
+
+label {
+  display: inline-block;
+  margin-bottom: 0.1rem;
+  margin-right: 0.4rem;
+  font-size: 14px;
+  color: $primary_color;
 }
 
 .btn {
@@ -110,6 +124,43 @@ form {
     background-color: $secondary_color;
   }
 }
+
+.btn-danger {
+  background-color: $error_color!important;
+  border-color: $error_color!important;
+
+  &:hover {
+    background-color: $error_hover_color!important;
+  }
+}
+
+.btn-short {
+  width: 100px;
+}
+
+.fa {
+  font-size: 30px;
+  cursor: pointer;
+  color: $primary_color;
+}
+
+.fa-pencil-square-o {
+  vertical-align: -webkit-baseline-middle;
+}
+
+.d-report-date {
+  display: inline-flex;
+}
+
+.create-report-link {
+  cursor: pointer;
+  color: $primary_color;
+
+  &:hover {
+    color: $secondary_color;
+    text-decoration: underline;
+  }
+}
   
 @media screen and (max-width: 767px) {
   .card {
@@ -118,7 +169,10 @@ form {
     .card-header {
       border-radius: 0;
     }
-  
+  }
+
+  .d-report-date {
+    display: block;
   }
 }
 
@@ -134,5 +188,11 @@ form {
         }
       }
     }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .container {
+    display: grid;
   }
 }

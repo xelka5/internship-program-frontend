@@ -5,15 +5,15 @@
   },
 
   "ADMIN_MENU": {
-    "ACTIVE_APPLICATIONS": "Active Applications",
+    "ALL_INTERNSHIPS": "All internships",
     "PENDING_APPROVALS": "Pending approvals",
     "STATISTICS": "Statistics"
   },
 
   "EMPLOYER_MENU": {
-    "CREATE_PROGRAM": "Create new program",
+    "CREATE_PROGRAM": "Create new internship",
     "MY_PROGRAMS": "My internships",
-    "CONTACT_ADMINISTRATION": "Contact administration",
+    "INTERNS_REPORTS": "Interns Reports",
     "PENDING_APPLICATIONS": "Pending applications"
   },
 

@@ -2,13 +2,75 @@ $primary_color: #0098a1;
 $secondary_color: #014878;
 
 .card {
-    .card-header {
-      color: white;
-      background-color: $primary_color;
-      border: none;
+  .card-header {
+    color: white;
+    background-color: $primary_color;
+    border: none;
+  }
+    
+  .card-body {
+
+    .side-block {
+      display: inline-flex;
+
+      .emp-container {
+        margin-bottom: 0.3rem;
+        display: grid;
+  
+        .profile-image {
+          max-width: 100px;
+          margin: auto;
+        }
+      }
     }
-      
-    .card-body {
-      
+
+    .badge-info {
+      background-color: #0098a1;
+      font-size: 14px;
+    }
+
+    .badge {
+      margin-left: 0.5rem;
+      margin-top: 0.1rem;
+      font-size: 16px;
+    }
+
+    label {
+      display: inline-block;
+      margin-bottom: 0.1rem;
+      font-size: 16px;
+      color: $primary_color;
     }
   }
+}
+
+@media screen and (max-width: 767px) {
+  .card {
+    height: 100%;
+
+    .card-header {
+      border-radius: 0;
+    }
+  
+    .card-body {
+      .side-block {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .card {
+    .card-body {
+      .side-block {
+        display: block!important;
+        border-right: 1px solid $primary_color;
+
+        .emp-container {
+          margin-bottom: 1rem;
+        }
+      }
+    }
+  }
+}

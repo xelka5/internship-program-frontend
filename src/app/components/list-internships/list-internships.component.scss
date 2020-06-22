@@ -1,5 +1,7 @@
 $primary_color: #0098a1;
 $secondary_color: #014878;
+$error_color: #a93540;
+$error_hover_color: #882730;
 
 .card {
   .card-header {
@@ -27,7 +29,7 @@ $secondary_color: #014878;
       }
     }
     
-    .add-internship-redirect {
+    .redirect-link {
       color: $primary_color;
     }
   }
@@ -86,7 +88,7 @@ form {
   background: $primary_color;
   border: none;
   line-height: normal;
-  width: 140px;
+  width: 120px;
   min-height: 40px;
   border-radius: 2px;
   transition: all 0.5s;
@@ -98,6 +100,15 @@ form {
 
   &:hover {
     background-color: $secondary_color;
+  }
+}
+
+.btn-danger {
+  background-color: $error_color!important;
+  border-color: $error_color!important;
+
+  &:hover {
+    background-color: $error_hover_color!important;
   }
 }
 

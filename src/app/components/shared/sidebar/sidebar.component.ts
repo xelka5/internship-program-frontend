@@ -8,6 +8,7 @@ import { UserService } from 'src/app/services/api/user/user.service';
 import { UserRole } from 'src/app/shared/enums/user-role';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -34,9 +35,8 @@ export class SidebarComponent implements OnInit {
   menus = [];
 
   constructor(private sidebarService: SidebarService, private authService: AuthService, 
-    private translateService: TranslateService, private userService: UserService, private toastr: ToastrService) {
-      
-   }
+    private translateService: TranslateService, private userService: UserService, 
+    private toastr: ToastrService, private router: Router) { }
 
   ngOnInit() {
     this.initDefaultLanguage();
@@ -54,12 +54,15 @@ export class SidebarComponent implements OnInit {
     if(result.role === UserRole.INTERN) {
       this.userName = result.userDetails.firstName + ' ' + result.userDetails.lastName;
       this.userRole = UserRole.INTERN;
+      this.router.navigate(['/dashboard/search-internships']);
     } else if(result.role === UserRole.EMPLOYER) {
       this.userName = result.userDetails.companyName;
       this.userRole = UserRole.EMPLOYER;
+      this.router.navigate(['/dashboard/my-internships']);
     } else if(result.role === UserRole.ADMIN) {
       this.userName = result.account.username;
       this.userRole = UserRole.ADMIN;
+      this.router.navigate(['/dashboard/statistics']);
     }
 
     let profileImageName = result.account.profileImageName;
