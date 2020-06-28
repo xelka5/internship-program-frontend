@@ -8,6 +8,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ApplicationResponse } from 'src/app/interfaces/application/application-response';
 import { ApplicationStatus } from 'src/app/shared/enums/application-status';
+import { ApplicationDetails } from 'src/app/interfaces/application/application-details';
 
 @Component({
   selector: 'app-pending-applications',
@@ -18,7 +19,7 @@ export class PendingApplicationsComponent implements OnInit {
 
   apiUrl: string = environment.apiUrl;
   
-  pendingApplications: any[];
+  pendingApplications: ApplicationDetails[];
   internDetails: UserDetails;
 
   modalRef: BsModalRef;
@@ -42,7 +43,7 @@ export class PendingApplicationsComponent implements OnInit {
   openProfileModal(template: TemplateRef<any>, userEmail: string) {
     this.userService.getUserInformationByEmail(userEmail).subscribe(result => {
       this.internDetails = result 
-    })
+    });
     this.modalRef = this.modalService.show(template, {class: 'modal-lg'});
   }
 

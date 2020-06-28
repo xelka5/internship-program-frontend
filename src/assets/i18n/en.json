@@ -1,7 +1,8 @@
 {
   "COMMON_MENU": {
     "ACCOUNT_SETTINGS": "Account Settings",
-    "LOGOUT": "Logout"
+    "LOGOUT": "Logout",
+    "FINISHED_INTERNSHIPS": "Finished internships"
   },
 
   "ADMIN_MENU": {

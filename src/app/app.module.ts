@@ -39,6 +39,14 @@ import { tokenInterceptorProvider } from './services/core/interceptors/token-int
  */
 import { jwtModuleConfig } from './services/core/auth';
 import { InternReportsComponent } from './components/intern-reports/intern-reports.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import { PendingApprovalsComponent } from './components/pending-approvals/pending-approvals.component';
+import { AllInternshipsComponent } from './components/all-internships/all-internships.component';
+import { PendingInfoComponent } from './components/pending-info/pending-info.component';
+import { FinishedInternshipsEmployerComponent } from './components/finished-internships-employer/finished-internships-employer.component';
+import { FinishedInternshipsInternComponent } from './components/finished-internships-intern/finished-internships-intern.component';
+import { FinishedInternshipsAdminComponent } from './components/finished-internships-admin/finished-internships-admin.component';
+import { FinalReportsComponent } from './components/final-reports/final-reports.component';
 
 
 export function TranslationLoaderFactory(http: HttpClient) {
@@ -60,7 +68,15 @@ export function TranslationLoaderFactory(http: HttpClient) {
     MyApplicationsComponent,
     PendingApplicationsComponent,
     ActiveInternshipsComponent,
-    InternReportsComponent
+    InternReportsComponent,
+    StatisticsComponent,
+    PendingApprovalsComponent,
+    AllInternshipsComponent,
+    PendingInfoComponent,
+    FinishedInternshipsEmployerComponent,
+    FinishedInternshipsInternComponent,
+    FinishedInternshipsAdminComponent,
+    FinalReportsComponent
   ],
   imports: [
     BrowserModule,

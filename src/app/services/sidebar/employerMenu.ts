@@ -17,12 +17,19 @@ export var employerMenu = [
         type: 'simple',
         route: '/dashboard/add-internship'
     },
+    // {
+    //     title: 'EMPLOYER_MENU.INTERNS_REPORTS',
+    //     icon: 'fa fa-archive',
+    //     active: false,
+    //     type: 'simple',
+    //     route: '/dashboard/intern-reports'
+    // },
     {
-        title: 'EMPLOYER_MENU.INTERNS_REPORTS',
-        icon: 'fa fa-archive',
+        title: 'COMMON_MENU.FINISHED_INTERNSHIPS',
+        icon: 'fa fa-sticky-note',
         active: false,
         type: 'simple',
-        route: '/dashboard/intern-reports'
+        route: '/dashboard/finished-internships'
     },
     {
         title: 'EMPLOYER_MENU.PENDING_APPLICATIONS',

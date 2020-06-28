@@ -22,7 +22,7 @@
             <label *ngIf="internshipForm.controls['description'].errors.required">Description is required</label>
           </div>
 
-          <textarea [ngStyle]="isInvalidFormControl(internshipForm, 'description') && {'border-color': '#ff0000'}" rows="8"
+          <textarea [ngStyle]="isInvalidFormControl(internshipForm, 'description') && {'border-color': '#ff0000'}" rows="10"
             class="form-control" placeholder="Enter description" formControlName="description"></textarea>
         </div>
       </div>
@@ -35,7 +35,7 @@
           </div>
 
           <input [ngStyle]="isInvalidFormControl(internshipForm, 'startDate') && {'border-color': '#ff0000'}" type="text" 
-            class="form-control mb-3" placeholder="Datepicker" bsDatepicker formControlName="startDate" />
+            class="form-control mb-3" placeholder="Datepicker" bsDatepicker formControlName="startDate" value="{{internshipForm.get('startDate').value | date: 'MM/dd/yyyy'}}"/>
         </div>
 
         <div class="form-group">
@@ -50,16 +50,60 @@
         </div>
 
         <div class="form-group">
-          <label *ngIf="!isInvalidFormControl(internshipForm, 'salary')">Salary</label>
-
-          <div *ngIf="isInvalidFormControl(internshipForm, 'salary')" class="error-message">
-            <label *ngIf="internshipForm.controls['salary'].errors.required">Salary is required.</label>
+          <div class="col-12 col-lg-6 p-0 left-item d-inline-block">
+            <div class="form-group">
+              <label *ngIf="!isInvalidFormControl(internshipForm, 'duration')">Duration</label>
+  
+              <div *ngIf="isInvalidFormControl(internshipForm, 'duration')" class="error-message">
+                <label *ngIf="internshipForm.controls['duration'].errors.required">Duration is required.</label>
+              </div>
+  
+              <input [ngStyle]="isInvalidFormControl(internshipForm, 'duration') && {'border-color': '#ff0000'}" type="number"
+                class="form-control" placeholder="Enter duration" formControlName="duration">
+            </div>
           </div>
+          <div class="col-12 col-lg-6 p-0 d-inline-block">
+            <div class="form-group">
+              <label class="mr-3">Duration unit:</label>
 
-          <input [ngStyle]="isInvalidFormControl(internshipForm, 'salary') && {'border-color': '#ff0000'}" type="text"
-            class="form-control" placeholder="Enter salary" formControlName="salary">
+              <div class="btn-group" btnRadioGroup formControlName="durationUnit">
+                <label [ngClass]="{ active: internshipForm.get('durationUnit').value === 'WEEK'}" btnRadio="WEEK" class="radio-button mr-2" tabindex="0" role="button">Week</label>
+                <label [ngClass]="{ active: internshipForm.get('durationUnit').value === 'MONTH'}" btnRadio="MONTH" class="radio-button" tabindex="0" role="button">Month</label>
+              </div>
+            </div>
+          </div>
         </div>
 
+        <div class="form-group">
+          <label class="mr-3">Internship type:</label>
+
+          <div class="btn-group" btnRadioGroup formControlName="type">
+            <label [ngClass]="{ active: internshipForm.get('type').value === 'PAID'}" btnRadio="PAID" class="radio-button mr-2" tabindex="0" role="button">Paid</label>
+            <label [ngClass]="{ active: internshipForm.get('type').value === 'UNPAID'}" btnRadio="UNPAID" class="radio-button" tabindex="0" role="button">Unpaid</label>
+          </div>
+        </div>
+
+        <div *ngIf="internshipForm.get('type').value === 'PAID'">
+          <div class="col-12 col-lg-6 p-0 left-item d-inline-block">
+            <div class="form-group">
+              <label *ngIf="!isInvalidFormControl(internshipForm, 'salary')">Salary</label>
+  
+              <div *ngIf="isInvalidFormControl(internshipForm, 'salary')" class="error-message">
+                <label *ngIf="internshipForm.controls['salary'].errors.required">Salary is required.</label>
+              </div>
+  
+              <input [ngStyle]="isInvalidFormControl(internshipForm, 'salary') && {'border-color': '#ff0000'}" type="number"
+                class="form-control" placeholder="Enter salary" formControlName="salary">
+            </div>
+          </div>
+          <div class="col-12 col-lg-6 p-0 d-inline-block">
+            <div class="btn-group" btnRadioGroup formControlName="currency">
+              <label [ngClass]="{ active: internshipForm.get('currency').value === 'BGN'}" btnRadio="BGN" class="radio-button mr-2" tabindex="0" role="button">BGN</label>
+              <label [ngClass]="{ active: internshipForm.get('currency').value === 'EUR'}" btnRadio="EUR" class="radio-button" tabindex="0" role="button">EUR</label>
+            </div>
+          </div>
+        </div>
+        
       </div>
     </form>
     

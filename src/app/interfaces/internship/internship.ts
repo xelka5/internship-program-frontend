@@ -6,7 +6,11 @@ export interface Internship {
     title: string;
     description: string;
     startDate: Date;
+    duration: number,
+    durationUnit: string,
     maxNumberOfStudents: number;
-    salary: string;
+    type: string
+    salary?: string;
+    currency?: string;
     employer?: EmployerDetails;
 }

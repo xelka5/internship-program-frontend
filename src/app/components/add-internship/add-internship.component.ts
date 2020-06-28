@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { InternshipService } from 'src/app/services/api/internship/internship.service';
 import { ToastrService } from 'ngx-toastr';
+import { Currency, InternshipType, DurationUnit } from 'src/app/shared/enums';
 
 @Component({
   selector: 'app-add-internship',
@@ -25,10 +26,22 @@ export class AddInternshipComponent implements OnInit {
       maxNumberOfStudents: new FormControl('', [
         Validators.required
       ]),
-      startDate: new FormControl('', [
+      startDate: new FormControl(null, [
         Validators.required
       ]),
-      salary: new FormControl('', [
+      duration: new FormControl('', [
+        Validators.required
+      ]),
+      durationUnit: new FormControl(DurationUnit.WEEK, [
+        Validators.required
+      ]),
+      type: new FormControl(InternshipType.PAID, [
+        Validators.required
+      ]),
+      salary: new FormControl('0', [
+        Validators.required
+      ]),
+      currency: new FormControl(Currency.BGN, [
         Validators.required
       ])
     });
@@ -45,8 +58,8 @@ export class AddInternshipComponent implements OnInit {
 
   addInternship(): void {
     this.internshipService.addNewInternship(this.internshipForm.value).subscribe(result => {
-      this.toastr.success('Successfully added internship program');
-    });
+      this.toastr.success('Added internship program');
+    }).add(() => this.internshipForm.reset());
   }
 
 }

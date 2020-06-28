@@ -101,8 +101,7 @@ export class RegistrationComponent implements OnInit {
     .subscribe(result => {
       this.toastr.success('Successful registration');
       this.router.navigateByUrl('/login');
-    }, err => {
-      this.toastr.error('Something went wrong, please try again');
+    }).add(() => {
       this.resetForms();
     });
   }

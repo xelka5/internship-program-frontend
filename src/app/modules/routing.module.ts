@@ -15,6 +15,13 @@ import { MyApplicationsComponent } from '../components/my-applications/my-applic
 import { PendingApplicationsComponent } from '../components/pending-applications/pending-applications.component';
 import { ActiveInternshipsComponent } from '../components/active-internships/active-internships.component';
 import { InternReportsComponent } from '../components/intern-reports/intern-reports.component';
+import { PendingApprovalsComponent } from '../components/pending-approvals/pending-approvals.component';
+import { StatisticsComponent } from '../components/statistics/statistics.component';
+import { AllInternshipsComponent } from '../components/all-internships/all-internships.component';
+import { PendingInfoComponent } from '../components/pending-info/pending-info.component';
+import { FinishedInternshipsEmployerComponent } from '../components/finished-internships-employer/finished-internships-employer.component';
+import { FinishedInternshipsInternComponent } from '../components/finished-internships-intern/finished-internships-intern.component';
+import { FinishedInternshipsAdminComponent } from '../components/finished-internships-admin/finished-internships-admin.component';
 
 const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
@@ -25,44 +32,92 @@ const routes: Routes = [
       { path: 'add-internship', component: AddInternshipComponent,
         canActivate: [RoleGuard], 
         data: { 
-          expectedRole: UserRole.EMPLOYER
+          expectedRoles: UserRole.EMPLOYER
         }
       },
       { path: 'my-internships', component: ListInternshipsComponent,
         canActivate: [RoleGuard], 
         data: { 
-          expectedRole: UserRole.EMPLOYER
+          expectedRoles: UserRole.EMPLOYER
         }
       },
       { path: 'pending-applications', component: PendingApplicationsComponent,
         canActivate: [RoleGuard], 
         data: { 
-          expectedRole: UserRole.EMPLOYER
+          expectedRoles: UserRole.EMPLOYER
         }
       },
       { path: 'intern-reports', component: InternReportsComponent,
         canActivate: [RoleGuard], 
         data: { 
-          expectedRole: UserRole.EMPLOYER
+          expectedRoles: UserRole.EMPLOYER
+        }
+      },
+      { path: 'finished-internships', component: FinishedInternshipsEmployerComponent,
+        canActivate: [RoleGuard], 
+        data: { 
+          expectedRoles: UserRole.EMPLOYER
         }
       },
       { path: 'search-internships', component: SearchInternshipsComponent, 
         canActivate: [RoleGuard], 
         data: { 
-          expectedRole: UserRole.INTERN
+          expectedRoles: [UserRole.INTERN]
         }  
       },
       { path: 'my-applications', component: MyApplicationsComponent,
         canActivate: [RoleGuard], 
         data: { 
-          expectedRole: UserRole.INTERN
+          expectedRoles: UserRole.INTERN
         }
       },
       {
         path: 'active-internships', component: ActiveInternshipsComponent,
         canActivate: [RoleGuard], 
         data: { 
-          expectedRole: UserRole.INTERN
+          expectedRoles: UserRole.INTERN
+        }
+      },
+      {
+        path: 'finished-internships-notes', component: FinishedInternshipsInternComponent,
+        canActivate: [RoleGuard], 
+        data: { 
+          expectedRoles: UserRole.INTERN
+        }
+      },
+      {
+        path: 'all-internships', component: AllInternshipsComponent,
+        canActivate: [RoleGuard], 
+        data: { 
+          expectedRoles: UserRole.ADMIN
+        }
+      },
+      {
+        path: 'finished-internships-review', component: FinishedInternshipsAdminComponent,
+        canActivate: [RoleGuard], 
+        data: { 
+          expectedRoles: UserRole.ADMIN
+        }
+      },
+      {
+        path: 'pending-approvals', component: PendingApprovalsComponent,
+        canActivate: [RoleGuard], 
+        data: { 
+          expectedRoles: UserRole.ADMIN
+        }
+      },
+      {
+        path: 'statistics', component: StatisticsComponent,
+        canActivate: [RoleGuard], 
+        data: { 
+          expectedRoles: UserRole.ADMIN
+        }
+      },
+      {
+        path: 'pending-info', component: PendingInfoComponent,
+        canActivate: [RoleGuard], 
+        data: { 
+          expectedRoles: UserRole.PENDING
         }
       }
     ] 

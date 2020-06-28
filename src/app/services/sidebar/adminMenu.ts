@@ -8,21 +8,28 @@ export var adminMenu = [
         icon: 'fa fa-archive',
         active: false,
         type: 'simple',
-        route: '/dashboard/archive'
+        route: '/dashboard/all-internships'
     },
     {
         title: 'ADMIN_MENU.PENDING_APPROVALS',
         icon: 'fa fa-sticky-note',
         active: false,
         type: 'simple',
-        route: '/dashboard/users'
+        route: '/dashboard/pending-approvals'
     },
     {
         title: 'ADMIN_MENU.STATISTICS',
         icon: 'fa fa-sticky-note',
         active: false,
         type: 'simple',
-        route: '/dashboard/transactions'
+        route: '/dashboard/statistics'
+    },
+    {
+        title: 'COMMON_MENU.FINISHED_INTERNSHIPS',
+        icon: 'fa fa-sticky-note',
+        active: false,
+        type: 'simple',
+        route: '/dashboard/finished-internships-review'
     },
     {
         title: 'COMMON_MENU.ACCOUNT_SETTINGS',

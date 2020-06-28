@@ -21,9 +21,9 @@ export class InternReportsComponent implements OnInit {
   }
 
   getAllInternships(): void {
-    this.internshipService.getAllInternshipsForEmployer().subscribe(result => {
-      this.internships = result;
-    });
+    // this.internshipService.getAllInternshipsForEmployer().subscribe(result => {
+    //   this.internships = result;
+    // });
   }
 
 }

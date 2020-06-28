@@ -47,8 +47,6 @@ export class SearchInternshipsComponent implements OnInit {
 
     this.applicationService.addNewApplication(addApplicationRequest).subscribe(() => {
       this.toastr.success('Application sent');
-    }, err => {
-      this.toastr.warning('User has already applied for this internship');
     }).add(() => {
       this.modalRef.hide();
     });

@@ -44,8 +44,6 @@ export class SidebarComponent implements OnInit {
 
     this.userService.getUserInformation().subscribe(result => {
       this.handleSuccessUserDetailsFetch(result);
-    }, err => {
-      this.toastr.error('Something went wrong');
     });
 
   }
@@ -63,6 +61,10 @@ export class SidebarComponent implements OnInit {
       this.userName = result.account.username;
       this.userRole = UserRole.ADMIN;
       this.router.navigate(['/dashboard/statistics']);
+    } else if(result.role === UserRole.PENDING) {
+      this.userName = result.account.username;
+      this.userRole = UserRole.PENDING;
+      this.router.navigate(['/dashboard/pending-info']);
     }
 
     let profileImageName = result.account.profileImageName;

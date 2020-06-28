@@ -4,6 +4,7 @@ import { AuthService } from '../../auth/auth.service';
 import { Observable, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { REFRESH_TOKEN_LABEL } from 'src/app/shared/constants/global-constants';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -11,7 +12,7 @@ export class TokenInterceptor implements HttpInterceptor {
   private LOGIN_URL: string = 'oauth/token';
   private REGISTRATION_URL: string = 'api/users/registration';
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService, private toastr: ToastrService) { }
 
   /**
    * Intercepting and attaching proper authorization token to the request.
@@ -45,8 +46,14 @@ export class TokenInterceptor implements HttpInterceptor {
         return throwError(error);
       }
 
-      if (error instanceof HttpErrorResponse && error.status === 401) {
-        return this.handle401Error(request, next);
+      if (error instanceof HttpErrorResponse) {
+        if(error.status === 401) {
+          return this.handle401Error(request, next);
+        } else if(error.status >= 400 && error.status < 500) {
+          this.toastr.warning(error.error.message);
+        } else if(error.status >= 500 && error.status < 600) {
+          this.toastr.error(error.error.message);
+        } 
       }
       
       return throwError(error);

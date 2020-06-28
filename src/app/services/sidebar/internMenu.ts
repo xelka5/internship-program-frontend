@@ -18,6 +18,13 @@ export var internMenu = [
         route: '/dashboard/active-internships'
     },
     {
+        title: 'COMMON_MENU.FINISHED_INTERNSHIPS',
+        icon: 'fa fa-sticky-note',
+        active: false,
+        type: 'simple',
+        route: '/dashboard/finished-internships-notes'
+    },
+    {
         title: 'INTERN_MENU.MY_APPLICATIONS',
         icon: 'fa fa-sticky-note',
         active: false,

@@ -9,31 +9,17 @@
         <div class="item mb-5">
           <div class="row">
             <div class="col-12 col-xl-2 side-block">
-              <div class="col-6 col-md-12 emp-container">
-                <p class="text-center">{{internship.employer.companyName}}</p>
-                <img class="profile-image" src="{{apiUrl}}/{{internship.employer.profileImageName}}" alt="emp">
-                <button class="btn btn-primary profile-button mt-2" (click)="openInternshipDetailsModal(showInternshipDetailsModal, internship.trackingNumber)">Internship details</button>
+              <div class="row h-100 m-auto">
+                <div class="col-6 col-md-12 emp-container">
+                  <p class="text-center">{{internship.employer.companyName}}</p>
+                  <img class="profile-image" src="{{apiUrl}}/{{internship.employer.profileImageName}}" alt="emp">
+                  <button class="btn btn-primary profile-button mt-2" (click)="openInternshipDetailsModal(showInternshipDetailsModal, internship.trackingNumber)">Internship details</button>
+                </div>
               </div>
             </div>
             <div class="col-12 col-xl-10">
               <div class="col-12">
                 <p class="title-field">{{internship.title}}</p>
-              </div>
-
-              <div class="row">
-                <div class="col-12 col-lg-4">
-                  <label class="mr-2">Number of students:</label>
-                  <p class="field">{{internship.maxNumberOfStudents}}</p>
-                </div>
-                <div class="col-12 col-lg-4">
-                  <div class="salary-field">
-                    <label class="mr-2">Salary:</label>
-                    <p class="field">{{internship.salary}}</p>
-                  </div>
-                </div>
-                <div class="col-12 col-lg-4">
-                  <label>Start: <span>{{internship.startDate | date:'fullDate'}}</span></label>
-                </div>
               </div>
 
               <div class="row mb-2">
@@ -69,30 +55,38 @@
     <div class="container" *ngIf="selectedInternship">
       <div class="row">
         <div class="col-12 col-lg-6">
-          <div class="d-inline-flex">
+          <div>
             <label>Title:</label>
             <p>{{selectedInternship.title}}</p>
           </div>
-          <div class="d-inline-flex">
-            <label>Employer:</label>
-            <p>{{selectedInternship.employer.companyName}}</p>
-          </div>
-        </div>
-        <div class="col-12 col-lg-6">
-          <div class="d-inline-flex">
-            <label>Salary:</label>
-            <p>{{selectedInternship.salary}}</p>
-          </div>
-          <div class="d-inline-flex">
+          <div>
             <label>Start date:</label>
             <p>{{selectedInternship.startDate | date:'fullDate' }}</p>
           </div>
+          <div>
+            <label>Internship type:</label>
+            <span class="badge badge-info">{{selectedInternship.type}}</span>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div>
+            <label>Employer:</label>
+            <p>{{selectedInternship.employer.companyName}}</p>
+          </div>
+          <div>
+            <label>Duration:</label>
+            <p>{{selectedInternship.duration}} {{selectedInternship.durationUnit}}</p>
+          </div>
+          <div *ngIf="selectedInternship.type === 'PAID'">
+            <label>Salary:</label>
+            <p>{{selectedInternship.salary}}</p>
+          </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row mt-3">
         <div class="col-12">
           <label>Description:</label>
-          <p class="ml-2">{{selectedInternship.description}}</p>
+          <p>{{selectedInternship.description}}</p>
         </div>
       </div>
     </div>
@@ -131,7 +125,7 @@
               </div>
 
               <input [ngStyle]="isInvalidFormControl(reportForm, 'reportStartDate') && {'border-color': '#ff0000'}" type="text" 
-                class="form-control mb-3" placeholder="From date" bsDatepicker formControlName="reportStartDate" />
+                class="form-control mb-3" placeholder="From date" bsDatepicker formControlName="reportStartDate" value="{{reportForm.get('reportStartDate').value | date: 'MM/dd/yyyy'}}"/>
             </div>
 
             <div class="form-group">
@@ -142,7 +136,7 @@
               </div>
 
               <input [ngStyle]="isInvalidFormControl(reportForm, 'reportEndDate') && {'border-color': '#ff0000'}" type="text" 
-              class="form-control mb-3" placeholder="To date" bsDatepicker formControlName="reportEndDate" />
+              class="form-control mb-3" placeholder="To date" bsDatepicker formControlName="reportEndDate" value="{{reportForm.get('reportEndDate').value | date: 'MM/dd/yyyy'}}"/>
             </div>
           </div>
           <div class="col-12 mt-2">

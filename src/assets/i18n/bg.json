@@ -1,7 +1,8 @@
 {
   "COMMON_MENU": {
     "ACCOUNT_SETTINGS": "Настройки",
-    "LOGOUT": "Излизане"
+    "LOGOUT": "Излизане",
+    "FINISHED_INTERNSHIPS": "Завършени стажове"
   },
 
   "ADMIN_MENU": {

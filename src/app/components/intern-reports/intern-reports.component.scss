@@ -48,8 +48,16 @@ $secondary_color: #014878;
 
     .btn-wide {
       width: 140px;
+    } 
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .card {
+    height: 100%;
+
+    .card-header {
+      border-radius: 0;
     }
-    
-    
   }
 }

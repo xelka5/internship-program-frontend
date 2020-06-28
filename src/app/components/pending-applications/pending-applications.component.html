@@ -2,7 +2,7 @@
   <h5 class="card-header">Pending applications</h5>
 
   <div class="card-body">
-    <p *ngIf="pendingApplications && pendingApplications.length == 0 else showPendingApplications">No pending applications</p>
+    <p *ngIf="pendingApplications && pendingApplications.length == 0 else showPendingApplications">No pending applications.</p>
     
     <ng-template #showPendingApplications>
       <div *ngFor="let pendingApplication of pendingApplications">

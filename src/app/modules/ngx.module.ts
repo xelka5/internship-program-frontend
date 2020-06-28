@@ -8,6 +8,8 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -25,12 +27,16 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         preventDuplicates: true,
       }),
       BsDatepickerModule.forRoot(),
-      ModalModule.forRoot()
+      ModalModule.forRoot(),
+      ButtonsModule.forRoot(),
+      BsDropdownModule.forRoot()
     ],
     exports: [
       PerfectScrollbarModule,
       BsDatepickerModule,
-      ModalModule
+      ModalModule,
+      ButtonsModule,
+      BsDropdownModule
     ],
     providers: [
       {

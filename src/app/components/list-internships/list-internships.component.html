@@ -1,6 +1,6 @@
 
 <div class="card">
-  <h5 class="card-header">My internships</h5>
+  <h5 class="card-header">Active internships</h5>
 
   <div class="card-body">
     <p *ngIf="internships && internships.length == 0 else showInternships">No internships available, <a class="redirect-link" routerLink="/dashboard/add-internship">create new</a></p>
@@ -14,11 +14,33 @@
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-12">
-              <div class="float-right">
+          <div class="row mb-2">
+            <div class="col-12 col-lg-6 col-xl-4">
                 <label>Start: <span>{{internship.startDate | date:'fullDate'}}</span></label>
+            </div>
+
+            <div class="col-12 col-lg-6 col-xl-4">
+              <label>Duration: <span>{{internship.duration}} {{internship.durationUnit}}</span></label>
+            </div>
+
+            <div class="col-12 col-lg-6 col-xl-4">
+              <label>Status: <span class="badge badge-info">{{internship.status}}</span></label>
+            </div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-12 col-md-6 col-lg-4">
+              <label class="mr-2">Internship type: <span class="badge badge-info">{{internship.type}}</span></label>
+            </div>
+            <div *ngIf="internship.type === 'PAID'" class="col-12 col-md-6 col-lg-4">
+              <div class="salary-field">
+                <label class="mr-2">Salary:</label>
+                <p class="field">{{internship.salary}} {{internship.currency}}</p>
               </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+              <label class="mr-2">Number of students:</label>
+              <p class="field">{{internship.maxNumberOfStudents}}</p>
             </div>
           </div>
       
@@ -28,27 +50,18 @@
               <p>{{internship.description}}</p>
             </div>
           </div>
-      
-          <div class="row">
-            <div class="col-12 col-md-6 col-lg-4">
-              <label class="mr-2">Number of students:</label>
-              <p class="field">{{internship.maxNumberOfStudents}}</p>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-              <div class="salary-field">
-                <label class="mr-2">Salary:</label>
-                <p class="field">{{internship.salary}}</p>
+          <div class="row mb-2">
+            <div class="col-12">
+              <div class="d-block w-100 button-wrapper">
+                <span class="float-left mr-4" (click)="openEditModal(editInternshipModal, internship.trackingNumber)"><i class="fa fa-pencil-square-o"></i></span>
+                <span class="float-left mr-4" (click)="openDeleteModal(deleteInternshipModal, internship.trackingNumber)"><i class="fa fa-trash"></i></span>
+                <div class="d-inline-block buttons-block">
+                  <button class="btn btn-primary mr-3" (click)="openInternsModal(internsListModal, internship.trackingNumber)">Assigned interns</button>
+                  <button class="btn btn-primary" (click)="finishInternship(internship.trackingNumber)">Finish internship</button>
+                </div>
               </div>
             </div>
           </div>
-
-          <div class="row">
-            <div class="col-12">
-              <button class="btn btn-primary mr-2" (click)="openEditModal(editInternshipModal, internship.trackingNumber)">Edit internship</button>
-              <button class="btn btn-danger" (click)="openDeleteModal(deleteInternshipModal, internship.trackingNumber)">Delete internship</button>
-            </div>
-          </div>
-
         </div>
       </div>
     </ng-template>
@@ -83,7 +96,7 @@
             <label *ngIf="internshipForm.controls['description'].errors.required">Description is required</label>
           </div>
 
-          <textarea [ngStyle]="isInvalidFormControl(internshipForm, 'description') && {'border-color': '#ff0000'}" rows="8"
+          <textarea [ngStyle]="isInvalidFormControl(internshipForm, 'description') && {'border-color': '#ff0000'}" rows="10"
             class="form-control" placeholder="Enter description" formControlName="description"></textarea>
         </div>
       </div>
@@ -96,7 +109,7 @@
           </div>
 
           <input [ngStyle]="isInvalidFormControl(internshipForm, 'startDate') && {'border-color': '#ff0000'}" type="text" 
-            class="form-control mb-3" placeholder="Datepicker" bsDatepicker formControlName="startDate" />
+            class="form-control mb-3" placeholder="Datepicker" bsDatepicker formControlName="startDate" value="{{internshipForm.get('startDate').value | date: 'MM/dd/yyyy'}}"/>
         </div>
 
         <div class="form-group">
@@ -111,14 +124,67 @@
         </div>
 
         <div class="form-group">
-          <label *ngIf="!isInvalidFormControl(internshipForm, 'salary')">Salary</label>
-
-          <div *ngIf="isInvalidFormControl(internshipForm, 'salary')" class="error-message">
-            <label *ngIf="internshipForm.controls['salary'].errors.required">Salary is required.</label>
+          <div class="col-12 col-lg-6 p-0 left-item d-inline-block">
+            <div class="form-group">
+              <label *ngIf="!isInvalidFormControl(internshipForm, 'duration')">Duration</label>
+  
+              <div *ngIf="isInvalidFormControl(internshipForm, 'duration')" class="error-message">
+                <label *ngIf="internshipForm.controls['duration'].errors.required">Duration is required.</label>
+              </div>
+  
+              <input [ngStyle]="isInvalidFormControl(internshipForm, 'duration') && {'border-color': '#ff0000'}" type="number"
+                class="form-control" placeholder="Enter duration" formControlName="duration">
+            </div>
           </div>
+          <div class="col-12 col-lg-6 p-0 d-inline-block">
+            <div class="form-group">
+              <label class="mr-3">Duration unit:</label>
 
-          <input [ngStyle]="isInvalidFormControl(internshipForm, 'salary') && {'border-color': '#ff0000'}" type="text"
-            class="form-control" placeholder="Enter salary" formControlName="salary">
+              <div class="btn-group" btnRadioGroup formControlName="durationUnit">
+                <label [ngClass]="{ active: internshipForm.get('durationUnit').value === 'WEEK'}" btnRadio="WEEK" class="radio-button mr-2" tabindex="0" role="button">Week</label>
+                <label [ngClass]="{ active: internshipForm.get('durationUnit').value === 'MONTH'}" btnRadio="MONTH" class="radio-button" tabindex="0" role="button">Month</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="mr-3">Internship type:</label>
+
+          <div class="btn-group" btnRadioGroup formControlName="type">
+            <label [ngClass]="{ active: internshipForm.get('type').value === 'PAID'}" btnRadio="PAID" class="radio-button mr-2" tabindex="0" role="button">Paid</label>
+            <label [ngClass]="{ active: internshipForm.get('type').value === 'UNPAID'}" btnRadio="UNPAID" class="radio-button" tabindex="0" role="button">Unpaid</label>
+          </div>
+        </div>
+
+        <div *ngIf="internshipForm.get('type').value === 'PAID'">
+          <div class="col-12 col-lg-6 p-0 left-item d-inline-block">
+            <div class="form-group">
+              <label *ngIf="!isInvalidFormControl(internshipForm, 'salary')">Salary</label>
+  
+              <div *ngIf="isInvalidFormControl(internshipForm, 'salary')" class="error-message">
+                <label *ngIf="internshipForm.controls['salary'].errors.required">Salary is required.</label>
+              </div>
+  
+              <input [ngStyle]="isInvalidFormControl(internshipForm, 'salary') && {'border-color': '#ff0000'}" type="number"
+                class="form-control" placeholder="Enter salary" formControlName="salary">
+            </div>
+          </div>
+          <div class="col-12 col-lg-6 p-0 d-inline-block">
+            <div class="btn-group" btnRadioGroup formControlName="currency">
+              <label [ngClass]="{ active: internshipForm.get('currency').value === 'BGN'}" btnRadio="BGN" class="radio-button mr-2" tabindex="0" role="button">BGN</label>
+              <label [ngClass]="{ active: internshipForm.get('currency').value === 'EUR'}" btnRadio="EUR" class="radio-button" tabindex="0" role="button">EUR</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="mr-3">Internship status:</label>
+
+          <div class="btn-group" btnRadioGroup formControlName="status">
+            <label [ngClass]="{ active: internshipForm.get('status').value === 'ACTIVE'}" btnRadio="ACTIVE" class="radio-button mr-2" tabindex="0" role="button">Active</label>
+            <label [ngClass]="{ active: internshipForm.get('status').value === 'FINISHED'}" btnRadio="FINISHED" class="radio-button" tabindex="0" role="button">Finished</label>
+          </div>
         </div>
 
       </div>
@@ -140,5 +206,93 @@
   <div class="modal-body d-inline-flex m-auto">
     <button class="btn btn-danger btn-short mr-3" (click)="modalRef.hide()">No</button>
     <button class="btn btn-primary btn-short" (click)="deleteInternship()">Yes</button>
+  </div>
+</ng-template>
+
+<ng-template #internsListModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Assigned interns:</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div *ngFor="let intern of assignedInterns" class="mb-2">
+      <div class="row mb-2">
+        <div class="col-12 col-md-3">
+          <img class="profile-image mb-3" src="{{apiUrl}}/{{intern.profileImageName}}" alt="intern">
+        </div>
+        <div class="col-12 col-md-9">
+          <div class="col-12 d-inline-flex mb-4">
+            <div class="col-12 col-md-6">
+              <label>Names:</label>
+              <span>{{intern.firstName}} {{intern.lastName}}</span>
+            </div>
+  
+            <div class="col-12 col-md-6">
+              <label>University: </label>
+              <span>{{intern.university}}</span>
+            </div>
+          </div>
+          <div class="col-12">
+            <button class="btn btn-primary mr-3" (click)="openInternProfileModal(showInternProfileModal, intern.email)">Profile</button>
+            <button class="btn btn-primary">Reports</button>
+          </div>
+        </div>
+      </div>
+      <hr>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #showInternProfileModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Intern details:</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="innerModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container" *ngIf="internDetails">
+      <div class="col-12 col-lg-6">
+        <div class="col-12">
+          <label>Names:</label>
+          <p>{{internDetails.userDetails.firstName}} {{internDetails.userDetails.lastName}}</p>
+        </div>
+        <div class="col-12">
+          <img class="profile-image mb-3" src="{{apiUrl}}/{{internDetails.account.profileImageName}}" alt="intern">
+        </div>
+        <div class="col-12 d-inline-flex">
+          <label>Age:</label>
+          <p>{{internDetails.userDetails.age}}</p>
+        </div>
+        <div class="col-12 d-inline-flex">
+          <label>University:</label>
+          <p>{{internDetails.userDetails.university}}</p>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="col-12 d-inline-flex">
+          <label>Course:</label>
+          <p>{{internDetails.userDetails.course}}</p>
+        </div>
+        <div class="col-12 d-inline-flex">
+          <label>Start year of study:</label>
+        <p>{{internDetails.userDetails.startDate | date:'yyyy' }}</p>
+        </div>
+        <div class="col-12 d-inline-flex">
+          <label>Previous education:</label>
+          <p>{{internDetails.userDetails.previousEducation}}</p>
+        </div>
+        <div class="col-12 d-inline-flex">
+          <label>Skills:</label>
+          <ul>
+            <li *ngFor="let skill of internDetails.userDetails.skills">
+              {{skill}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </ng-template>

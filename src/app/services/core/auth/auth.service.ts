@@ -33,11 +33,11 @@ export class AuthService extends BaseHttpService {
     return !this.jwtHelper.isTokenExpired(token);
   }
 
-  public checkRoleAuthentication(role: string): boolean {
+  public checkRoleAuthentication(roles: string[]): boolean {
     const token = this.getToken();
     const tokenDecoded: TokenDecoded = jwt_decode(token);
 
-    return tokenDecoded.authorities[0] === role && !this.jwtHelper.isTokenExpired(token);
+    return roles.includes(tokenDecoded.authorities[0]) && !this.jwtHelper.isTokenExpired(token);
   }
 
   public logout(): void {

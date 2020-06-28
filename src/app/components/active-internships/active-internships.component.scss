@@ -46,6 +46,18 @@ $error_hover_color: #882730;
     .redirect-link {
       color: $primary_color;
     }
+
+    .badge-info {
+      background-color: #0098a1;
+      color: white!important;
+      font-size: 14px;
+    }
+
+    .badge {
+      margin-left: 0.5rem;
+      margin-top: 0.1rem;
+      font-size: 16px;
+    }
   }
 }
 
@@ -184,7 +196,7 @@ label {
         border-right: 1px solid $primary_color;
 
         .emp-container {
-          margin-bottom: 1rem;
+          margin: auto;
         }
       }
     }

@@ -56,6 +56,36 @@ $secondary_color: #014878;
   .error-message {
     color: red;
   }
+
+  .left-item {
+    padding-right: 1em!important;
+  }
+
+  .radio-button {
+    cursor: pointer;
+    background: white;
+    color: #0098a1;
+    border: 1px solid #0098a1;
+    border-radius: 2px;
+    padding: 0.1rem 0.3rem;
+    font-size: 18px;
+
+    &:hover, &:focus {
+      background: #0098a1;
+      color: white;
+      outline: none;
+    }
+  }
+
+  .active {
+    background: #0098a1;
+    color: white;
+    outline: none;
+  }
+
+  .redirect-link {
+    color: $primary_color;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -68,5 +98,9 @@ $secondary_color: #014878;
 
   .card-body {
     padding: 1.25rem 0;
+
+    .left-item {
+      padding-right: 0;
+    }
   }
 }
