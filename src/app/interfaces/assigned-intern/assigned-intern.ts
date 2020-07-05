@@ -1,6 +1,7 @@
 export interface AssignedIntern {
-    firstName: string;
-    lastName: string;
-    profileImageName: string;
-    university: string;
+    email: string,
+    firstName: string,
+    lastName: string,
+    profileImageName: string,
+    university: string
 }

@@ -6,7 +6,7 @@
   },
 
   "ADMIN_MENU": {
-    "ALL_INTERNSHIPS": "All internships",
+    "ALL_INTERNSHIPS": "All active internships",
     "PENDING_APPROVALS": "Pending approvals",
     "STATISTICS": "Statistics"
   },

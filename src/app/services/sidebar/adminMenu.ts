@@ -18,13 +18,6 @@ export var adminMenu = [
         route: '/dashboard/pending-approvals'
     },
     {
-        title: 'ADMIN_MENU.STATISTICS',
-        icon: 'fa fa-sticky-note',
-        active: false,
-        type: 'simple',
-        route: '/dashboard/statistics'
-    },
-    {
         title: 'COMMON_MENU.FINISHED_INTERNSHIPS',
         icon: 'fa fa-sticky-note',
         active: false,

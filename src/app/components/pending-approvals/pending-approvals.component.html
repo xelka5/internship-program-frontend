@@ -1,1 +1,72 @@
-<p>pending-approvals works!</p>
+<div class="card">
+  <h5 class="card-header">Pending applications</h5>
+
+  <div class="card-body">
+    <p *ngIf="pendingApprovals && pendingApprovals.length == 0 else showPendingApprovals">No pending approvals.</p>
+    
+    <ng-template #showPendingApprovals>
+      <div *ngFor="let pendingApproval of pendingApprovals">
+        <div class="item">
+          <div class="row">
+            <div class="col-12 col-xl-2 side-block">
+              <div class="col-6 col-md-12 emp-container">
+                <p class="text-center">{{pendingApproval.userDetails.companyName}}</p>
+                <img class="profile-image mb-3" src="{{apiUrl}}/{{pendingApproval.account.profileImageName}}" alt="employer">
+                <div class="m-auto">
+                  <span class="mr-4" (click)="openConfirmationModal(showConfirmationModal, pendingApproval, EMPLOYER)"><i class="fa fa-check"></i></span>
+                  <span (click)="openConfirmationModal(showConfirmationModal, pendingApproval, BLOCKED)"><i class="fa fa-times" aria-hidden="true"></i></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-xl-10">
+              <div class="row">
+                <div class="col-12 col-lg-6">
+                  <div>
+                    <label>Username:</label>
+                    <p>{{pendingApproval.account.username}}</p>
+                  </div>
+                  <div>
+                    <label>Role:</label>
+                    <p>{{pendingApproval.role}}</p>
+                  </div>
+                  <div>
+                    <label>History notes:</label>
+                    <p>{{pendingApproval.userDetails.historyNotes}}</p>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                  <div>
+                    <label>Email:</label>
+                    <p>{{pendingApproval.account.email}}</p>
+                  </div>
+                  <div>
+                    <label>Number of workers:</label>
+                    <p>{{pendingApproval.userDetails.numberOfWorkers}}</p>
+                  </div>
+                  <div>
+                    <label>Description notes:</label>
+                    <p>{{pendingApproval.userDetails.descriptionNotes}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<ng-template #showConfirmationModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Update user status</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body d-inline-flex m-auto">
+    <button class="btn btn-danger btn-short mr-3" (click)="modalRef.hide()">No</button>
+    <button class="btn btn-primary btn-short" (click)="updatePendingUserStatus()">Yes</button>
+  </div>
+</ng-template>

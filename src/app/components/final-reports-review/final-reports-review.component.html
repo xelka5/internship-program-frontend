@@ -1,0 +1,66 @@
+<div class="card">
+  <h5 class="card-header">Final reports for internship: <span *ngIf="internshipFinalReports">{{internshipFinalReports.internshipTitle}}</span></h5>
+
+  <div class="card-body">
+    <p *ngIf="internshipFinalReports && internshipFinalReports.finalReports && internshipFinalReports.finalReports.length == 0 else showFinalReports">No final reports available.</p>
+
+    <ng-template #showFinalReports>
+      <div *ngIf="internshipFinalReports">
+        <div *ngFor="let finalReport of internshipFinalReports.finalReports">
+          <div class="item mb-3">
+            <div class="row">
+              <div class="col-12 col-md-3 profile-image-container col-xl-2">
+                <img class="profile-image" src="{{apiUrl}}/{{finalReport.internProfile.profileImageName}}" alt="intern">
+              </div>
+              <div class="col-12 col-md-9 col-xl-10 d-inline-flex">
+                <div class="col-12 col-lg-6">
+                  <p>Intern report details:</p>
+                  <div>
+                    <label>Intern names:</label>
+                    <p class="field">{{finalReport.internProfile.firstName}} {{finalReport.internProfile.lastName}}</p>
+                  </div>
+                  <div *ngIf="!finalReport.finalReportIntern">
+                    <p>Final report not submitted.</p>
+                  </div>
+                  <div *ngIf="finalReport.finalReportIntern">
+                    <div >
+                      <label>Final report file:</label>
+                      <p class="field"><a class="redirect-link" href="{{apiUrl}}/{{finalReport.finalReportIntern.reportFileLocation}}">Download here</a></p>
+                    </div>
+                    <div>
+                      <label>Report notes:</label>
+                      <p class="field">{{finalReport.finalReportIntern.reportNotes}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                  <p>Employer report details:</p>
+                  <div>
+                    <label>Company name:</label>
+                    <p class="field">{{internshipFinalReports.companyName}}</p>
+                  </div>
+                  <div *ngIf="!finalReport.finalReportEmployer">
+                    <p>Final report not submitted.</p>
+                  </div>
+                  <div *ngIf="finalReport.finalReportEmployer">
+                    <div >
+                      <label>Final report file:</label>
+                      <p class="field"><a class="redirect-link" href="{{apiUrl}}/{{finalReport.finalReportEmployer.reportFileLocation}}">Download here</a></p>
+                    </div>
+                    <div>
+                      <label>Report notes:</label>
+                      <p class="field">{{finalReport.finalReportEmployer.reportNotes}}</p>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
+  

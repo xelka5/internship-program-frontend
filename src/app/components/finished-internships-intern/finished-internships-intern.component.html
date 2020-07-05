@@ -1,1 +1,143 @@
-<p>finished-internships-intern works!</p>
+<div class="card">
+  <h5 class="card-header">Finished internships</h5>
+
+  <div class="card-body">
+    <p *ngIf="internships && internships.length == 0 else showInternships">No finished internships available.</p>
+
+    <ng-template #showInternships>
+      <div *ngFor="let internship of internships">
+        <div class="item mb-5">
+          <div class="row">
+            <div class="col-12 col-xl-2 side-block">
+              <div class="row h-100 m-auto">
+                <div class="col-6 col-md-12 emp-container">
+                  <p class="text-center">{{internship.employer.companyName}}</p>
+                  <img class="profile-image" src="{{apiUrl}}/{{internship.employer.profileImageName}}" alt="emp">
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-xl-10">
+              <div class="row">
+                <div class="col-12">
+                  <p class="title-field">{{internship.title}}</p>
+                </div>
+              </div>
+    
+              <div class="row mb-2">
+                <div class="col-12 col-lg-6 col-xl-4">
+                    <label>Start: <span>{{internship.startDate | date:'fullDate'}}</span></label>
+                </div>
+    
+                <div class="col-12 col-lg-6 col-xl-4">
+                  <label>Duration: <span>{{ getDurationLabel(internship.duration, internship.durationUnit) }}</span></label>
+                </div>
+              </div>
+    
+              <div class="row mb-2">
+                <div class="col-12 col-md-6 col-lg-4">
+                  <label class="mr-2">Internship type: <span class="badge badge-info">{{internship.type}}</span></label>
+                </div>
+                <div *ngIf="internship.type === 'PAID'" class="col-12 col-md-6 col-lg-4">
+                  <div class="salary-field">
+                    <label class="mr-2">Salary: <span>{{internship.salary}} {{internship.currency}}</span></label>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="row mb-2">
+                <div class="col-12">
+                  <label>Details:</label>
+                  <p>{{internship.description}}</p>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-12">
+                  <div *ngIf="!internship.internReportPresent">
+                    <label>*note: You still havent submitted your final report for this internship.</label>
+                    <button class="btn btn-primary btn-long d-block" (click)="openCreateFinalReportModal(showCreateFinalReportModal, internship.trackingNumber)">Create final report</button>
+                  </div>
+                  <button *ngIf="internship.internReportPresent" class="btn btn-primary " (click)="openShowFinalReportModal(showFinalReportModal, internship.trackingNumber)">View final report</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<ng-template #showCreateFinalReportModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Create final report:</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container" *ngIf="internshipTrackingNumber">
+      <form [formGroup]="finalReportForm">
+        <div class="row">
+          <div class="col-12 col-lg-6">
+            <div class="form-group">
+              <label *ngIf="!isInvalidFormControl(finalReportForm, 'reportNotes')">Report details</label>
+    
+              <div *ngIf="isInvalidFormControl(finalReportForm, 'reportNotes')" class="error-message">
+                <label *ngIf="finalReportForm.controls['reportNotes'].errors.required">Report details are required</label>
+              </div>
+    
+              <textarea [ngStyle]="isInvalidFormControl(finalReportForm, 'reportNotes') && {'border-color': '#ff0000'}" rows="5"
+                class="form-control" placeholder="Enter report details" formControlName="reportNotes"></textarea>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="form-group">
+              <label class="mr-3">Upload final report:</label>
+              <div class="upload-options d-inline-flex mb-3">
+                <label>
+                  <span class="upload-label">Upload Here</span>
+                  <input type="file" class="image-upload" (change)="onFileChanged($event)">
+                </label>
+              </div>  
+              <div *ngIf="finalReportFile">
+                <label >Attached file: </label>
+                <span class="d-block">{{finalReportFile.name}}</span>
+              </div>
+            </div>
+            <p *ngIf="!finalReportFile">Don't have the report template? <a class="redirect-link" href="{{apiUrl}}/templates/employer-report-template.doc">Download</a></p>
+          </div>
+          <div class="col-12 mt-2">
+            <button class="btn btn-primary float-right" (click)="createFinalReport()" [disabled]="!checkFormValid()">Create report</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #showFinalReportModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Final report details:</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container" *ngIf="finalReport">
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <div>
+            <label>Report notes:</label>
+            <p>{{finalReport.reportNotes}}</p>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div>
+            <label>Final report file:</label>
+            <a class="redirect-link d-block" href="{{apiUrl}}/{{finalReport.reportFileLocation}}">Download</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

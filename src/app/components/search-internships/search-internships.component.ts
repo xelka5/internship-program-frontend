@@ -7,6 +7,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApplicationService } from 'src/app/services/api/application/application.service';
 import { Application } from 'src/app/interfaces/application/application';
 import { environment } from 'src/environments/environment';
+import { InternshipStatus } from 'src/app/shared/enums/internship-status';
 
 @Component({
   selector: 'app-search-internships',
@@ -30,7 +31,7 @@ export class SearchInternshipsComponent implements OnInit {
   }
 
   getAllInternships(): void {
-    this.internshipService.getAllInternships().subscribe(result => {
+    this.internshipService.getAllInternshipsByStatus(InternshipStatus.ACTIVE).subscribe(result => {
       this.internships = result;
     });
   }
@@ -66,6 +67,14 @@ export class SearchInternshipsComponent implements OnInit {
 
   checkFormValid(): boolean {
     return this.applicationForm.valid;
+  }
+
+  getDurationLabel(duration: number, durationUnit: string): string {
+    if(duration === 1) {
+      return duration + ' ' + durationUnit.toLocaleLowerCase();
+    }
+
+    return duration + ' ' + durationUnit.toLocaleLowerCase() + 's';
   }
 
   private initApplicationForm() {

@@ -1,4 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { InternshipService } from 'src/app/services/api/internship/internship.service';
+import { ToastrService } from 'ngx-toastr';
+import { Internship } from 'src/app/interfaces/internship/internship';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ApplicationService } from 'src/app/services/api/application/application.service';
+import { Application } from 'src/app/interfaces/application/application';
+import { environment } from 'src/environments/environment';
+import { InternshipStatus } from 'src/app/shared/enums/internship-status';
 
 @Component({
   selector: 'app-all-internships',
@@ -7,9 +16,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllInternshipsComponent implements OnInit {
 
-  constructor() { }
+  internships: Internship[];
+  apiUrl: string = environment.apiUrl;
+
+  modalRef: BsModalRef;
+  internshipTrackingNumber: string;
+
+  constructor(private internshipService: InternshipService, private modalService: BsModalService, 
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.getAllInternships();
+  }
+
+  getAllInternships(): void {
+    this.internshipService.getAllInternshipsByStatus(InternshipStatus.ACTIVE).subscribe(result => {
+      this.internships = result;
+    });
   }
 
 }

@@ -8,6 +8,7 @@ import { Internship } from 'src/app/interfaces/internship/internship';
 import { environment } from 'src/environments/environment';
 import { ReportService } from 'src/app/services/api/report/report.service';
 import { Report } from 'src/app/interfaces/report/report';
+import { InternshipStatus } from 'src/app/shared/enums/internship-status';
 
 @Component({
   selector: 'app-active-internships',
@@ -38,7 +39,7 @@ export class ActiveInternshipsComponent implements OnInit {
   }
 
   getActiveInternInternships(): void {
-    this.internshipService.getActiveInternInternships().subscribe(result => {
+    this.internshipService.getAssignedInternInternshipsByStatus(InternshipStatus.ACTIVE).subscribe(result => {
       this.internships = result;
     });
   }

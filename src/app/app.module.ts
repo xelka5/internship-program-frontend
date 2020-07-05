@@ -28,6 +28,17 @@ import { SearchInternshipsComponent } from './components/search-internships/sear
 import { MyApplicationsComponent } from './components/my-applications/my-applications.component';
 import { PendingApplicationsComponent } from './components/pending-applications/pending-applications.component';
 import { ActiveInternshipsComponent } from './components/active-internships/active-internships.component';
+import { InternReportsComponent } from './components/intern-reports/intern-reports.component';
+import { PendingApprovalsComponent } from './components/pending-approvals/pending-approvals.component';
+import { AllInternshipsComponent } from './components/all-internships/all-internships.component';
+import { PendingInfoComponent } from './components/pending-info/pending-info.component';
+import { FinishedInternshipsEmployerComponent } from './components/finished-internships-employer/finished-internships-employer.component';
+import { FinishedInternshipsInternComponent } from './components/finished-internships-intern/finished-internships-intern.component';
+import { FinishedInternshipsAdminComponent } from './components/finished-internships-admin/finished-internships-admin.component';
+import { FinalReportsComponent } from './components/final-reports/final-reports.component';
+import { AssignedInternsComponent } from './components/assigned-interns/assigned-interns.component';
+import { BlockedInfoComponent } from './components/blocked-info/blocked-info.component';
+import { FinalReportsReviewComponent } from './components/final-reports-review/final-reports-review.component';
 
 /**
  * Providers
@@ -38,16 +49,6 @@ import { tokenInterceptorProvider } from './services/core/interceptors/token-int
  * Configuration
  */
 import { jwtModuleConfig } from './services/core/auth';
-import { InternReportsComponent } from './components/intern-reports/intern-reports.component';
-import { StatisticsComponent } from './components/statistics/statistics.component';
-import { PendingApprovalsComponent } from './components/pending-approvals/pending-approvals.component';
-import { AllInternshipsComponent } from './components/all-internships/all-internships.component';
-import { PendingInfoComponent } from './components/pending-info/pending-info.component';
-import { FinishedInternshipsEmployerComponent } from './components/finished-internships-employer/finished-internships-employer.component';
-import { FinishedInternshipsInternComponent } from './components/finished-internships-intern/finished-internships-intern.component';
-import { FinishedInternshipsAdminComponent } from './components/finished-internships-admin/finished-internships-admin.component';
-import { FinalReportsComponent } from './components/final-reports/final-reports.component';
-
 
 export function TranslationLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -69,14 +70,16 @@ export function TranslationLoaderFactory(http: HttpClient) {
     PendingApplicationsComponent,
     ActiveInternshipsComponent,
     InternReportsComponent,
-    StatisticsComponent,
     PendingApprovalsComponent,
     AllInternshipsComponent,
     PendingInfoComponent,
     FinishedInternshipsEmployerComponent,
     FinishedInternshipsInternComponent,
     FinishedInternshipsAdminComponent,
-    FinalReportsComponent
+    FinalReportsComponent,
+    AssignedInternsComponent,
+    BlockedInfoComponent,
+    FinalReportsReviewComponent
   ],
   imports: [
     BrowserModule,

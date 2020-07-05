@@ -6,10 +6,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Currency, InternshipType, DurationUnit } from 'src/app/shared/enums';
 import { InternshipStatus } from 'src/app/shared/enums/internship-status';
-import { AssignedIntern } from 'src/app/interfaces/assigned-intern/assigned-intern';
-import { UserService } from 'src/app/services/api/user/user.service';
-import { UserDetails } from 'src/app/interfaces/user/user-details';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-list-internships',
@@ -18,21 +14,13 @@ import { environment } from 'src/environments/environment';
 })
 export class ListInternshipsComponent implements OnInit {
 
-  apiUrl: string = environment.apiUrl;
-
   internships: Internship[];
-  assignedInterns: AssignedIntern[];
-  internDetails: UserDetails;
-
-  modalRef: BsModalRef;
-  innerModalRef: BsModalRef;
-
+  internshipTrackingNumber: string;
   internshipForm: FormGroup;
 
-  internshipTrackingNumber: string;
+  modalRef: BsModalRef;
 
-  constructor(private internshipService: InternshipService, private userService: UserService,
-    private modalService: BsModalService, private toastr: ToastrService) { }
+  constructor(private internshipService: InternshipService, private modalService: BsModalService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getActiveInternships();
@@ -54,30 +42,10 @@ export class ListInternshipsComponent implements OnInit {
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
-  openInternsModal(template: TemplateRef<any>, trackingNumber: string): void {
+  openFinishModal(template: TemplateRef<any>, trackingNumber: string): void {
     this.internshipTrackingNumber = trackingNumber;
 
-    this.internshipService.getAssignedInterns(trackingNumber).subscribe(result => {
-      this.assignedInterns = result;
-    })
-
-    this.modalRef = this.modalService.show(template, {class: 'modal-lg'});
-  }
-
-  openInternProfileModal(template: TemplateRef<any>, internEmail: string) {
-    this.userService.getUserInformationByEmail(internEmail).subscribe(result => {
-      this.internDetails = result 
-    });
-    this.innerModalRef = this.modalService.show(template, {class: 'modal-lg'});
-  }
-
-  isInvalidFormControl(form: FormGroup, control: string): boolean {
-    return form.controls[control].invalid && 
-      (form.controls[control].dirty || form.controls[control].touched);
-  }
-
-  checkFormValid(): boolean {
-    return this.internshipForm.valid;
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
   getActiveInternships(): void {
@@ -102,11 +70,21 @@ export class ListInternshipsComponent implements OnInit {
     });
   }
 
-  finishInternship(internshipTrackingNumber: string): void {
-    this.internshipService.finishInternship({ trackingNumber: internshipTrackingNumber}).subscribe(result => {
+  finishInternship(): void {
+    this.internshipService.finishInternship({ trackingNumber: this.internshipTrackingNumber}).subscribe(result => {
       this.toastr.success('Internship program finished');
       this.getActiveInternships();
+      this.modalRef.hide();
     })
+  }
+
+  isInvalidFormControl(form: FormGroup, control: string): boolean {
+    return form.controls[control].invalid && 
+      (form.controls[control].dirty || form.controls[control].touched);
+  }
+
+  checkFormValid(): boolean {
+    return this.internshipForm.valid;
   }
 
   private initEditForm() {
@@ -144,5 +122,4 @@ export class ListInternshipsComponent implements OnInit {
       trackingNumber: new FormControl('')
     });
   }
-
 }

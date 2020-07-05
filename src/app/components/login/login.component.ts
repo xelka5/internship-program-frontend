@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  createRequestBody(): HttpParams {
+  private createRequestBody(): HttpParams {
     let params = new HttpParams();
 
     Object.keys(this.loginForm.controls).forEach(key => {

@@ -1,8 +1,6 @@
 import { BaseHttpService } from '../base-http/base-http.service';
-import { HttpParams } from '@angular/common/http';
 import { BaseHttpResponse } from 'src/app/interfaces/base/base-http-response';
 import { Observable } from 'rxjs';
-import { Internship } from 'src/app/interfaces/internship/internship';
 import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
 import { Report } from 'src/app/interfaces/report/report';
@@ -18,6 +16,10 @@ export class ReportService extends BaseHttpService {
 
   public getAllInternshipsReports(internshipTrackingNumber: string): Observable<Report[]> {
     return this.get(`${environment.apiUrl}/api/reports/internship/` + internshipTrackingNumber);
+  }
+
+  public getAllReportsByInternEmail(internshipTrackingNumber: string, internEmail: string): Observable<Report[]> {
+    return this.get(`${environment.apiUrl}/api/reports/internship/` + internshipTrackingNumber + `/intern/` + internEmail);
   }
 
   public addNewInternshipReport(reportRequest: Report): Observable<BaseHttpResponse> {

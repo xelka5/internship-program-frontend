@@ -20,6 +20,40 @@ export class AuthService extends BaseHttpService {
     super(_http);
   }
 
+  /**
+   * API call when user's access token is expired. As a result, new access token is send and stored.
+   * 
+   * @param refreshToken - token verifying expired access token
+   */
+  public refreshToken(refreshToken: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+
+    return this.withHeaders(headers)
+      .post(`${environment.apiUrl}/oauth/token`, this.createRefreshTokenRequestBody(refreshToken));
+  }
+
+  /**
+   * Checking if users access token is valid.
+   */
+  public isAuthenticated(): boolean {
+    const token = this.getToken();
+    return !this.jwtHelper.isTokenExpired(token);
+  }
+
+  /**
+   * Checking if users role is allowed to access some resource 
+   * 
+   * @param roles - allowed user roles to access resource
+   */
+  public checkRoleAuthentication(roles: string[]): boolean {
+    const token = this.getToken();
+    const tokenDecoded: TokenDecoded = jwt_decode(token);
+
+    return roles.includes(tokenDecoded.authorities[0]) && !this.jwtHelper.isTokenExpired(token);
+  }
+
   public isTokenStored(): boolean {
     return jwtTokenGetter() !== null;
   }
@@ -28,17 +62,9 @@ export class AuthService extends BaseHttpService {
     return jwtTokenGetter();
   }
 
-  public isAuthenticated(): boolean {
-    const token = this.getToken();
-    return !this.jwtHelper.isTokenExpired(token);
-  }
 
-  public checkRoleAuthentication(roles: string[]): boolean {
-    const token = this.getToken();
-    const tokenDecoded: TokenDecoded = jwt_decode(token);
 
-    return roles.includes(tokenDecoded.authorities[0]) && !this.jwtHelper.isTokenExpired(token);
-  }
+
 
   public logout(): void {
     this.clearTokenStorage();
@@ -55,14 +81,7 @@ export class AuthService extends BaseHttpService {
     localStorage.removeItem(REFRESH_TOKEN_LABEL);
   }
 
-  public refreshToken(refreshToken: string): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
 
-    return this.withHeaders(headers)
-      .post(`${environment.apiUrl}/oauth/token`, this.createRefreshTokenRequestBody(refreshToken));
-  }
 
   private createRefreshTokenRequestBody(refreshToken: string): HttpParams {
     return new HttpParams()

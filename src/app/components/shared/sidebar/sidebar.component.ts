@@ -60,11 +60,15 @@ export class SidebarComponent implements OnInit {
     } else if(result.role === UserRole.ADMIN) {
       this.userName = result.account.username;
       this.userRole = UserRole.ADMIN;
-      this.router.navigate(['/dashboard/statistics']);
+      this.router.navigate(['/dashboard/all-internships']);
     } else if(result.role === UserRole.PENDING) {
       this.userName = result.account.username;
       this.userRole = UserRole.PENDING;
       this.router.navigate(['/dashboard/pending-info']);
+    } else if(result.role === UserRole.BLOCKED) {
+      this.userName = result.account.username;
+      this.userRole = UserRole.BLOCKED;
+      this.router.navigate(['/dashboard/blocked-info']);
     }
 
     let profileImageName = result.account.profileImageName;

@@ -16,13 +16,25 @@ import { PendingApplicationsComponent } from '../components/pending-applications
 import { ActiveInternshipsComponent } from '../components/active-internships/active-internships.component';
 import { InternReportsComponent } from '../components/intern-reports/intern-reports.component';
 import { PendingApprovalsComponent } from '../components/pending-approvals/pending-approvals.component';
-import { StatisticsComponent } from '../components/statistics/statistics.component';
 import { AllInternshipsComponent } from '../components/all-internships/all-internships.component';
 import { PendingInfoComponent } from '../components/pending-info/pending-info.component';
 import { FinishedInternshipsEmployerComponent } from '../components/finished-internships-employer/finished-internships-employer.component';
 import { FinishedInternshipsInternComponent } from '../components/finished-internships-intern/finished-internships-intern.component';
 import { FinishedInternshipsAdminComponent } from '../components/finished-internships-admin/finished-internships-admin.component';
+import { FinalReportsComponent } from '../components/final-reports/final-reports.component';
+import { AssignedInternsComponent } from '../components/assigned-interns/assigned-interns.component';
+import { BlockedInfoComponent } from '../components/blocked-info/blocked-info.component';
+import { FinalReportsReviewComponent } from '../components/final-reports-review/final-reports-review.component';
 
+/**
+ * Routing through components represented in JSON object tree
+ * Each route can have following parameters:
+ *  @param path - url path for the route
+ *  @param component - typescript component loaded on the route invocation
+ *  @param canActivate - security mechanism for route activation
+ *  @param data.expectedRoles - role guarding mechanism
+ *  @param children - children routes specification
+ */
 const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
@@ -54,6 +66,18 @@ const routes: Routes = [
         }
       },
       { path: 'finished-internships', component: FinishedInternshipsEmployerComponent,
+        canActivate: [RoleGuard], 
+        data: { 
+          expectedRoles: UserRole.EMPLOYER
+        }
+      },
+      { path: 'final-reports/:internshipTrackingNumber', component: FinalReportsComponent,
+        canActivate: [RoleGuard], 
+        data: { 
+          expectedRoles: [ UserRole.EMPLOYER ]
+        }
+      },
+      { path: 'assigned-interns/:internshipTrackingNumber', component: AssignedInternsComponent,
         canActivate: [RoleGuard], 
         data: { 
           expectedRoles: UserRole.EMPLOYER
@@ -99,15 +123,14 @@ const routes: Routes = [
           expectedRoles: UserRole.ADMIN
         }
       },
-      {
-        path: 'pending-approvals', component: PendingApprovalsComponent,
+      { path: 'final-reports-review/:internshipTrackingNumber', component: FinalReportsReviewComponent,
         canActivate: [RoleGuard], 
         data: { 
-          expectedRoles: UserRole.ADMIN
+          expectedRoles: [ UserRole.ADMIN ]
         }
       },
       {
-        path: 'statistics', component: StatisticsComponent,
+        path: 'pending-approvals', component: PendingApprovalsComponent,
         canActivate: [RoleGuard], 
         data: { 
           expectedRoles: UserRole.ADMIN
@@ -118,6 +141,13 @@ const routes: Routes = [
         canActivate: [RoleGuard], 
         data: { 
           expectedRoles: UserRole.PENDING
+        }
+      },
+      {
+        path: 'blocked-info', component: BlockedInfoComponent,
+        canActivate: [RoleGuard], 
+        data: { 
+          expectedRoles: UserRole.BLOCKED
         }
       }
     ] 

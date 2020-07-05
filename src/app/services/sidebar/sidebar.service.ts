@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { adminMenu, employerMenu, internMenu, guestMenu, pendingMenu } from './';
+import { adminMenu, employerMenu, internMenu, guestMenu, pendingMenu, blockedMenu } from './';
 import { UserRole } from 'src/app/shared/enums/user-role';
 
 @Injectable({
@@ -33,6 +33,8 @@ export class SidebarService {
         return internMenu;
       case UserRole.PENDING:
         return pendingMenu;
+      case UserRole.BLOCKED:
+        return blockedMenu;
       default:
         return guestMenu;
     }

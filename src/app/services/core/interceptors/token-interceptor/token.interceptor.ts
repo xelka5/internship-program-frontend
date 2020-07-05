@@ -26,8 +26,6 @@ export class TokenInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     if(request.url.includes(this.LOGIN_URL)) {
-      // TODO: client credentials and access tokens should be passed with HttpOnly cookie instead
-      // of saving them in browser cache or any other browser storage
       const headers = new HttpHeaders({
         'Authorization': 'Basic aW50ZXJuc2hpcDokM2NyM1RmMHJEM1ZwdXJwMCRlJA==',
         'Content-Type': 'application/x-www-form-urlencoded'

@@ -13,12 +13,14 @@ import { FinishInternship } from 'src/app/interfaces/internship/finish-internshi
 })
 export class InternshipService extends BaseHttpService {
 
-  public getAllInternships(): Observable<Internship[]> {
+  public getAllInternshipsByStatus(status: string): Observable<Internship[]> {
+    this.httpParams = new HttpParams().append('status', status);
     return this.get(`${environment.apiUrl}/api/internships`);
   }
 
-  public getActiveInternInternships(): Observable<Internship[]> {
-    return this.get(`${environment.apiUrl}/api/internships/active`);
+  public getAssignedInternInternshipsByStatus(status: string): Observable<Internship[]> {
+    this.httpParams = new HttpParams().append('status', status);
+    return this.get(`${environment.apiUrl}/api/internships/assigned`);
   }
 
   public getEmployerInternshipsByStatus(status: string): Observable<Internship[]> {

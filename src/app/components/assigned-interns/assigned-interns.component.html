@@ -1,0 +1,126 @@
+<div class="card">
+  <h5 class="card-header">Assigned interns: </h5>
+
+  <div class="card-body">
+    <p *ngIf="assignedInterns && assignedInterns.length == 0 else showMyApplications">No assigned interns for this internship.</p>
+
+    <ng-template #showMyApplications>
+      <div *ngFor="let intern of assignedInterns" class="mb-2">
+          <div class="row mb-2 align-items-center">
+            <div class="col-12 col-md-3">
+              <img class="profile-image mb-3" src="{{apiUrl}}/{{intern.profileImageName}}" alt="intern">
+            </div>
+            <div class="col-12 col-md-9">
+              <div class="col-12 info-container mb-4">
+                <div class="col-12 col-md-6">
+                  <label>Names:</label>
+                  <span>{{intern.firstName}} {{intern.lastName}}</span>
+                </div>
+      
+                <div class="col-12 col-md-6">
+                  <label>University: </label>
+                  <span>{{intern.university}}</span>
+                </div>
+              </div>
+              <div class="col-12">
+                <button class="btn btn-primary mr-3" (click)="openInternProfileModal(showInternProfileModal, intern.email)">Profile</button>
+                <button class="btn btn-primary" (click)="openInternReportsModal(showInternReportsModal, intern)">Reports</button>
+              </div>
+            </div>
+          </div>
+          <hr>
+        </div>
+    </ng-template>
+  </div>
+</div>
+
+<ng-template #showInternProfileModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Intern details:</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="profile-container" *ngIf="internDetails">
+      <div class="col-12 col-lg-6">
+        <div class="col-12">
+          <label>Names:</label>
+          <p>{{internDetails.userDetails.firstName}} {{internDetails.userDetails.lastName}}</p>
+        </div>
+        <div class="col-12">
+          <img class="profile-image mb-3" src="{{apiUrl}}/{{internDetails.account.profileImageName}}" alt="intern">
+        </div>
+        <div class="col-12 d-inline-flex">
+          <label>Age:</label>
+          <p>{{internDetails.userDetails.age}}</p>
+        </div>
+        <div class="col-12 d-inline-flex">
+          <label>University:</label>
+          <p>{{internDetails.userDetails.university}}</p>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="col-12 d-inline-flex">
+          <label>Course:</label>
+          <p>{{internDetails.userDetails.course}}</p>
+        </div>
+        <div class="col-12 d-inline-flex">
+          <label>Start year of study:</label>
+        <p>{{internDetails.userDetails.startDate | date:'yyyy' }}</p>
+        </div>
+        <div class="col-12 d-inline-flex">
+          <label>Previous education:</label>
+          <p>{{internDetails.userDetails.previousEducation}}</p>
+        </div>
+        <div class="col-12 d-inline-flex">
+          <label>Skills:</label>
+          <ul>
+            <li *ngFor="let skill of internDetails.userDetails.skills">
+              {{skill}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #showInternReportsModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Reports from {{selectedInternNames}}:</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container" *ngIf="internReports">
+      <div *ngIf="internReports.length === 0">
+        <p>No reports so far.</p>
+      </div>
+      <div *ngIf="internReports.length > 0">
+        <div *ngFor="let report of internReports">
+          <div class="row">
+            <div class="col-12 col-lg-5">
+              <div>
+                <label>Report details:</label>
+                <p>{{report.reportDetails}}</p>
+              </div>
+            </div>
+            <div class="col-12 col-lg-7 d-inline-flex">
+              <div class="w-100 d-report-date">
+                <label>Report from:</label>
+                <p>{{report.reportStartDate | date:'dd-MM-yyyy' }}</p>
+              </div>
+              <div class="w-100 d-report-date">
+                <label>Report to:</label>
+                <p>{{report.reportEndDate | date:'dd-MM-yyyy' }}</p>
+              </div>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

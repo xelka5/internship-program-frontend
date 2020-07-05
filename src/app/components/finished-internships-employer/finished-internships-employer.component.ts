@@ -23,4 +23,12 @@ export class FinishedInternshipsEmployerComponent implements OnInit {
     });
   }
 
+  getDurationLabel(duration: number, durationUnit: string): string {
+    if(duration === 1) {
+      return duration + ' ' + durationUnit.toLocaleLowerCase();
+    }
+
+    return duration + ' ' + durationUnit.toLocaleLowerCase() + 's';
+  }
+
 }

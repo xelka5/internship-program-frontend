@@ -1,4 +1,3 @@
-import { UserDetails } from '../user/user-details';
 import { EmployerDetails } from '../application/employer-details';
 
 export interface Internship {

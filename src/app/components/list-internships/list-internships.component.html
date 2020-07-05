@@ -56,8 +56,8 @@
                 <span class="float-left mr-4" (click)="openEditModal(editInternshipModal, internship.trackingNumber)"><i class="fa fa-pencil-square-o"></i></span>
                 <span class="float-left mr-4" (click)="openDeleteModal(deleteInternshipModal, internship.trackingNumber)"><i class="fa fa-trash"></i></span>
                 <div class="d-inline-block buttons-block">
-                  <button class="btn btn-primary mr-3" (click)="openInternsModal(internsListModal, internship.trackingNumber)">Assigned interns</button>
-                  <button class="btn btn-primary" (click)="finishInternship(internship.trackingNumber)">Finish internship</button>
+                  <button class="btn btn-primary mr-3" routerLink="/dashboard/assigned-interns/{{internship.trackingNumber}}">Assigned interns</button>
+                  <button class="btn btn-primary" (click)="openFinishModal(finishInternshipModal, internship.trackingNumber)">Finish internship</button>
                 </div>
               </div>
             </div>
@@ -209,90 +209,16 @@
   </div>
 </ng-template>
 
-<ng-template #internsListModal>
+
+<ng-template #finishInternshipModal>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Assigned interns:</h4>
+    <h4 class="modal-title pull-left">Finish internship:</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-    <div *ngFor="let intern of assignedInterns" class="mb-2">
-      <div class="row mb-2">
-        <div class="col-12 col-md-3">
-          <img class="profile-image mb-3" src="{{apiUrl}}/{{intern.profileImageName}}" alt="intern">
-        </div>
-        <div class="col-12 col-md-9">
-          <div class="col-12 d-inline-flex mb-4">
-            <div class="col-12 col-md-6">
-              <label>Names:</label>
-              <span>{{intern.firstName}} {{intern.lastName}}</span>
-            </div>
-  
-            <div class="col-12 col-md-6">
-              <label>University: </label>
-              <span>{{intern.university}}</span>
-            </div>
-          </div>
-          <div class="col-12">
-            <button class="btn btn-primary mr-3" (click)="openInternProfileModal(showInternProfileModal, intern.email)">Profile</button>
-            <button class="btn btn-primary">Reports</button>
-          </div>
-        </div>
-      </div>
-      <hr>
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #showInternProfileModal>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Intern details:</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="innerModalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="container" *ngIf="internDetails">
-      <div class="col-12 col-lg-6">
-        <div class="col-12">
-          <label>Names:</label>
-          <p>{{internDetails.userDetails.firstName}} {{internDetails.userDetails.lastName}}</p>
-        </div>
-        <div class="col-12">
-          <img class="profile-image mb-3" src="{{apiUrl}}/{{internDetails.account.profileImageName}}" alt="intern">
-        </div>
-        <div class="col-12 d-inline-flex">
-          <label>Age:</label>
-          <p>{{internDetails.userDetails.age}}</p>
-        </div>
-        <div class="col-12 d-inline-flex">
-          <label>University:</label>
-          <p>{{internDetails.userDetails.university}}</p>
-        </div>
-      </div>
-      <div class="col-12 col-lg-6">
-        <div class="col-12 d-inline-flex">
-          <label>Course:</label>
-          <p>{{internDetails.userDetails.course}}</p>
-        </div>
-        <div class="col-12 d-inline-flex">
-          <label>Start year of study:</label>
-        <p>{{internDetails.userDetails.startDate | date:'yyyy' }}</p>
-        </div>
-        <div class="col-12 d-inline-flex">
-          <label>Previous education:</label>
-          <p>{{internDetails.userDetails.previousEducation}}</p>
-        </div>
-        <div class="col-12 d-inline-flex">
-          <label>Skills:</label>
-          <ul>
-            <li *ngFor="let skill of internDetails.userDetails.skills">
-              {{skill}}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+  <div class="modal-body d-inline-flex m-auto">
+    <button class="btn btn-danger btn-short mr-3" (click)="modalRef.hide()">No</button>
+    <button class="btn btn-primary btn-short" (click)="finishInternship()">Yes</button>
   </div>
 </ng-template>

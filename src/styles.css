@@ -31,6 +31,10 @@ body {
   background-color: #0098a1!important;
 }
 
+.theme-green .bs-datepicker-body table td span.selected {
+  background-color: #0098a1!important;
+}
+
 /**
  * Modal custom settings
  */

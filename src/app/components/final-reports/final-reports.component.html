@@ -1,1 +1,90 @@
-<p>final-reports works!</p>
+<div class="card">
+  <h5 class="card-header">Final reports for internship: <span *ngIf="internshipFinalReports">{{internshipFinalReports.internshipTitle}}</span></h5>
+
+  <div class="card-body">
+    <p *ngIf="internshipFinalReports && internshipFinalReports.finalReports && internshipFinalReports.finalReports.length == 0 else showFinalReports">No final reports available.</p>
+
+    <ng-template #showFinalReports>
+      <div *ngIf="internshipFinalReports">
+        <div *ngFor="let finalReport of internshipFinalReports.finalReports">
+          <div class="item mb-3">
+            <div class="row">
+              <div class="col-12 col-md-3 profile-image-container col-xl-2">
+                <img class="profile-image" src="{{apiUrl}}/{{finalReport.internProfile.profileImageName}}" alt="intern">
+              </div>
+              <div class="col-12 col-md-9 col-xl-10">
+                <div>
+                  <label>Intern names:</label>
+                  <p class="field">{{finalReport.internProfile.firstName}} {{finalReport.internProfile.lastName}}</p>
+                </div>
+                <div *ngIf="!finalReport.reportPresent">
+                  <p>Final report not submitted, <a class="redirect-link" (click)="openCreateFinalReportModal(showAddFinalReportModal, finalReport.applicationTrackingNumber)">submit new</a></p>
+                </div>
+                <div *ngIf="finalReport.reportPresent">
+                  <div >
+                    <label>Final report file:</label>
+                    <p class="field"><a class="redirect-link" href="{{apiUrl}}/{{finalReport.reportFileLocation}}">Download here</a></p>
+                  </div>
+                  <div>
+                    <label>Report notes:</label>
+                    <p class="field">{{finalReport.reportNotes}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+
+<ng-template #showAddFinalReportModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Create final report:</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container" *ngIf="internshipTrackingNumber">
+      <form [formGroup]="finalReportForm">
+        <div class="row">
+          <div class="col-12 col-lg-6">
+            <div class="form-group">
+              <label *ngIf="!isInvalidFormControl(finalReportForm, 'reportNotes')">Report details</label>
+    
+              <div *ngIf="isInvalidFormControl(finalReportForm, 'reportNotes')" class="error-message">
+                <label *ngIf="finalReportForm.controls['reportNotes'].errors.required">Report details are required</label>
+              </div>
+    
+              <textarea [ngStyle]="isInvalidFormControl(finalReportForm, 'reportNotes') && {'border-color': '#ff0000'}" rows="5"
+                class="form-control" placeholder="Enter report details" formControlName="reportNotes"></textarea>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="form-group">
+              <label class="mr-3">Upload final report:</label>
+              <div class="upload-options d-inline-flex mb-3">
+                <label>
+                  <span class="upload-label">Upload Here</span>
+                  <input type="file" class="image-upload" (change)="onFileChanged($event)">
+                </label>
+              </div>  
+              <div *ngIf="finalReportFile">
+                <label >Attached file: </label>
+                <span class="d-block">{{finalReportFile.name}}</span>
+              </div>
+            </div>
+            <p *ngIf="!finalReportFile">Don't have the report template? <a class="redirect-link" href="{{apiUrl}}/templates/employer-report-template.doc">Download</a></p>
+          </div>
+          <div class="col-12 mt-2">
+            <button class="btn btn-primary float-right" (click)="createFinalReport()" [disabled]="!checkFormValid()">Create report</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
