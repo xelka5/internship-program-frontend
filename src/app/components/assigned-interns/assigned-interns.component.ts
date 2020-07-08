@@ -18,15 +18,17 @@ import { environment } from 'src/environments/environment';
 export class AssignedInternsComponent implements OnInit {
 
   apiUrl: string = environment.apiUrl;
+  
+  modalRef: BsModalRef;
+
+  pageNumber: number = 1;
 
   assignedInterns: AssignedIntern[];
   internDetails: UserDetails;
   internReports: Report[];
   selectedInternNames: string;
-
   internshipTrackingNumber: string;
-  
-  modalRef: BsModalRef;
+
 
   constructor(private internshipService: InternshipService, private userService: UserService, 
     private reportService: ReportService, private modalService: BsModalService,

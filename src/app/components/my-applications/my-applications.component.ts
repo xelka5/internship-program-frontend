@@ -13,6 +13,8 @@ export class MyApplicationsComponent implements OnInit {
 
   apiUrl: string = environment.apiUrl;
 
+  pageNumber: number = 1;
+
   applications: ApplicationDetails[];
 
   constructor(private applicationService: ApplicationService) { }

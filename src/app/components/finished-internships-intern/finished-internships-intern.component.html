@@ -5,7 +5,7 @@
     <p *ngIf="internships && internships.length == 0 else showInternships">No finished internships available.</p>
 
     <ng-template #showInternships>
-      <div *ngFor="let internship of internships">
+      <div *ngFor="let internship of internships | paginate: { itemsPerPage: 2, currentPage: pageNumber }">
         <div class="item mb-5">
           <div class="row">
             <div class="col-12 col-xl-2 side-block">
@@ -62,6 +62,10 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="text-center">
+        <pagination-controls (pageChange)="pageNumber = $event" 
+          previousLabel="" nextLabel="" maxSize="5"></pagination-controls>
       </div>
     </ng-template>
   </div>

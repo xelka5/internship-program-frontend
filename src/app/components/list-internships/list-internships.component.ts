@@ -6,6 +6,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Currency, InternshipType, DurationUnit } from 'src/app/shared/enums';
 import { InternshipStatus } from 'src/app/shared/enums/internship-status';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-list-internships',
@@ -17,6 +18,8 @@ export class ListInternshipsComponent implements OnInit {
   internships: Internship[];
   internshipTrackingNumber: string;
   internshipForm: FormGroup;
+
+  pageNumber: number = 1;
 
   modalRef: BsModalRef;
 

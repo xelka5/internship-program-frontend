@@ -18,7 +18,9 @@ import { ApplicationDetails } from 'src/app/interfaces/application/application-d
 export class PendingApplicationsComponent implements OnInit {
 
   apiUrl: string = environment.apiUrl;
-  
+
+  pageNumber: number = 1;
+
   pendingApplications: ApplicationDetails[];
   internDetails: UserDetails;
 

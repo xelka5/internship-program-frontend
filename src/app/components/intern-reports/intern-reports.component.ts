@@ -11,6 +11,8 @@ import { Internship } from 'src/app/interfaces/internship/internship';
 })
 export class InternReportsComponent implements OnInit {
 
+  pageNumber: number = 1;
+
   internships: Internship[];
 
   constructor(private internshipService: InternshipService, private modalService: BsModalService,

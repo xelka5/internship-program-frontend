@@ -1,7 +1,7 @@
 <div class="page-wrapper p-0" [ngClass]="{ toggled: getSideBarState() }">
   <app-sidebar></app-sidebar>
   <main class="page-content">
-    <app-site-header (toggleSidebarEmitter)="toggleSidebar()"></app-site-header>
+    <app-site-header *ngIf="shouldDisplayHeader" (toggleSidebarEmitter)="toggleSidebar()"></app-site-header>
     <div class="container">
       <div class="row">
         <div class="form-group col-md-12 p-0">

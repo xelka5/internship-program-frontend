@@ -18,6 +18,8 @@ export class FinishedInternshipsInternComponent implements OnInit {
   
   apiUrl: string = environment.apiUrl;
 
+  pageNumber: number = 1;
+
   modalRef: BsModalRef;
 
   internships: Internship[];

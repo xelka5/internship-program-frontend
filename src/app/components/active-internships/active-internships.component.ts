@@ -17,19 +17,20 @@ import { InternshipStatus } from 'src/app/shared/enums/internship-status';
 })
 export class ActiveInternshipsComponent implements OnInit {
 
-  internships: Internship[];
-  myReportsForInternship: Report[];
-  selectedInternship: Internship;
-
   apiUrl: string = environment.apiUrl;
 
-  modalRef: BsModalRef;
-  
-  reportForm: FormGroup;
-  isEdit: boolean = false;
+  pageNumber: number = 1;
 
+  modalRef: BsModalRef;
+
+  internships: Internship[];
+  myReportsForInternship: Report[];
+  selectedInternship: Internship;  
   internshipTrackingNumber: string;
   reportTrackingNumber: string;
+
+  reportForm: FormGroup;
+  isEdit: boolean = false;
 
   constructor(private internshipService: InternshipService, private modalService: BsModalService, 
     private toastr: ToastrService, private reportService: ReportService) { }

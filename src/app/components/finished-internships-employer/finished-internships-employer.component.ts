@@ -11,6 +11,8 @@ export class FinishedInternshipsEmployerComponent implements OnInit {
 
   internships: Internship[];
 
+  pageNumber: number = 1;
+
   constructor(private internshipService: InternshipService) { }
 
   ngOnInit(): void {

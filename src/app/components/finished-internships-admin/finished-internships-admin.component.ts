@@ -12,6 +12,8 @@ export class FinishedInternshipsAdminComponent implements OnInit {
 
   apiUrl: string = environment.apiUrl;
 
+  pageNumber: number = 1;
+
   internships: Internship[];
 
   constructor(private adminService: AdminService) { }

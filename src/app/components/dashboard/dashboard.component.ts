@@ -8,11 +8,13 @@ import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 })
 export class DashboardComponent implements OnInit {
 
-  ngOnInit() {
-  }
+  shouldDisplayHeader: boolean = false;
+
+  ngOnInit() { }
 
   constructor(public sidebarservice: SidebarService) {
     if(window.innerWidth < 768) {
+      this.shouldDisplayHeader = true;
       this.sidebarservice.setSidebarState(true);
     }
   }

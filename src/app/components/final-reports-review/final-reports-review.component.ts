@@ -14,6 +14,8 @@ export class FinalReportsReviewComponent implements OnInit {
 
   apiUrl: string = environment.apiUrl;
 
+  pageNumber: number = 1;
+
   internshipFinalReports: any;
   internshipTrackingNumber: string;
 

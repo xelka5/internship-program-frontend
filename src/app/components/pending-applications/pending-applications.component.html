@@ -5,7 +5,7 @@
     <p *ngIf="pendingApplications && pendingApplications.length == 0 else showPendingApplications">No pending applications.</p>
     
     <ng-template #showPendingApplications>
-      <div *ngFor="let pendingApplication of pendingApplications">
+      <div *ngFor="let pendingApplication of pendingApplications | paginate: { itemsPerPage: 2, currentPage: pageNumber }">
         <div class="item">
           <div class="row">
             <div class="col-12 col-xl-2 side-block">
@@ -40,6 +40,10 @@
           </div>
         </div>
         <hr>
+      </div>
+      <div class="text-center">
+        <pagination-controls (pageChange)="pageNumber = $event" 
+          previousLabel="" nextLabel="" maxSize="5"></pagination-controls>
       </div>
     </ng-template>
   </div>

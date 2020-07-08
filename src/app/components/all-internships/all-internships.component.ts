@@ -16,10 +16,13 @@ import { InternshipStatus } from 'src/app/shared/enums/internship-status';
 })
 export class AllInternshipsComponent implements OnInit {
 
-  internships: Internship[];
   apiUrl: string = environment.apiUrl;
 
+  pageNumber: number = 1;
+
   modalRef: BsModalRef;
+
+  internships: Internship[];
   internshipTrackingNumber: string;
 
   constructor(private internshipService: InternshipService, private modalService: BsModalService, 

@@ -10,6 +10,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -21,6 +22,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       CommonModule,
       BrowserAnimationsModule,
       PerfectScrollbarModule,
+      NgxPaginationModule,
       ToastrModule.forRoot({
         timeOut: 3000,
         positionClass: 'toast-top-center',
@@ -33,6 +35,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ],
     exports: [
       PerfectScrollbarModule,
+      NgxPaginationModule,
       BsDatepickerModule,
       ModalModule,
       ButtonsModule,

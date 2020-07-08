@@ -16,6 +16,8 @@ export class PendingApprovalsComponent implements OnInit {
 
   apiUrl: string = environment.apiUrl;
 
+  pageNumber: number = 1;
+
   EMPLOYER: string = UserRole.EMPLOYER.toString();
   BLOCKED: string = UserRole.BLOCKED.toString();
 

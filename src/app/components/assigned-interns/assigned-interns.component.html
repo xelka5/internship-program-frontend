@@ -5,7 +5,7 @@
     <p *ngIf="assignedInterns && assignedInterns.length == 0 else showMyApplications">No assigned interns for this internship.</p>
 
     <ng-template #showMyApplications>
-      <div *ngFor="let intern of assignedInterns" class="mb-2">
+      <div *ngFor="let intern of assignedInterns | paginate: { itemsPerPage: 2, currentPage: pageNumber }" class="mb-2">
           <div class="row mb-2 align-items-center">
             <div class="col-12 col-md-3">
               <img class="profile-image mb-3" src="{{apiUrl}}/{{intern.profileImageName}}" alt="intern">
@@ -31,6 +31,10 @@
           <hr>
         </div>
     </ng-template>
+    <div class="text-center">
+      <pagination-controls (pageChange)="pageNumber = $event" 
+        previousLabel="" nextLabel="" maxSize="5"></pagination-controls>
+    </div>
   </div>
 </div>
 
