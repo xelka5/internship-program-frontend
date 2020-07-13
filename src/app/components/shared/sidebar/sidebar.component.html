@@ -2,7 +2,7 @@
   <div class="sidebar-content">
     <perfect-scrollbar>
       <div class="sidebar-header">
-        <h4>Dashboard</h4>
+        <h5>{{'SIDEBAR.DASHBOARD' | translate}}</h5>
         <img class="language-flag" src="assets/images/flags/{{currentLanguage}}_flag.png" (click)="changeLanguage()">
       </div>
       <div class="sidebar-profile">
@@ -13,10 +13,10 @@
           <span class="user-name">
             <strong>{{userName}}</strong>
           </span>
-          <span class="user-role">{{userRole}}</span>
+          <span class="user-role">{{userRole | translate}}</span>
           <span class="user-status">
             <i class="fa fa-circle"></i>
-            <span>Online</span>
+            <span>{{'SIDEBAR.ONLINE' | translate}}</span>
           </span>
         </div>
       </div>

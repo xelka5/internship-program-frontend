@@ -77,7 +77,56 @@ $secondary_color: #014878;
     }
     .forgot-link {
       float: right;
+      cursor: pointer;
     }
+  }
+}
+
+form {
+  width: 100%;
+
+  .form-group {
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-control {
+    box-shadow: none;
+    border-color: #ddd;
+  }
+  
+  .form-control:focus {
+    border-color: $primary_color;
+  }
+  
+  .form-control,
+  .btn {
+    min-height: 40px;
+    border-radius: 2px;
+    transition: all 0.5s;
+  }
+  
+  .btn {
+    background: $primary_color;
+    border: none;
+    line-height: normal;
+    
+    &:focus {
+      box-shadow: none;
+    } 
+  
+    &:hover {
+      background-color: $secondary_color;
+    }
+  }
+  
+  label {
+    display: inline-block;
+    margin-bottom: 0.1rem;
+    font-size: 12px;
+  }
+
+  .error-message {
+    color: red!important;
   }
 }
 

@@ -13,8 +13,8 @@
                 <p class="text-center">{{pendingApproval.userDetails.companyName}}</p>
                 <img class="profile-image mb-3" src="{{apiUrl}}/{{pendingApproval.account.profileImageName}}" alt="employer">
                 <div class="m-auto">
-                  <span class="mr-4" (click)="openConfirmationModal(showConfirmationModal, pendingApproval, EMPLOYER)"><i class="fa fa-check"></i></span>
-                  <span (click)="openConfirmationModal(showConfirmationModal, pendingApproval, BLOCKED)"><i class="fa fa-times" aria-hidden="true"></i></span>
+                  <span class="mr-4" (click)="openConfirmationModal(showConfirmationModal, pendingApproval, true)"><i class="fa fa-check"></i></span>
+                  <span (click)="openConfirmationModal(showConfirmationModal, pendingApproval, false)"><i class="fa fa-times" aria-hidden="true"></i></span>
                 </div>
               </div>
             </div>

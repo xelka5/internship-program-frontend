@@ -30,7 +30,6 @@ export class FinalReportsReviewComponent implements OnInit {
   private fetchInternshipFinalReports() {
     this.adminService.getFinalInternshipReports(this.internshipTrackingNumber).subscribe(result => {
       this.internshipFinalReports = result;
-      console.log(this.internshipFinalReports);
     });
   }
 

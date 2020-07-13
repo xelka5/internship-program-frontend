@@ -26,7 +26,7 @@ export class PendingApprovalsComponent implements OnInit {
   pendingApprovals: UserDetails[];
 
   selectedPendingApproval: UserDetails;
-  newStatus: string;
+  userAllowed: boolean;
   confirmationModalLabel: string;
 
   constructor(private adminService: AdminService, private modalService: BsModalService,
@@ -36,9 +36,9 @@ export class PendingApprovalsComponent implements OnInit {
     this.getPendingApprovals();
   }
 
-  openConfirmationModal(template: TemplateRef<any>, pendingApproval: UserDetails, newStatus: string): void {
+  openConfirmationModal(template: TemplateRef<any>, pendingApproval: UserDetails, userAllowed: boolean): void {
     this.selectedPendingApproval = pendingApproval;
-    this.newStatus = newStatus;
+    this.userAllowed = userAllowed;
 
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
@@ -46,7 +46,7 @@ export class PendingApprovalsComponent implements OnInit {
   public updatePendingUserStatus(): void {
 
     let updateBody: UpdatePendingUserStatus = {
-      newUserStatus: this.newStatus,
+      userAllowed: this.userAllowed,
       userEmail: this.selectedPendingApproval.account.email
     }
 
@@ -60,7 +60,6 @@ export class PendingApprovalsComponent implements OnInit {
   private getPendingApprovals() {
     this.adminService.getPendingApprovals().subscribe(result => {
       this.pendingApprovals = result;
-      console.log(this.pendingApprovals);
     });
   }
 

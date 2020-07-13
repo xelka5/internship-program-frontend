@@ -1,4 +1,36 @@
 {
+  "INTERN": "Intern",
+
+  "SIDEBAR": {
+    "DASHBOARD": "Dashboard",
+    "ONLINE": "Online"
+  },
+
+  "DASHBOARD": {
+    "NEW_INTERNSHIPS": "",
+    "MY_ACTIVE_INTERNSHIPS": "Active internships",
+    "NO_ACTIVE_INTERNSHIPS": "",
+    "SEARCH_NEW": "",
+    "FINISHED_INTERNSHIPS": "",
+    "NO_FINISHED_INTERNSHIPS": "",
+    "MY_APPLICATIONS": "",
+    "NO_APPLICATIONS": "",
+    "EDIT_ACCOUNT": "",
+    "APPLY": "Apply",
+    "ASSIGNED_INTERNS": "Assigned interns",
+    "FINISH_INTERNSHIP": "Finish internship"
+  },
+
+  "INTERNSHIP": {
+    "START": "Start",
+    "DURATION": "Duration",
+    "INTERNSHIP_TYPE": "Internship type",
+    "SALARY": "Salary",
+    "DETAILS": "Details",
+    "NUMBER_OF_STUDENTS": "Number of students",
+    "STATUS": "Status"
+  },
+
   "COMMON_MENU": {
     "ACCOUNT_SETTINGS": "Account Settings",
     "LOGOUT": "Logout",

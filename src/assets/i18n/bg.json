@@ -1,4 +1,38 @@
 {
+  "INTERN": "Стажант",
+  "EMPLOYER": "Работодател",
+  "ADMIN": "Администратор",
+
+  "SIDEBAR": {
+    "DASHBOARD": "Контролно табло",
+    "ONLINE": "На линия"
+  },
+
+  "DASHBOARD": {
+    "NEW_INTERNSHIPS": "Нови стажантски програми",
+    "MY_ACTIVE_INTERNSHIPS": "Активни стажантски програми",
+    "NO_ACTIVE_INTERNSHIPS": "Няма активни стажантски програми",
+    "SEARCH_NEW": "потърси нова",
+    "FINISHED_INTERNSHIPS": "",
+    "NO_FINISHED_INTERNSHIPS": "",
+    "MY_APPLICATIONS": "",
+    "NO_APPLICATIONS": "",
+    "EDIT_ACCOUNT": "",
+    "APPLY": "Заяви",
+    "ASSIGNED_INTERNS": "Записани стажанти",
+    "FINISH_INTERNSHIP": "Завърши програмата"
+  },
+
+  "INTERNSHIP": {
+    "START": "Започване",
+    "DURATION": "Продължителност",
+    "INTERNSHIP_TYPE": "Тип",
+    "SALARY": "Възнаграждение",
+    "DETAILS": "Детайли",
+    "NUMBER_OF_STUDENTS": "Брой студенти",
+    "STATUS": "Статус"
+  },
+
   "COMMON_MENU": {
     "ACCOUNT_SETTINGS": "Настройки",
     "LOGOUT": "Излизане",

@@ -6,6 +6,8 @@ import { UserDetails } from 'src/app/interfaces/user/user-details';
 import { BaseHttpResponse } from 'src/app/interfaces/base/base-http-response';
 import { UserDetailsResponse } from 'src/app/interfaces/user/user-details-response';
 import { HttpParams } from '@angular/common/http';
+import { RequestResetPassword } from 'src/app/interfaces/user/request-reset-password';
+import { ConfirmResetPassword } from 'src/app/interfaces/user/confirm-reset-password';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +35,13 @@ export class UserService extends BaseHttpService {
     formData.append('email', email);
 
     return this.post(`${environment.apiUrl}/api/users/upload`, formData);
+  }
+
+  public requestResetPassword(requestResetPassword: RequestResetPassword): Observable<BaseHttpResponse> {
+    return this.post(`${environment.apiUrl}/api/users/reset-password/request`, requestResetPassword);
+  }
+
+  public confirmResetPassword(confirmResetPassword: ConfirmResetPassword): Observable<BaseHttpResponse> {
+    return this.post(`${environment.apiUrl}/api/users/reset-password/confirm`, confirmResetPassword);
   }
 }

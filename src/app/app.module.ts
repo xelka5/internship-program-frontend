@@ -49,6 +49,7 @@ import { tokenInterceptorProvider } from './services/core/interceptors/token-int
  * Configuration
  */
 import { jwtModuleConfig } from './services/core/auth';
+import { RegistrationConfirmComponent } from './components/registration-confirm/registration-confirm.component';
 
 export function TranslationLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -79,7 +80,8 @@ export function TranslationLoaderFactory(http: HttpClient) {
     FinalReportsComponent,
     AssignedInternsComponent,
     BlockedInfoComponent,
-    FinalReportsReviewComponent
+    FinalReportsReviewComponent,
+    RegistrationConfirmComponent
   ],
   imports: [
     BrowserModule,

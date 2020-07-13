@@ -7,6 +7,7 @@ import { RegistrationResponse } from 'src/app/interfaces/registration/registrati
 import { BaseHttpResponse } from 'src/app/interfaces/base/base-http-response';
 import { CheckEmailExistsResponse } from 'src/app/interfaces/check-email/check-email-exists-response';
 import { CheckEmailExistsRequest } from 'src/app/interfaces/check-email/check-email-exists-request';
+import { ConfirmRegistrationRequest } from 'src/app/interfaces/confirm-registration/confirm-registration-request';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,9 @@ export class RegistrationService extends BaseHttpService {
 
   public checkIfEmailAlreadyExists(request: CheckEmailExistsRequest): Observable<CheckEmailExistsResponse> {
     return this.post(`${environment.apiUrl}/api/users/registration/email-check`, request);
+  }
+
+  public confirmRegistration(request: ConfirmRegistrationRequest): Observable<BaseHttpResponse> {
+    return this.post(`${environment.apiUrl}/api/users/registration/confirm`, request);
   }
 }

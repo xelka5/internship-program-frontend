@@ -104,6 +104,11 @@ form {
   }
 }
 
+.form-control {
+  box-shadow: none;
+  border-color: #ddd;
+}
+
 .btn {
   background: $primary_color;
   border: none;
@@ -127,6 +132,10 @@ form {
   .card {
     height: 100%;
 
+    .custom-display {
+      display: block
+    }
+
     .card-header {
       border-radius: 0;
     }
@@ -136,6 +145,9 @@ form {
 
 @media screen and (min-width: 768px) {
   .card {
+    .custom-display {
+      display: inline-flex
+    }
     .card-body {
       .side-block {
         display: block!important;

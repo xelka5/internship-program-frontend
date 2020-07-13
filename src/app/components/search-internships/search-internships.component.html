@@ -1,8 +1,15 @@
 <div class="card">
-  <h5 class="card-header">New internships</h5>
+  <div class="card-header custom-display">
+    <div class="col-12 col-lg-8">
+      <h5>New internships</h5>
+    </div>
+    <div class="col-12 col-lg-4">
+      <input type="text" class="form-control float-right" placeholder="Search" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange($event)">
+    </div>
+  </div>
 
   <div class="card-body">
-    <p *ngIf="internships && internships.length == 0 else showInternships">No internships available.</p>
+    <p *ngIf="internships && internships.length == 0 else showInternships">No internships found.</p>
 
     <ng-template #showInternships>
       <div *ngFor="let internship of internships | paginate: { itemsPerPage: 2, currentPage: pageNumber }">

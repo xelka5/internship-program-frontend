@@ -54,7 +54,6 @@ export class FinishedInternshipsInternComponent implements OnInit {
     
     this.finalReportService.getInternFinalReportByInternship(internshipTrackingNumber).subscribe(result => {
       this.finalReport = result;
-      console.log(this.finalReport);
     });
 
     this.modalRef = this.modalService.show(template, {class: 'modal-lg'});

@@ -8,6 +8,8 @@ import { ApplicationService } from 'src/app/services/api/application/application
 import { Application } from 'src/app/interfaces/application/application';
 import { environment } from 'src/environments/environment';
 import { InternshipStatus } from 'src/app/shared/enums/internship-status';
+import { Subject, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-internships',
@@ -27,17 +29,34 @@ export class SearchInternshipsComponent implements OnInit {
   
   applicationForm: FormGroup;
 
+  searchTerm: string; 
+  searchTermSubject: Subject<string> = new Subject<string>();
+
   constructor(private internshipService: InternshipService, private modalService: BsModalService, 
     private toastr: ToastrService, private applicationService: ApplicationService) { }
 
   ngOnInit(): void {
     this.getAllInternships();
+    this.loadFilteredInternships();
   }
 
   getAllInternships(): void {
     this.internshipService.getAllInternshipsByStatus(InternshipStatus.ACTIVE).subscribe(result => {
       this.internships = result;
     });
+  }
+
+  onSearchChange(searchTerm: string) {
+    console.log("Search changed")
+    this.searchTermSubject.next(searchTerm);
+  }
+
+  private loadFilteredInternships() {
+    this.searchTermSubject.pipe(debounceTime(400), distinctUntilChanged(), 
+    switchMap(searchTerm => this.internshipService.getFilteredActiveInternships(searchTerm)))
+    .subscribe(result => {
+      this.internships = result;
+    });      
   }
 
   applyForInternship(): void {

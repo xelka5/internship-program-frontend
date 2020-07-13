@@ -25,6 +25,7 @@ import { FinalReportsComponent } from '../components/final-reports/final-reports
 import { AssignedInternsComponent } from '../components/assigned-interns/assigned-interns.component';
 import { BlockedInfoComponent } from '../components/blocked-info/blocked-info.component';
 import { FinalReportsReviewComponent } from '../components/final-reports-review/final-reports-review.component';
+import { RegistrationConfirmComponent } from '../components/registration-confirm/registration-confirm.component';
 
 /**
  * Routing through components represented in JSON object tree
@@ -38,6 +39,7 @@ import { FinalReportsReviewComponent } from '../components/final-reports-review/
 const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'registration-confirm', component: RegistrationConfirmComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
     children: [
       { path: 'account-settings', component: AccountSettingsComponent },

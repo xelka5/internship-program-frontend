@@ -10,10 +10,96 @@
             <input type="password" class="form-control" placeholder="Password" formControlName="password">
         </div>
         <div class="form-group small clearfix">
-            <a href="#" class="forgot-link">Forgot Password?</a>
+            <a class="forgot-link" (click)="openResetPasswordModal(showPasswordResetModal)">Forgot Password?</a>
         </div>
-        <button class="btn btn-primary btn-block btn-lg" (click)="login()">Login</button>    
+        <button class="btn btn-primary btn-block btn-lg w-100" (click)="login()">Login</button>    
         <div class="text-center small">Don't have an account? <a routerLink="/register">Sign up</a></div>        
       </form>
   </div>
 </div>
+
+<ng-template #showPasswordResetModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Password reset:</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <form [formGroup]="requestPasswordResetForm">
+        <div class="row">
+          <div class="col-12 col-lg-6">
+            <div class="form-group">
+              <label *ngIf="!isInvalidFormControl(requestPasswordResetForm, 'userEmail')">User email</label>
+    
+              <div *ngIf="isInvalidFormControl(requestPasswordResetForm, 'userEmail')" class="error-message">
+                <label *ngIf="requestPasswordResetForm.controls['userEmail'].errors.required">
+                  User email is required
+                </label>
+              
+                <label *ngIf="requestPasswordResetForm.controls['userEmail'].errors.email">
+                  Entered is not an email.
+                </label>
+              </div>
+    
+              <input [ngStyle]="isInvalidFormControl(requestPasswordResetForm, 'userEmail') && {'border-color': '#ff0000'}"
+                class="form-control" placeholder="Enter user email" formControlName="userEmail">
+            </div>
+          </div>
+          <div *ngIf="!shouldResetPassword" class="col-12 mt-2">
+            <button class="btn btn-primary float-right" (click)="requestResetPassword()" [disabled]="!checkRequestPasswordResetFormValid()">Request new password</button>
+          </div>
+        </div>
+      </form>
+      <form *ngIf="shouldResetPassword" [formGroup]="confirmPasswordResetForm">
+        <div class="row">
+          <div class="col-12 col-lg-6">
+            <div class="form-group">
+              <label *ngIf="!isInvalidFormControl(confirmPasswordResetForm, 'resetCode')">Reset Code</label>
+    
+              <div *ngIf="isInvalidFormControl(confirmPasswordResetForm, 'resetCode')" class="error-message">
+                <label *ngIf="confirmPasswordResetForm.controls['resetCode'].errors.required">
+                  Reset code is required
+                </label>
+              </div>
+    
+              <input [ngStyle]="isInvalidFormControl(confirmPasswordResetForm, 'resetCode') && {'border-color': '#ff0000'}"
+                class="form-control" placeholder="Enter reset code" formControlName="resetCode">
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="form-group">
+              <label *ngIf="!isInvalidFormControl(confirmPasswordResetForm, 'newPassword')">New password</label>
+              <div *ngIf="isInvalidFormControl(confirmPasswordResetForm, 'newPassword')" class="error-message">
+                <label *ngIf="confirmPasswordResetForm.controls['newPassword'].errors.required">
+                  New password is required.
+                </label>
+                <label *ngIf="confirmPasswordResetForm.controls['newPassword'].errors.minlength">
+                  New password must be at least 8 characters long.
+                </label>
+              </div>
+              <input [ngStyle]="isInvalidFormControl(confirmPasswordResetForm, 'newPassword') && {'border-color': '#ff0000'}" type="password" class="form-control" placeholder="Enter new password" formControlName="newPassword">
+            </div>
+            <div class="form-group">
+              <label *ngIf="!isInvalidFormControl(confirmPasswordResetForm, 'passwordConfirm')">Confirm Password</label>
+              <div *ngIf="isInvalidFormControl(confirmPasswordResetForm, 'passwordConfirm')" class="error-message">
+                <label *ngIf="confirmPasswordResetForm.controls['passwordConfirm'].errors.required">
+                  Password confirmation is required.
+                </label>
+                <label *ngIf="confirmPasswordResetForm.controls['passwordConfirm'].errors.minlength">
+                  Confirmation must be at least 8 characters long.
+                </label>
+              </div>
+              <input [ngStyle]="isInvalidFormControl(confirmPasswordResetForm, 'passwordConfirm') && {'border-color': '#ff0000'}" type="password" class="form-control" placeholder="Confirm password" formControlName="passwordConfirm">
+            </div>
+          </div>
+          <div class="col-12 mt-2">
+            <button class="btn btn-primary float-right" (click)="resetPassword()" [disabled]="!checkConfirmPasswordResetFormValid()">Reset password</button>
+            <button class="btn btn-secondary float-right mr-2" (click)="clearResetForms()">Clear</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>

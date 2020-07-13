@@ -18,6 +18,11 @@ export class InternshipService extends BaseHttpService {
     return this.get(`${environment.apiUrl}/api/internships`);
   }
 
+  public getFilteredActiveInternships(searchTerm: string): Observable<Internship[]> {
+    this.httpParams = new HttpParams().append('searchTerm', searchTerm);
+    return this.get(`${environment.apiUrl}/api/internships/search`);
+  }
+
   public getAssignedInternInternshipsByStatus(status: string): Observable<Internship[]> {
     this.httpParams = new HttpParams().append('status', status);
     return this.get(`${environment.apiUrl}/api/internships/assigned`);

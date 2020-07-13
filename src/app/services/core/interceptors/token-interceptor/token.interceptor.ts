@@ -11,6 +11,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   private LOGIN_URL: string = 'oauth/token';
   private REGISTRATION_URL: string = 'api/users/registration';
+  private RESET_PASSWORD_URL: string = 'api/users/reset-password';
 
   constructor(public authService: AuthService, private toastr: ToastrService) { }
 
@@ -32,7 +33,7 @@ export class TokenInterceptor implements HttpInterceptor {
       });
 
       request = request.clone({headers});
-    } else if(request.url.includes(this.REGISTRATION_URL)) {
+    } else if(request.url.includes(this.REGISTRATION_URL) || request.url.includes(this.RESET_PASSWORD_URL)) {
       // continue without modifying request
     } else {
       request = this.addTokenToRequest(request);

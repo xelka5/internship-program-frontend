@@ -1,6 +1,6 @@
 
 <div class="card">
-  <h5 class="card-header">Active internships</h5>
+  <h5 class="card-header">{{'DASHBOARD.MY_ACTIVE_INTERNSHIPS' | translate}}</h5>
 
   <div class="card-body">
     <p *ngIf="internships && internships.length == 0 else showInternships">No internships available, <a class="redirect-link" routerLink="/dashboard/add-internship">create new</a></p>
@@ -16,37 +16,37 @@
 
           <div class="row mb-2">
             <div class="col-12 col-lg-6 col-xl-4">
-                <label>Start: <span>{{internship.startDate | date:'fullDate'}}</span></label>
+                <label>{{'INTERNSHIP.START' | translate}}: <span>{{internship.startDate | date:'fullDate'}}</span></label>
             </div>
 
             <div class="col-12 col-lg-6 col-xl-4">
-              <label>Duration: <span>{{internship.duration}} {{internship.durationUnit}}</span></label>
+              <label>{{'INTERNSHIP.DURATION' | translate}}: <span>{{internship.duration}} {{internship.durationUnit}}</span></label>
             </div>
 
             <div class="col-12 col-lg-6 col-xl-4">
-              <label>Status: <span class="badge badge-info">{{internship.status}}</span></label>
+              <label>{{'INTERNSHIP.STATUS' | translate}}: <span class="badge badge-info">{{internship.status}}</span></label>
             </div>
           </div>
 
           <div class="row mb-2">
             <div class="col-12 col-md-6 col-lg-4">
-              <label class="mr-2">Internship type: <span class="badge badge-info">{{internship.type}}</span></label>
+              <label class="mr-2">{{'INTERNSHIP.INTERNSHIP_TYPE' | translate}}: <span class="badge badge-info">{{internship.type}}</span></label>
             </div>
             <div *ngIf="internship.type === 'PAID'" class="col-12 col-md-6 col-lg-4">
               <div class="salary-field">
-                <label class="mr-2">Salary:</label>
+                <label class="mr-2">{{'INTERNSHIP.SALARY' | translate}}:</label>
                 <p class="field">{{internship.salary}} {{internship.currency}}</p>
               </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4">
-              <label class="mr-2">Number of students:</label>
+              <label class="mr-2">{{'INTERNSHIP.NUMBER_OF_STUDENTS' | translate}}:</label>
               <p class="field">{{internship.maxNumberOfStudents}}</p>
             </div>
           </div>
       
           <div class="row mb-2">
             <div class="col-12">
-              <label>Details:</label>
+              <label>{{'INTERNSHIP.DETAILS' | translate}}:</label>
               <p>{{internship.description}}</p>
             </div>
           </div>
@@ -56,8 +56,8 @@
                 <span class="float-left mr-4" (click)="openEditModal(editInternshipModal, internship.trackingNumber)"><i class="fa fa-pencil-square-o"></i></span>
                 <span class="float-left mr-4" (click)="openDeleteModal(deleteInternshipModal, internship.trackingNumber)"><i class="fa fa-trash"></i></span>
                 <div class="d-inline-block buttons-block">
-                  <button class="btn btn-primary mr-3" routerLink="/dashboard/assigned-interns/{{internship.trackingNumber}}">Assigned interns</button>
-                  <button class="btn btn-primary" (click)="openFinishModal(finishInternshipModal, internship.trackingNumber)">Finish internship</button>
+                  <button class="btn btn-primary mr-3" routerLink="/dashboard/assigned-interns/{{internship.trackingNumber}}">{{'DASHBOARD.ASSIGNED_INTERNS' | translate}}</button>
+                  <button class="btn btn-primary" (click)="openFinishModal(finishInternshipModal, internship.trackingNumber)">{{'DASHBOARD.FINISH_INTERNSHIP' | translate}}</button>
                 </div>
               </div>
             </div>

@@ -9,6 +9,7 @@ import { UserRole } from 'src/app/shared/enums/user-role';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { UserDetails } from 'src/app/interfaces/user/user-details';
 
 @Component({
   selector: 'app-sidebar',
@@ -29,7 +30,6 @@ export class SidebarComponent implements OnInit {
   profileImageUrl: string;
 
   currentLanguage: string;
-
   langs = ['en', 'bg'];
   
   menus = [];
@@ -48,7 +48,12 @@ export class SidebarComponent implements OnInit {
 
   }
 
-  public handleSuccessUserDetailsFetch(result: any): void {
+  /**
+   * Setup sidebar parameters depending on the fetched user role
+   * 
+   * @param result - user details service fetch result
+   */
+  public handleSuccessUserDetailsFetch(result: UserDetails): void { 
     if(result.role === UserRole.INTERN) {
       this.userName = result.userDetails.firstName + ' ' + result.userDetails.lastName;
       this.userRole = UserRole.INTERN;
@@ -61,14 +66,6 @@ export class SidebarComponent implements OnInit {
       this.userName = result.account.username;
       this.userRole = UserRole.ADMIN;
       this.router.navigate(['/dashboard/all-internships']);
-    } else if(result.role === UserRole.PENDING) {
-      this.userName = result.account.username;
-      this.userRole = UserRole.PENDING;
-      this.router.navigate(['/dashboard/pending-info']);
-    } else if(result.role === UserRole.BLOCKED) {
-      this.userName = result.account.username;
-      this.userRole = UserRole.BLOCKED;
-      this.router.navigate(['/dashboard/blocked-info']);
     }
 
     let profileImageName = result.account.profileImageName;
@@ -80,6 +77,9 @@ export class SidebarComponent implements OnInit {
     this.menus = this.sidebarService.getMenuList(this.userRole);
   }
 
+  /**
+   * Get default browser language or set english as default one
+   */
   public initDefaultLanguage(): void {
     let browserLang = this.translateService.getBrowserLang();
     if (this.langs.indexOf(browserLang) > -1) {
@@ -89,6 +89,12 @@ export class SidebarComponent implements OnInit {
     }
   }
 
+  /**
+   * Change between supported languages.
+   * Currently suported:
+   *   - English
+   *   - Bulgarian
+   */
   public changeLanguage(): void {
     let currentLang = this.translateService.getDefaultLang();
 
