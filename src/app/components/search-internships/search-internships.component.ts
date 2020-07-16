@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { InternshipStatus } from 'src/app/shared/enums/internship-status';
 import { Subject, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-search-internships',
@@ -33,7 +34,7 @@ export class SearchInternshipsComponent implements OnInit {
   searchTermSubject: Subject<string> = new Subject<string>();
 
   constructor(private internshipService: InternshipService, private modalService: BsModalService, 
-    private toastr: ToastrService, private applicationService: ApplicationService) { }
+    private toastr: ToastrService, private applicationService: ApplicationService, private translateService: TranslateService) { }
 
   ngOnInit(): void {
     this.getAllInternships();
@@ -47,7 +48,6 @@ export class SearchInternshipsComponent implements OnInit {
   }
 
   onSearchChange(searchTerm: string) {
-    console.log("Search changed")
     this.searchTermSubject.next(searchTerm);
   }
 
@@ -55,6 +55,7 @@ export class SearchInternshipsComponent implements OnInit {
     this.searchTermSubject.pipe(debounceTime(400), distinctUntilChanged(), 
     switchMap(searchTerm => this.internshipService.getFilteredActiveInternships(searchTerm)))
     .subscribe(result => {
+      this.pageNumber = 1;
       this.internships = result;
     });      
   }
@@ -69,8 +70,12 @@ export class SearchInternshipsComponent implements OnInit {
       }
     }
 
-    this.applicationService.addNewApplication(addApplicationRequest).subscribe(() => {
-      this.toastr.success('Application sent');
+    this.applicationService.addNewApplication(addApplicationRequest).pipe(
+      switchMap(result => {
+        return this.translateService.get('TOASTR.APPLICATION_SENT')
+      })
+    ).subscribe((result) => {
+      this.toastr.success(result);
     }).add(() => {
       this.modalRef.hide();
     });

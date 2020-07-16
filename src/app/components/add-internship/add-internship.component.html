@@ -1,99 +1,99 @@
 <div class="card">
-  <h5 class="card-header">Add new internship</h5>
+  <h5 class="card-header">{{'DASHBOARD.ADD_NEW_INTERNSHIP' | translate}}</h5>
 
   <div class="card-body">
     <form [formGroup]="internshipForm">
       <div class="col-12 col-lg-6 d-inline-block align-top">
         <div class="form-group">
-          <label *ngIf="!isInvalidFormControl(internshipForm, 'title')">Title</label>
+          <label *ngIf="!isInvalidFormControl(internshipForm, 'title')">{{'INTERNSHIP.TITLE' | translate}}</label>
 
           <div *ngIf="isInvalidFormControl(internshipForm, 'title')" class="error-message">
-            <label *ngIf="internshipForm.controls['title'].errors.required">Title is required.</label>
+            <label *ngIf="internshipForm.controls['title'].errors.required">{{'VALIDATION.TITLE_REQUIRED' | translate}}</label>
           </div>
 
           <input [ngStyle]="isInvalidFormControl(internshipForm, 'title') && {'border-color': '#ff0000'}" type="text"
-            class="form-control" placeholder="Enter title" formControlName="title">
+            class="form-control" placeholder="{{'PLACEHOLDER.ENTER_TITLE' | translate}}" formControlName="title">
         </div>
 
         <div class="form-group">
-          <label *ngIf="!isInvalidFormControl(internshipForm, 'description')">Description</label>
+          <label *ngIf="!isInvalidFormControl(internshipForm, 'description')">{{'INTERNSHIP.DETAILS' | translate}}</label>
 
           <div *ngIf="isInvalidFormControl(internshipForm, 'description')" class="error-message">
-            <label *ngIf="internshipForm.controls['description'].errors.required">Description is required</label>
+            <label *ngIf="internshipForm.controls['description'].errors.required">{{'VALIDATION.DETAILS_REQUIRED' | translate}}</label>
           </div>
 
           <textarea [ngStyle]="isInvalidFormControl(internshipForm, 'description') && {'border-color': '#ff0000'}" rows="10"
-            class="form-control" placeholder="Enter description" formControlName="description"></textarea>
+            class="form-control" placeholder="{{'PLACEHOLDER.ENTER_DETAILS' | translate}}" formControlName="description"></textarea>
         </div>
       </div>
       <div class="col-12 col-lg-6 d-inline-block align-top">
         <div class="form-group">
-          <label *ngIf="!isInvalidFormControl(internshipForm, 'startDate')">Internship start date</label>
+          <label *ngIf="!isInvalidFormControl(internshipForm, 'startDate')">{{'INTERNSHIP.START' | translate}}</label>
 
           <div *ngIf="isInvalidFormControl(internshipForm, 'startDate')" class="error-message">
-            <label *ngIf="internshipForm.controls['startDate'].errors.required">Start date is required.</label>
+            <label *ngIf="internshipForm.controls['startDate'].errors.required">{{'VALIDATION.START_REQUIRED' | translate}}</label>
           </div>
 
           <input [ngStyle]="isInvalidFormControl(internshipForm, 'startDate') && {'border-color': '#ff0000'}" type="text" 
-            class="form-control mb-3" placeholder="Datepicker" bsDatepicker formControlName="startDate" value="{{internshipForm.get('startDate').value | date: 'MM/dd/yyyy'}}"/>
+            class="form-control mb-3" placeholder="{{'PLACEHOLDER.DATEPICKER' | translate}}" bsDatepicker formControlName="startDate" value="{{internshipForm.get('startDate').value | date: 'MM/dd/yyyy'}}"/>
         </div>
 
         <div class="form-group">
-          <label *ngIf="!isInvalidFormControl(internshipForm, 'maxNumberOfStudents')">Maximum number of students</label>
+          <label *ngIf="!isInvalidFormControl(internshipForm, 'maxNumberOfStudents')">{{'INTERNSHIP.MAX_STUDENTS' | translate}}</label>
 
           <div *ngIf="isInvalidFormControl(internshipForm, 'maxNumberOfStudents')" class="error-message">
-            <label *ngIf="internshipForm.controls['maxNumberOfStudents'].errors.required">Maximum number of students is required.</label>
+            <label *ngIf="internshipForm.controls['maxNumberOfStudents'].errors.required">{{'VALIDATION.MAX_STUDENTS_REQUIRED' | translate}}</label>
           </div>
 
           <input [ngStyle]="isInvalidFormControl(internshipForm, 'maxNumberOfStudents') && {'border-color': '#ff0000'}" type="number"
-            class="form-control" placeholder="Enter maximum number of students" formControlName="maxNumberOfStudents">
+            class="form-control" placeholder="{{'PLACEHOLDER.ENTER_MAX_STUDENTS' | translate}}" formControlName="maxNumberOfStudents">
         </div>
 
         <div class="form-group">
           <div class="col-12 col-lg-6 p-0 left-item d-inline-block">
             <div class="form-group">
-              <label *ngIf="!isInvalidFormControl(internshipForm, 'duration')">Duration</label>
+              <label *ngIf="!isInvalidFormControl(internshipForm, 'duration')">{{'INTERNSHIP.DURATION' | translate}}</label>
   
               <div *ngIf="isInvalidFormControl(internshipForm, 'duration')" class="error-message">
-                <label *ngIf="internshipForm.controls['duration'].errors.required">Duration is required.</label>
+                <label *ngIf="internshipForm.controls['duration'].errors.required">{{'VALIDATION.DURATION_REQUIRED' | translate}}</label>
               </div>
   
               <input [ngStyle]="isInvalidFormControl(internshipForm, 'duration') && {'border-color': '#ff0000'}" type="number"
-                class="form-control" placeholder="Enter duration" formControlName="duration">
+                class="form-control" placeholder="{{'PLACEHOLDER.ENTER_DURATION' | translate}}" formControlName="duration">
             </div>
           </div>
           <div class="col-12 col-lg-6 p-0 d-inline-block">
             <div class="form-group">
-              <label class="mr-3">Duration unit:</label>
+              <label class="mr-3">{{'INTERNSHIP.DURATION_UNIT' | translate}}</label>
 
               <div class="btn-group" btnRadioGroup formControlName="durationUnit">
-                <label [ngClass]="{ active: internshipForm.get('durationUnit').value === 'WEEK'}" btnRadio="WEEK" class="radio-button mr-2" tabindex="0" role="button">Week</label>
-                <label [ngClass]="{ active: internshipForm.get('durationUnit').value === 'MONTH'}" btnRadio="MONTH" class="radio-button" tabindex="0" role="button">Month</label>
+                <label [ngClass]="{ active: internshipForm.get('durationUnit').value === 'WEEK'}" btnRadio="WEEK" class="radio-button mr-2" tabindex="0" role="button">{{'INTERNSHIP.WEEK' | translate}}</label>
+                <label [ngClass]="{ active: internshipForm.get('durationUnit').value === 'MONTH'}" btnRadio="MONTH" class="radio-button" tabindex="0" role="button">{{'INTERNSHIP.MONTH' | translate}}</label>
               </div>
             </div>
           </div>
         </div>
 
         <div class="form-group">
-          <label class="mr-3">Internship type:</label>
+          <label class="mr-3">{{'INTERNSHIP.TYPE' | translate}}</label>
 
           <div class="btn-group" btnRadioGroup formControlName="type">
-            <label [ngClass]="{ active: internshipForm.get('type').value === 'PAID'}" btnRadio="PAID" class="radio-button mr-2" tabindex="0" role="button">Paid</label>
-            <label [ngClass]="{ active: internshipForm.get('type').value === 'UNPAID'}" btnRadio="UNPAID" class="radio-button" tabindex="0" role="button">Unpaid</label>
+            <label [ngClass]="{ active: internshipForm.get('type').value === 'PAID'}" btnRadio="PAID" class="radio-button mr-2" tabindex="0" role="button">{{'INTERNSHIP.PAID' | translate}}</label>
+            <label [ngClass]="{ active: internshipForm.get('type').value === 'UNPAID'}" btnRadio="UNPAID" class="radio-button" tabindex="0" role="button">{{'INTERNSHIP.UNPAID' | translate}}</label>
           </div>
         </div>
 
         <div *ngIf="internshipForm.get('type').value === 'PAID'">
           <div class="col-12 col-lg-6 p-0 left-item d-inline-block">
             <div class="form-group">
-              <label *ngIf="!isInvalidFormControl(internshipForm, 'salary')">Salary</label>
+              <label *ngIf="!isInvalidFormControl(internshipForm, 'salary')">{{'INTERNSHIP.SALARY' | translate}}</label>
   
               <div *ngIf="isInvalidFormControl(internshipForm, 'salary')" class="error-message">
-                <label *ngIf="internshipForm.controls['salary'].errors.required">Salary is required.</label>
+                <label *ngIf="internshipForm.controls['salary'].errors.required">{{'VALIDATION.SALARY_REQUIRED' | translate}}</label>
               </div>
   
               <input [ngStyle]="isInvalidFormControl(internshipForm, 'salary') && {'border-color': '#ff0000'}" type="number"
-                class="form-control" placeholder="Enter salary" formControlName="salary">
+                class="form-control" placeholder="{{'PLACEHOLDER.ENTER_SALARY' | translate}}" formControlName="salary">
             </div>
           </div>
           <div class="col-12 col-lg-6 p-0 d-inline-block">
@@ -108,7 +108,7 @@
     </form>
     
     <div class="col-12 mt-2">
-      <button class="btn btn-primary float-right" (click)="addInternship()" [disabled]="!checkFormValid()">Add</button>
+      <button class="btn btn-primary float-right" (click)="addInternship()" [disabled]="!checkFormValid()">{{'INTERNSHIP.ADD' | translate}}</button>
     </div>
 
   </div>

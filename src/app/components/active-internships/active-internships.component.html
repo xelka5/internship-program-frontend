@@ -1,8 +1,8 @@
 <div class="card">
-  <h5 class="card-header">My active internships</h5>
+  <h5 class="card-header">{{'DASHBOARD.MY_ACTIVE_INTERNSHIPS' | translate}}</h5>
 
   <div class="card-body">
-    <p *ngIf="internships && internships.length == 0 else showInternships">No active internships, <a class="redirect-link" routerLink="/dashboard/search-internships">search new</a></p>
+    <p *ngIf="internships && internships.length == 0 else showInternships">{{'DASHBOARD.NO_INTERNSHIPS_FOUND' | translate}}, <a class="redirect-link" routerLink="/dashboard/search-internships">{{'DASHBOARD.SEARCH_NEW' | translate}}</a></p>
 
     <ng-template #showInternships>
       <div *ngFor="let internship of internships | paginate: { itemsPerPage: 2, currentPage: pageNumber }">
@@ -13,7 +13,7 @@
                 <div class="col-6 col-md-12 emp-container">
                   <p class="text-center">{{internship.employer.companyName}}</p>
                   <img class="profile-image" src="{{apiUrl}}/{{internship.employer.profileImageName}}" alt="emp">
-                  <button class="btn btn-primary profile-button mt-2" (click)="openInternshipDetailsModal(showInternshipDetailsModal, internship.trackingNumber)">Internship details</button>
+                  <button class="btn btn-primary profile-button mt-2" (click)="openInternshipDetailsModal(showInternshipDetailsModal, internship.trackingNumber)">{{'DASHBOARD.INTERNSHIP_DETAILS' | translate}}</button>
                 </div>
               </div>
             </div>
@@ -24,15 +24,15 @@
 
               <div class="row mb-2">
                 <div class="col-12">
-                  <label>Details:</label>
+                  <label>{{'INTERNSHIP.DETAILS' | translate}}:</label>
                   <p>{{internship.description}}</p>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-12">
-                  <button class="btn btn-primary mr-3" (click)="openReportModal(showReportModal, internship.trackingNumber)">Send report</button>
-                  <button class="btn btn-primary" (click)="openMyReportsModal(showMyReportsModal, internship.trackingNumber)">My reports</button>
+                  <button class="btn btn-primary mr-3" (click)="openReportModal(showReportModal, internship.trackingNumber)">{{'REPORT.SEND_REPORT' | translate}}</button>
+                  <button class="btn btn-primary" (click)="openMyReportsModal(showMyReportsModal, internship.trackingNumber)">{{'REPORT.MY_REPORTS' | translate}}</button>
                 </div>
               </div>
 
@@ -50,7 +50,7 @@
 
 <ng-template #showInternshipDetailsModal>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Internship details:</h4>
+    <h4 class="modal-title pull-left">{{'DASHBOARD.INTERNSHIP_DETAILS' | translate}}:</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -60,36 +60,36 @@
       <div class="row">
         <div class="col-12 col-lg-6">
           <div>
-            <label>Title:</label>
+            <label>{{'INTERNSHIP.TITLE' | translate}}:</label>
             <p>{{selectedInternship.title}}</p>
           </div>
           <div>
-            <label>Start date:</label>
+            <label>{{'INTERNSHIP.START' | translate}}:</label>
             <p>{{selectedInternship.startDate | date:'fullDate' }}</p>
           </div>
           <div>
-            <label>Internship type:</label>
-            <span class="badge badge-info">{{selectedInternship.type}}</span>
+            <label>{{'INTERNSHIP.INTERNSHIP_TYPE' | translate}}:</label>
+            <span class="badge badge-info">{{selectedInternship.type | translate}}</span>
           </div>
         </div>
         <div class="col-12 col-lg-6">
           <div>
-            <label>Employer:</label>
+            <label>{{'EMPLOYER' | translate}}:</label>
             <p>{{selectedInternship.employer.companyName}}</p>
           </div>
           <div>
-            <label>Duration:</label>
-            <p>{{selectedInternship.duration}} {{selectedInternship.durationUnit}}</p>
+            <label>{{'INTERNSHIP.DURATION' | translate}}:</label>
+            <p>{{ getDurationLabel(selectedInternship.duration, selectedInternship.durationUnit) }}</p>
           </div>
           <div *ngIf="selectedInternship.type === 'PAID'">
-            <label>Salary:</label>
+            <label>{{'INTERNSHIP.SALARY' | translate}}:</label>
             <p>{{selectedInternship.salary}}</p>
           </div>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-12">
-          <label>Description:</label>
+          <label>{{'INTERNSHIP.DETAILS' | translate}}:</label>
           <p>{{selectedInternship.description}}</p>
         </div>
       </div>
@@ -99,7 +99,7 @@
 
 <ng-template #showReportModal>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">New report:</h4>
+    <h4 class="modal-title pull-left">{{'REPORT.NEW_REPORT' | translate}}:</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -110,42 +110,42 @@
         <div class="row">
           <div class="col-12 col-lg-6">
             <div class="form-group">
-              <label *ngIf="!isInvalidFormControl(reportForm, 'reportDetails')">Report details</label>
+              <label *ngIf="!isInvalidFormControl(reportForm, 'reportDetails')">{{'FINAL_REPORT.REPORT_DETAILS' | translate}}</label>
     
-              <div *ngIf="isInvalidFormControl(reportForm, 'reportDetails')" class="error-message">
-                <label *ngIf="reportForm.controls['reportDetails'].errors.required">Report details are required</label>
+              <div *ngIf="isInvalidFormControl(reportForm, 'reportDetails')">
+                <label class="error-message" *ngIf="reportForm.controls['reportDetails'].errors.required">{{'VALIDATION.REPORT_DETAILS_REQUIRED' | translate}}</label>
               </div>
     
               <textarea [ngStyle]="isInvalidFormControl(reportForm, 'reportDetails') && {'border-color': '#ff0000'}" rows="5"
-                class="form-control" placeholder="Enter report details" formControlName="reportDetails"></textarea>
+                class="form-control" placeholder="{{'PLACEHOLDER.ENTER_REPORT_DETAILS' | translate}}" formControlName="reportDetails"></textarea>
             </div>
           </div>
           <div class="col-12 col-lg-6">
             <div class="form-group">
-              <label *ngIf="!isInvalidFormControl(reportForm, 'reportStartDate')">Report from date</label>
+              <label *ngIf="!isInvalidFormControl(reportForm, 'reportStartDate')">{{'COMMON.FROM_DATE' | translate}}</label>
 
-              <div *ngIf="isInvalidFormControl(reportForm, 'reportStartDate')" class="error-message">
-                <label *ngIf="reportForm.controls['reportStartDate'].errors.required">Report from date is required</label>
+              <div *ngIf="isInvalidFormControl(reportForm, 'reportStartDate')">
+                <label class="error-message" *ngIf="reportForm.controls['reportStartDate'].errors.required">{{'VALIDATION.REPORT_FROM_DATE_REQUIRED' | translate}}</label>
               </div>
 
               <input [ngStyle]="isInvalidFormControl(reportForm, 'reportStartDate') && {'border-color': '#ff0000'}" type="text" 
-                class="form-control mb-3" placeholder="From date" bsDatepicker formControlName="reportStartDate" value="{{reportForm.get('reportStartDate').value | date: 'MM/dd/yyyy'}}"/>
+                class="form-control mb-3" placeholder="{{'COMMON.FROM_DATE' | translate}}" bsDatepicker formControlName="reportStartDate" value="{{reportForm.get('reportStartDate').value | date: 'MM/dd/yyyy'}}"/>
             </div>
 
             <div class="form-group">
-              <label *ngIf="!isInvalidFormControl(reportForm, 'reportEndDate')">To date:</label>
+              <label *ngIf="!isInvalidFormControl(reportForm, 'reportEndDate')">{{'COMMON.TO_DATE' | translate}}:</label>
 
-              <div *ngIf="isInvalidFormControl(reportForm, 'reportEndDate')" class="error-message">
-                <label *ngIf="reportForm.controls['reportEndDate'].errors.required">Report to date is required</label>
+              <div *ngIf="isInvalidFormControl(reportForm, 'reportEndDate')">
+                <label class="error-message" *ngIf="reportForm.controls['reportEndDate'].errors.required">{{'VALIDATION.REPORT_TO_DATE_REQUIRED' | translate}}</label>
               </div>
 
               <input [ngStyle]="isInvalidFormControl(reportForm, 'reportEndDate') && {'border-color': '#ff0000'}" type="text" 
-              class="form-control mb-3" placeholder="To date" bsDatepicker formControlName="reportEndDate" value="{{reportForm.get('reportEndDate').value | date: 'MM/dd/yyyy'}}"/>
+              class="form-control mb-3" placeholder="{{'COMMON.FROM_DATE' | translate}}" bsDatepicker formControlName="reportEndDate" value="{{reportForm.get('reportEndDate').value | date: 'MM/dd/yyyy'}}"/>
             </div>
           </div>
           <div class="col-12 mt-2">
-            <button *ngIf="!isEdit" class="btn btn-primary float-right" (click)="addNewReport()" [disabled]="!checkFormValid()">Create report</button>
-            <button *ngIf="isEdit" class="btn btn-primary float-right" (click)="editReport()" [disabled]="!checkFormValid()">Edit report</button>
+            <button *ngIf="!isEdit" class="btn btn-primary float-right" (click)="addNewReport()" [disabled]="!checkFormValid()">{{'FINAL_REPORT.CREATE_REPORT' | translate}}</button>
+            <button *ngIf="isEdit" class="btn btn-primary float-right" (click)="editReport()" [disabled]="!checkFormValid()">{{'FINAL_REPORT.EDIT_REPORT' | translate}}</button>
           </div>
         </div>
       </form>
@@ -155,7 +155,7 @@
 
 <ng-template #showMyReportsModal>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">My reports:</h4>
+    <h4 class="modal-title pull-left">{{'REPORT.MY_REPORTS' | translate}}:</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -163,24 +163,24 @@
   <div class="modal-body">
     <div class="container" *ngIf="myReportsForInternship">
       <div *ngIf="myReportsForInternship.length === 0">
-        <p>No reports so far, <span class="create-report-link" (click)="createNewReportRedirect(showReportModal)">create new</span></p>
+        <p>{{'REPORT.NO_REPORTS_SO_FAR' | translate}}, <span class="create-report-link" (click)="createNewReportRedirect(showReportModal)">{{'COMMON.CREATE_NEW' | translate}}</span></p>
       </div>
       <div *ngIf="myReportsForInternship.length > 0">
         <div *ngFor="let report of myReportsForInternship">
           <div class="row">
             <div class="col-12 col-lg-5">
               <div>
-                <label>Report details:</label>
+                <label>{{'FINAL_REPORT.REPORT_DETAILS' | translate}}:</label>
                 <p>{{report.reportDetails}}</p>
               </div>
             </div>
             <div class="col-12 col-lg-7 d-inline-flex">
               <div class="w-100 d-report-date">
-                <label>Report from:</label>
+                <label>{{'COMMON.FROM_DATE' | translate}}:</label>
                 <p>{{report.reportStartDate | date:'dd-MM-yyyy' }}</p>
               </div>
               <div class="w-100 d-report-date">
-                <label>Report to:</label>
+                <label>{{'COMMON.TO_DATE' | translate}}:</label>
                 <p>{{report.reportEndDate | date:'dd-MM-yyyy' }}</p>
               </div>
             </div>
@@ -199,13 +199,13 @@
 
 <ng-template #showDeleteReportModal>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Are you sure:</h4>
+    <h4 class="modal-title pull-left">{{'REPORT.DELETE_REPORT_CONFIRM' | translate}}</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body d-inline-flex m-auto">
-    <button class="btn btn-danger btn-short mr-3">No</button>
-    <button class="btn btn-primary btn-short" (click)="deleteReport()">Yes</button>
+    <button class="btn btn-danger btn-short mr-3">{{'COMMON.NO' | translate}}</button>
+    <button class="btn btn-primary btn-short" (click)="deleteReport()">{{'COMMON.YES' | translate}}</button>
   </div>
 </ng-template>

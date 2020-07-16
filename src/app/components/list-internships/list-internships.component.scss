@@ -177,6 +177,10 @@ label {
   color: $primary_color;
 }
 
+.error-message {
+  color: red;
+}
+
 @media screen and (max-width: 768px) {
   .card {
     height: 100%;

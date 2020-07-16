@@ -3,6 +3,8 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { InternshipService } from 'src/app/services/api/internship/internship.service';
 import { ToastrService } from 'ngx-toastr';
 import { Currency, InternshipType, DurationUnit } from 'src/app/shared/enums';
+import { TranslateService } from '@ngx-translate/core';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-internship',
@@ -13,7 +15,8 @@ export class AddInternshipComponent implements OnInit {
 
   internshipForm: FormGroup;
 
-  constructor(private internshipService: InternshipService, private toastr: ToastrService) { }
+  constructor(private internshipService: InternshipService, private toastr: ToastrService,
+    private translateService: TranslateService) { }
 
   ngOnInit(): void {
     this.internshipForm = new FormGroup({
@@ -57,8 +60,13 @@ export class AddInternshipComponent implements OnInit {
   }
 
   addInternship(): void {
-    this.internshipService.addNewInternship(this.internshipForm.value).subscribe(result => {
-      this.toastr.success('Added internship program');
+    this.internshipService.addNewInternship(this.internshipForm.value).pipe(
+      switchMap(result => {
+        return this.translateService.get('TOASTR.INTERNSHIP_ADDED');
+      })
+    )
+    .subscribe(result => {
+      this.toastr.success(result);
     }).add(() => this.internshipForm.reset());
   }
 

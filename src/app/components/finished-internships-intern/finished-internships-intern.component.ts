@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FinalReportService } from 'src/app/services/api/final-report/final-report.service';
 import { switchMap } from 'rxjs/operators';
 import { FinalReport } from 'src/app/interfaces/report/final-report';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-finished-internships-intern',
@@ -30,7 +31,8 @@ export class FinishedInternshipsInternComponent implements OnInit {
   finalReportFile: File;
 
   constructor(private internshipService: InternshipService, private modalService: BsModalService, 
-    private toastr: ToastrService, private finalReportService: FinalReportService) { }
+    private toastr: ToastrService, private finalReportService: FinalReportService,
+    private translateService: TranslateService) { }
 
   ngOnInit(): void {
     this.getFinishedInternships();
@@ -65,8 +67,12 @@ export class FinishedInternshipsInternComponent implements OnInit {
         switchMap(result => {
           return this.finalReportService.uploadReportFile(this.finalReportFile, result.reportTrackingNumber);
         })
+      ).pipe(
+        switchMap(result => {
+          return this.translateService.get('TOASTR.FINAL_REPORT_CREATED')
+        })
       ).subscribe(result => {
-        this.toastr.success('Final report created');
+        this.toastr.success(result);
         this.getFinishedInternships();
         this.modalRef.hide();
       });
@@ -76,7 +82,9 @@ export class FinishedInternshipsInternComponent implements OnInit {
     let supportedExtensions = [ 'doc', 'docx', 'pdf'];
 
     if(!supportedExtensions.includes(event.target.files[0].name.split('.').pop())) {
-      this.toastr.warning('Please upload an doc, docx or pdf file');
+      this.translateService.get('TOASTR.UPLOAD_FILE').subscribe(result => {
+        this.toastr.warning(result);
+      });
       return;
     }
     

@@ -1,8 +1,8 @@
 <div class="card">
-  <h5 class="card-header">Assigned interns: </h5>
+  <h5 class="card-header">{{'DASHBOARD.ASSIGNED_INTERNS' | translate}}: </h5>
 
   <div class="card-body">
-    <p *ngIf="assignedInterns && assignedInterns.length == 0 else showMyApplications">No assigned interns for this internship.</p>
+    <p *ngIf="assignedInterns && assignedInterns.length == 0 else showMyApplications">{{'DASHBOARD.NO_ASSIGNED_INTERNS' | translate}}</p>
 
     <ng-template #showMyApplications>
       <div *ngFor="let intern of assignedInterns | paginate: { itemsPerPage: 2, currentPage: pageNumber }" class="mb-2">
@@ -13,25 +13,25 @@
             <div class="col-12 col-md-9">
               <div class="col-12 info-container mb-4">
                 <div class="col-12 col-md-6">
-                  <label>Names:</label>
+                  <label>{{'USER.NAMES' | translate}}:</label>
                   <span>{{intern.firstName}} {{intern.lastName}}</span>
                 </div>
       
                 <div class="col-12 col-md-6">
-                  <label>University: </label>
+                  <label>{{'USER.UNIVERSITY' | translate}}: </label>
                   <span>{{intern.university}}</span>
                 </div>
               </div>
               <div class="col-12">
-                <button class="btn btn-primary mr-3" (click)="openInternProfileModal(showInternProfileModal, intern.email)">Profile</button>
-                <button class="btn btn-primary" (click)="openInternReportsModal(showInternReportsModal, intern)">Reports</button>
+                <button class="btn btn-primary mr-3" (click)="openInternProfileModal(showInternProfileModal, intern.email)">{{'USER.PROFILE' | translate}}</button>
+                <button class="btn btn-primary" (click)="openInternReportsModal(showInternReportsModal, intern)">{{'USER.REPORTS' | translate}}</button>
               </div>
             </div>
           </div>
           <hr>
         </div>
     </ng-template>
-    <div class="text-center">
+    <div *ngIf="assignedInterns && assignedInterns.length > 0" class="text-center">
       <pagination-controls (pageChange)="pageNumber = $event" 
         previousLabel="" nextLabel="" maxSize="5"></pagination-controls>
     </div>
@@ -40,7 +40,7 @@
 
 <ng-template #showInternProfileModal>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Intern details:</h4>
+    <h4 class="modal-title pull-left">{{'DASHBOARD.INTERN_DETAILS' | translate}}:</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -49,36 +49,36 @@
     <div class="profile-container" *ngIf="internDetails">
       <div class="col-12 col-lg-6">
         <div class="col-12">
-          <label>Names:</label>
+          <label>{{'USER.NAMES' | translate}}:</label>
           <p>{{internDetails.userDetails.firstName}} {{internDetails.userDetails.lastName}}</p>
         </div>
         <div class="col-12">
           <img class="profile-image mb-3" src="{{apiUrl}}/{{internDetails.account.profileImageName}}" alt="intern">
         </div>
         <div class="col-12 d-inline-flex">
-          <label>Age:</label>
+          <label>{{'USER.AGE' | translate}}:</label>
           <p>{{internDetails.userDetails.age}}</p>
         </div>
         <div class="col-12 d-inline-flex">
-          <label>University:</label>
+          <label>{{'USER.UNIVERSITY' | translate}}:</label>
           <p>{{internDetails.userDetails.university}}</p>
         </div>
       </div>
       <div class="col-12 col-lg-6">
         <div class="col-12 d-inline-flex">
-          <label>Course:</label>
+          <label>{{'USER.COURSE' | translate}}:</label>
           <p>{{internDetails.userDetails.course}}</p>
         </div>
         <div class="col-12 d-inline-flex">
-          <label>Start year of study:</label>
+          <label>{{'USER.START_DATE_OF_STUDYING' | translate}}:</label>
         <p>{{internDetails.userDetails.startDate | date:'yyyy' }}</p>
         </div>
         <div class="col-12 d-inline-flex">
-          <label>Previous education:</label>
+          <label>{{'USER.PREVIOUS_EDUCATION' | translate}}:</label>
           <p>{{internDetails.userDetails.previousEducation}}</p>
         </div>
         <div class="col-12 d-inline-flex">
-          <label>Skills:</label>
+          <label>{{'USER.SKILLS' | translate}}:</label>
           <ul>
             <li *ngFor="let skill of internDetails.userDetails.skills">
               {{skill}}
@@ -92,7 +92,7 @@
 
 <ng-template #showInternReportsModal>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Reports from {{selectedInternNames}}:</h4>
+    <h4 class="modal-title pull-left">{{'REPORT.REPORTS_FROM' | translate}} {{selectedInternNames}}:</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -100,24 +100,24 @@
   <div class="modal-body">
     <div class="container" *ngIf="internReports">
       <div *ngIf="internReports.length === 0">
-        <p>No reports so far.</p>
+        <p>{{'REPORT.NO_REPORTS_SO_FAR' | translate}}</p>
       </div>
       <div *ngIf="internReports.length > 0">
         <div *ngFor="let report of internReports">
           <div class="row">
             <div class="col-12 col-lg-5">
               <div>
-                <label>Report details:</label>
+                <label>{{'FINAL_REPORT.REPORT_DETAILS' | translate}}:</label>
                 <p>{{report.reportDetails}}</p>
               </div>
             </div>
             <div class="col-12 col-lg-7 d-inline-flex">
               <div class="w-100 d-report-date">
-                <label>Report from:</label>
+                <label>{{'COMMON.FROM_DATE' | translate}}:</label>
                 <p>{{report.reportStartDate | date:'dd-MM-yyyy' }}</p>
               </div>
               <div class="w-100 d-report-date">
-                <label>Report to:</label>
+                <label>{{'COMMON.TO_DATE' | translate}}:</label>
                 <p>{{report.reportEndDate | date:'dd-MM-yyyy' }}</p>
               </div>
             </div>

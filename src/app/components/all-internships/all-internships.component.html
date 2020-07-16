@@ -1,8 +1,8 @@
 <div class="card">
-  <h5 class="card-header">All active internships</h5>
+  <h5 class="card-header">{{'DASHBOARD.ALL_ACTIVE_INTERNSHIPS' | translate}}</h5>
 
   <div class="card-body">
-    <p *ngIf="internships && internships.length == 0 else showInternships">No internships available.</p>
+    <p *ngIf="internships && internships.length == 0 else showInternships">{{'DASHBOARD.NO_ACTIVE_INTERNSHIPS' | translate}}</p>
 
     <ng-template #showInternships>
       <div *ngFor="let internship of internships | paginate: { itemsPerPage: 2, currentPage: pageNumber }">
@@ -23,21 +23,21 @@
 
               <div class="row mb-2">
                 <div class="col-12 col-lg-6 col-xl-4">
-                    <label>Start: <span>{{internship.startDate | date:'fullDate'}}</span></label>
+                    <label>{{'INTERNSHIP.START' | translate}}: <span>{{internship.startDate | date:'fullDate'}}</span></label>
                 </div>
     
                 <div class="col-12 col-lg-6 col-xl-4">
-                  <label>Duration: <span>{{internship.duration}} {{internship.durationUnit}}</span></label>
+                  <label>{{'INTERNSHIP.DURATION' | translate}}: <span>{{ getDurationLabel(internship.duration, internship.durationUnit) }}</span></label>
                 </div>
               </div>
     
               <div class="row mb-2">
                 <div class="col-12 col-md-6 col-lg-4">
-                  <label class="mr-2">Internship type: <span class="badge badge-info">{{internship.type}}</span></label>
+                  <label class="mr-2">{{'INTERNSHIP.INTERNSHIP_TYPE' | translate}}: <span class="badge badge-info">{{internship.type}}</span></label>
                 </div>
                 <div *ngIf="internship.type === 'PAID'" class="col-12 col-md-6 col-lg-4">
                   <div class="salary-field">
-                    <label class="mr-2">Salary:</label>
+                    <label class="mr-2">{{'INTERNSHIP.SALARY' | translate}}:</label>
                     <p class="field">{{internship.salary}} {{internship.currency}}</p>
                   </div>
                 </div>
@@ -45,7 +45,7 @@
 
               <div class="row mb-2">
                 <div class="col-12">
-                  <label>Details:</label>
+                  <label>{{'INTERNSHIP.DETAILS' | translate}}:</label>
                   <p>{{internship.description}}</p>
                 </div>
               </div>

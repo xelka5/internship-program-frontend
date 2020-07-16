@@ -28,7 +28,6 @@ import { SearchInternshipsComponent } from './components/search-internships/sear
 import { MyApplicationsComponent } from './components/my-applications/my-applications.component';
 import { PendingApplicationsComponent } from './components/pending-applications/pending-applications.component';
 import { ActiveInternshipsComponent } from './components/active-internships/active-internships.component';
-import { InternReportsComponent } from './components/intern-reports/intern-reports.component';
 import { PendingApprovalsComponent } from './components/pending-approvals/pending-approvals.component';
 import { AllInternshipsComponent } from './components/all-internships/all-internships.component';
 import { PendingInfoComponent } from './components/pending-info/pending-info.component';
@@ -70,7 +69,6 @@ export function TranslationLoaderFactory(http: HttpClient) {
     MyApplicationsComponent,
     PendingApplicationsComponent,
     ActiveInternshipsComponent,
-    InternReportsComponent,
     PendingApprovalsComponent,
     AllInternshipsComponent,
     PendingInfoComponent,

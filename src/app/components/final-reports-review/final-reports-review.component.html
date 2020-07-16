@@ -1,8 +1,8 @@
 <div class="card">
-  <h5 class="card-header">Final reports for internship: <span *ngIf="internshipFinalReports">{{internshipFinalReports.internshipTitle}}</span></h5>
+  <h5 class="card-header">{{'DASHBOARD.FINAL_REPORTS_FOR_INTERNSHIP' | translate}}: <span *ngIf="internshipFinalReports">{{internshipFinalReports.internshipTitle}}</span></h5>
 
   <div class="card-body">
-    <p *ngIf="internshipFinalReports && internshipFinalReports.finalReports && internshipFinalReports.finalReports.length == 0 else showFinalReports">No final reports available.</p>
+    <p *ngIf="internshipFinalReports && internshipFinalReports.finalReports && internshipFinalReports.finalReports.length == 0 else showFinalReports">{{'DASHBOARD.NO_FINAL_REPORTS' | translate}}</p>
 
     <ng-template #showFinalReports>
       <div *ngIf="internshipFinalReports">
@@ -14,41 +14,41 @@
               </div>
               <div class="col-12 col-md-9 col-xl-10 d-inline-flex">
                 <div class="col-12 col-lg-6">
-                  <p>Intern report details:</p>
+                  <p>{{'FINAL_REPORT.INTERN_REPORT_DETAILS' | translate}}:</p>
                   <div>
-                    <label>Intern names:</label>
+                    <label>{{'DASHBOARD.INTERN_NAMES' | translate}}:</label>
                     <p class="field">{{finalReport.internProfile.firstName}} {{finalReport.internProfile.lastName}}</p>
                   </div>
                   <div *ngIf="!finalReport.finalReportIntern">
-                    <p>Final report not submitted.</p>
+                    <p>{{'FINAL_REPORT.FINAL_REPORT_NOT_SUBMITTED' | translate}}.</p>
                   </div>
                   <div *ngIf="finalReport.finalReportIntern">
                     <div >
-                      <label>Final report file:</label>
-                      <p class="field"><a class="redirect-link" href="{{apiUrl}}/{{finalReport.finalReportIntern.reportFileLocation}}">Download here</a></p>
+                      <label>{{'FINAL_REPORT.FINAL_REPORT_FILE' | translate}}:</label>
+                      <p class="field"><a class="redirect-link" href="{{apiUrl}}/{{finalReport.finalReportIntern.reportFileLocation}}">{{'FINAL_REPORT.DOWNLOAD_HERE' | translate}}</a></p>
                     </div>
                     <div>
-                      <label>Report notes:</label>
+                      <label>{{'FINAL_REPORT.REPORT_NOTES' | translate}}:</label>
                       <p class="field">{{finalReport.finalReportIntern.reportNotes}}</p>
                     </div>
                   </div>
                 </div>
                 <div class="col-12 col-lg-6">
-                  <p>Employer report details:</p>
+                  <p>{{'FINAL_REPORT.EMPLOYER_REPORT_DETAILS' | translate}}:</p>
                   <div>
-                    <label>Company name:</label>
+                    <label>{{'USER.COMPANY_NAME' | translate}}:</label>
                     <p class="field">{{internshipFinalReports.companyName}}</p>
                   </div>
                   <div *ngIf="!finalReport.finalReportEmployer">
-                    <p>Final report not submitted.</p>
+                    <p>{{'FINAL_REPORT.FINAL_REPORT_NOT_SUBMITTED' | translate}}.</p>
                   </div>
                   <div *ngIf="finalReport.finalReportEmployer">
                     <div >
-                      <label>Final report file:</label>
-                      <p class="field"><a class="redirect-link" href="{{apiUrl}}/{{finalReport.finalReportEmployer.reportFileLocation}}">Download here</a></p>
+                      <label>{{'FINAL_REPORT.FINAL_REPORT_FILE' | translate}}:</label>
+                      <p class="field"><a class="redirect-link" href="{{apiUrl}}/{{finalReport.finalReportEmployer.reportFileLocation}}">{{'FINAL_REPORT.DOWNLOAD_HERE' | translate}}</a></p>
                     </div>
                     <div>
-                      <label>Report notes:</label>
+                      <label>{{'FINAL_REPORT.REPORT_NOTES' | translate}}:</label>
                       <p class="field">{{finalReport.finalReportEmployer.reportNotes}}</p>
                     </div>
                   </div>

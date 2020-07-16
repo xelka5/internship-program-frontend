@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Currency, InternshipType, DurationUnit } from 'src/app/shared/enums';
 import { InternshipStatus } from 'src/app/shared/enums/internship-status';
 import { TranslateService } from '@ngx-translate/core';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list-internships',
@@ -23,7 +24,8 @@ export class ListInternshipsComponent implements OnInit {
 
   modalRef: BsModalRef;
 
-  constructor(private internshipService: InternshipService, private modalService: BsModalService, private toastr: ToastrService) { }
+  constructor(private internshipService: InternshipService, private modalService: BsModalService, 
+    private toastr: ToastrService, private translateService: TranslateService) { }
 
   ngOnInit(): void {
     this.getActiveInternships();
@@ -58,24 +60,39 @@ export class ListInternshipsComponent implements OnInit {
   }
 
   editInternship(): void {
-    this.internshipService.editInternship(this.internshipForm.value).subscribe(result => {
-      this.toastr.success('Internship program edited');
+    this.internshipService.editInternship(this.internshipForm.value).pipe(
+      switchMap(result => {
+        return this.translateService.get('TOASTR.INTERNSHIP_EDITED');
+      })
+    )
+    .subscribe(result => {
+      this.toastr.success(result);
       this.getActiveInternships();
       this.modalRef.hide();
     });
   }
 
   deleteInternship(): void {
-    this.internshipService.deleteInternship(this.internshipTrackingNumber).subscribe(result => {
-      this.toastr.success('Internship program deleted');
+    this.internshipService.deleteInternship(this.internshipTrackingNumber).pipe(
+      switchMap(result => {
+        return this.translateService.get('TOASTR.INTERNSHIP_DELETED');
+      })
+    )
+    .subscribe(result => {
+      this.toastr.success(result);
       this.getActiveInternships();
       this.modalRef.hide();
     });
   }
 
   finishInternship(): void {
-    this.internshipService.finishInternship({ trackingNumber: this.internshipTrackingNumber}).subscribe(result => {
-      this.toastr.success('Internship program finished');
+    this.internshipService.finishInternship({ trackingNumber: this.internshipTrackingNumber}).pipe(
+      switchMap(result => {
+        return this.translateService.get('TOASTR.INTERNSHIP_FINISHED');
+      })
+    )
+    .subscribe(result => {
+      this.toastr.success(result);
       this.getActiveInternships();
       this.modalRef.hide();
     })
@@ -88,6 +105,14 @@ export class ListInternshipsComponent implements OnInit {
 
   checkFormValid(): boolean {
     return this.internshipForm.valid;
+  }
+
+  getDurationLabel(duration: number, durationUnit: string): string {
+    if(duration === 1) {
+      return duration + ' ' + durationUnit.toLocaleLowerCase();
+    }
+
+    return duration + ' ' + durationUnit.toLocaleLowerCase() + 's';
   }
 
   private initEditForm() {

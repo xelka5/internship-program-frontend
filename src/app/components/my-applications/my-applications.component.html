@@ -1,8 +1,8 @@
 <div class="card">
-  <h5 class="card-header">My applications</h5>
+  <h5 class="card-header">{{'DASHBOARD.MY_APPLICATIONS' | translate}}</h5>
 
   <div class="card-body">
-    <p *ngIf="applications && applications.length == 0 else showMyApplications">No applications available.</p>
+    <p *ngIf="applications && applications.length == 0 else showMyApplications">{{'DASHBOARD.NO_APPLICATIONS' | translate}}</p>
 
     <ng-template #showMyApplications>
       <div *ngFor="let application of applications | paginate: { itemsPerPage: 2, currentPage: pageNumber }">
@@ -14,20 +14,20 @@
                 <img class="profile-image" src="{{apiUrl}}/{{application.internshipDetails.employer.profileImageName}}" alt="emp">
               </div>
               <div class="col-6 col-md-12">
-                <div>Status: <span class="badge badge-info">{{application.status}}</span></div>
+                <div>Status: <span class="badge badge-info">{{application.status | translate}}</span></div>
               </div>
             </div>
             <div class="col-12 col-xl-10">
               <div>
-                <label class="mr-2">Internship: </label>
+                <label class="mr-2">{{'INTERNSHIP.INTERNSHIP' | translate}}: </label>
                 <p class="mr-2">{{application.internshipDetails.title}}</p>
               </div>
               <div>
-                <label>Application notes:</label>
+                <label>{{'APPLICATION.APPLICATION_NOTES' | translate}}:</label>
                 <p>{{application.details}}</p>
               </div>
               <div *ngIf="application.responseNotes">
-                <label>Employer message:</label>
+                <label>{{'APPLICATION.EMPLOYER_MESSAGE' | translate}}:</label>
                 <p>{{application.responseNotes}}</p>
               </div>
             </div>

@@ -14,7 +14,6 @@ import { UserRole } from '../shared/enums/user-role';
 import { MyApplicationsComponent } from '../components/my-applications/my-applications.component';
 import { PendingApplicationsComponent } from '../components/pending-applications/pending-applications.component';
 import { ActiveInternshipsComponent } from '../components/active-internships/active-internships.component';
-import { InternReportsComponent } from '../components/intern-reports/intern-reports.component';
 import { PendingApprovalsComponent } from '../components/pending-approvals/pending-approvals.component';
 import { AllInternshipsComponent } from '../components/all-internships/all-internships.component';
 import { PendingInfoComponent } from '../components/pending-info/pending-info.component';
@@ -56,12 +55,6 @@ const routes: Routes = [
         }
       },
       { path: 'pending-applications', component: PendingApplicationsComponent,
-        canActivate: [RoleGuard], 
-        data: { 
-          expectedRoles: UserRole.EMPLOYER
-        }
-      },
-      { path: 'intern-reports', component: InternReportsComponent,
         canActivate: [RoleGuard], 
         data: { 
           expectedRoles: UserRole.EMPLOYER

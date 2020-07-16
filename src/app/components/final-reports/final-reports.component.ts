@@ -9,6 +9,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { switchMap } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-final-reports',
@@ -31,7 +32,8 @@ export class FinalReportsComponent implements OnInit {
   finalReportFile: File;
 
   constructor(private finalReportService: FinalReportService, private urlService: UrlService,
-    private router: Router, private modalService: BsModalService, private toastr: ToastrService) { }
+    private router: Router, private modalService: BsModalService, private toastr: ToastrService,
+    private translateService: TranslateService) { }
 
   ngOnInit(): void {
     this.internshipTrackingNumber = this.urlService.getTrackingNumberFromUrl(this.router.url);
@@ -51,8 +53,12 @@ export class FinalReportsComponent implements OnInit {
         switchMap(result => {
           return this.finalReportService.uploadReportFile(this.finalReportFile, result.reportTrackingNumber);
         })
+      ).pipe(
+        switchMap(result => {
+          return this.translateService.get('TOASTR.FINAL_REPORT_CREATED')
+        })
       ).subscribe(result => {
-        this.toastr.success('Final report created');
+        this.toastr.success(result);
         this.fetchInternshipFinalReports();
         this.modalRef.hide();
       });
@@ -62,7 +68,9 @@ export class FinalReportsComponent implements OnInit {
     let supportedExtensions = [ 'doc', 'docx', 'pdf'];
 
     if(!supportedExtensions.includes(event.target.files[0].name.split('.').pop())) {
-      this.toastr.warning('Please upload an doc, docx or pdf file');
+      this.translateService.get('TOASTR.UPLOAD_FILE').subscribe(result => {
+        this.toastr.warning(result);
+      });
       return;
     }
     

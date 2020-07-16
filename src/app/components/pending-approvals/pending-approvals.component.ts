@@ -6,6 +6,8 @@ import { UpdatePendingUserStatus } from 'src/app/interfaces/admin/update-pending
 import { UserRole } from 'src/app/shared/enums';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pending-approvals',
@@ -30,7 +32,7 @@ export class PendingApprovalsComponent implements OnInit {
   confirmationModalLabel: string;
 
   constructor(private adminService: AdminService, private modalService: BsModalService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService, private translateService: TranslateService) { }
 
   ngOnInit(): void {
     this.getPendingApprovals();
@@ -50,10 +52,14 @@ export class PendingApprovalsComponent implements OnInit {
       userEmail: this.selectedPendingApproval.account.email
     }
 
-    this.adminService.updatePendingUserStatus(updateBody).subscribe(result => {
+    this.adminService.updatePendingUserStatus(updateBody).pipe(
+      switchMap(result => {
+        return this.translateService.get('TOASTR.PENDING_APPROVAL_UPDATED')
+      })
+    ).subscribe(result => {
       this.getPendingApprovals();
       this.modalRef.hide();
-      this.toastr.success('Pending approval updated');
+      this.toastr.success(result);
     });
   }
 

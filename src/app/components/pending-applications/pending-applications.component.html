@@ -1,8 +1,8 @@
 <div class="card">
-  <h5 class="card-header">Pending applications</h5>
+  <h5 class="card-header">{{'DASHBOARD.PENDING_APPLICATIONS' | translate}}</h5>
 
   <div class="card-body">
-    <p *ngIf="pendingApplications && pendingApplications.length == 0 else showPendingApplications">No pending applications.</p>
+    <p *ngIf="pendingApplications && pendingApplications.length == 0 else showPendingApplications">{{'DASHBOARD.NO_PENDING_APPLICATIONS' | translate}}</p>
     
     <ng-template #showPendingApplications>
       <div *ngFor="let pendingApplication of pendingApplications | paginate: { itemsPerPage: 2, currentPage: pageNumber }">
@@ -12,28 +12,28 @@
               <div class="col-6 col-md-12 emp-container">
                 <p class="text-center">{{pendingApplication.intern.firstName}} {{pendingApplication.intern.lastName}}</p>
                 <img class="profile-image mb-3" src="{{apiUrl}}/{{pendingApplication.intern.profileImageName}}" alt="intern">
-                <button class="btn btn-primary profile-button" (click)="openProfileModal(showProfileModal, pendingApplication.intern.email)">Profile</button>
+                <button class="btn btn-primary profile-button" (click)="openProfileModal(showProfileModal, pendingApplication.intern.email)">{{'USER.PROFILE' | translate}}</button>
               </div>
             </div>
             <div class="col-12 col-xl-10">
               <div class="row">
                 <div class="col-12">
-                  <label>Internship:</label>
+                  <label>{{'INTERNSHIP.INTERNSHIP' | translate}}:</label>
                   <p>{{pendingApplication.internshipDetails.title}}</p>
                 </div>
               </div>
                 
               <div class="row mb-2">
                 <div class="col-12">
-                  <label>Details:</label>
+                  <label>{{'INTERNSHIP.DETAILS' | translate}}:</label>
                   <p>{{pendingApplication.details}}</p>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-12">
-                  <button class="btn btn-primary mr-2" (click)="openAcceptModal(acceptApplicationModal, pendingApplication.trackingNumber)">Accept</button>
-                  <button class="btn btn-danger" (click)="openRejectModal(rejectApplicationModal, pendingApplication.trackingNumber)">Reject</button>
+                  <button class="btn btn-primary mr-2" (click)="openAcceptModal(acceptApplicationModal, pendingApplication.trackingNumber)">{{'COMMON.ACCEPT' | translate}}</button>
+                  <button class="btn btn-danger" (click)="openRejectModal(rejectApplicationModal, pendingApplication.trackingNumber)">{{'COMMON.REJECT' | translate}}</button>
                 </div>
               </div>
             </div>
@@ -51,7 +51,7 @@
 
 <ng-template #showProfileModal>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Intern details:</h4>
+    <h4 class="modal-title pull-left">{{'DASHBOARD.INTERN_DETAILS' | translate}}:</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -60,36 +60,36 @@
     <div class="container" *ngIf="internDetails">
       <div class="col-12 col-lg-6">
         <div class="col-12">
-          <label>Names:</label>
+          <label>{{'USER.NAMES' | translate}}:</label>
           <p>{{internDetails.userDetails.firstName}} {{internDetails.userDetails.lastName}}</p>
         </div>
         <div class="col-12">
           <img class="profile-image mb-3" src="{{apiUrl}}/{{internDetails.account.profileImageName}}" alt="intern">
         </div>
         <div class="col-12 d-inline-flex">
-          <label>Age:</label>
+          <label>{{'USER.AGE' | translate}}:</label>
           <p>{{internDetails.userDetails.age}}</p>
         </div>
         <div class="col-12 d-inline-flex">
-          <label>University:</label>
+          <label>{{'USER.UNIVERSITY' | translate}}:</label>
           <p>{{internDetails.userDetails.university}}</p>
         </div>
       </div>
       <div class="col-12 col-lg-6">
         <div class="col-12 d-inline-flex">
-          <label>Course:</label>
+          <label>{{'USER.COURSE' | translate}}:</label>
           <p>{{internDetails.userDetails.course}}</p>
         </div>
         <div class="col-12 d-inline-flex">
-          <label>Start year of study:</label>
+          <label>{{'USER.START_DATE_OF_STUDYING' | translate}}:</label>
         <p>{{internDetails.userDetails.startDate | date:'yyyy' }}</p>
         </div>
         <div class="col-12 d-inline-flex">
-          <label>Previous education:</label>
+          <label>{{'USER.PREVIOUS_EDUCATION' | translate}}:</label>
           <p>{{internDetails.userDetails.previousEducation}}</p>
         </div>
         <div class="col-12 d-inline-flex">
-          <label>Skills:</label>
+          <label>{{'USER.SKILLS' | translate}}:</label>
           <ul>
             <li *ngFor="let skill of internDetails.userDetails.skills">
               {{skill}}
@@ -103,7 +103,7 @@
 
 <ng-template #acceptApplicationModal>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Accept application:</h4>
+    <h4 class="modal-title pull-left">{{'APPLICATION.ACCEPT_APPLICATION' | translate}}:</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -111,9 +111,17 @@
   <div class="modal-body">
     <form [formGroup]="applicationResponseForm">
       <div class="col-12">
-        <label>Acceptance notes:</label>
-        <textarea rows="8" class="form-control mb-2" placeholder="Enter notes" formControlName="responseNotes"></textarea>
-        <button class="btn btn-primary float-right" (click)="applicationResponse(true)">Send</button>
+        <div class="form-group">
+          <label *ngIf="!isInvalidFormControl(applicationResponseForm, 'responseNotes')">{{'APPLICATION.ACCEPTANCE_NOTES' | translate}}:</label>
+
+          <div *ngIf="isInvalidFormControl(applicationResponseForm, 'responseNotes')">
+            <label class="error-message" *ngIf="applicationResponseForm.controls['responseNotes'].errors.required">{{'VALIDATION.ACCEPTANCE_NOTES_REQUIRED' | translate}}</label>
+          </div>
+
+          <textarea [ngStyle]="isInvalidFormControl(applicationResponseForm, 'responseNotes') && {'border-color': '#ff0000'}" rows="8" class="form-control mb-2" 
+          placeholder="{{'PLACEHOLDER.ENTER_DETAILS' | translate}}" formControlName="responseNotes"></textarea>
+        </div>
+        <button class="btn btn-primary float-right" (click)="applicationResponse(true)">{{'COMMON.SEND' | translate}}</button>
       </div>
     </form>
   </div>
@@ -121,7 +129,7 @@
 
 <ng-template #rejectApplicationModal>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Reject application:</h4>
+    <h4 class="modal-title pull-left">{{'APPLICATION.REJECT_APPLICATION' | translate}}:</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -129,9 +137,17 @@
   <div class="modal-body">
     <form [formGroup]="applicationResponseForm">
       <div class="col-12">
-        <label>Rejection notes:</label>
-        <textarea rows="8" class="form-control mb-2" placeholder="Enter notes" formControlName="responseNotes"></textarea>
-        <button class="btn btn-primary float-right" (click)="applicationResponse(false)">Send</button>
+        <div class="form-group">
+          <label *ngIf="!isInvalidFormControl(applicationResponseForm, 'responseNotes')">{{'APPLICATION.REJECTION_NOTES' | translate}}:</label>
+
+          <div *ngIf="isInvalidFormControl(applicationResponseForm, 'responseNotes')">
+            <label class="error-message" *ngIf="applicationResponseForm.controls['responseNotes'].errors.required">{{'VALIDATION.REJECTION_NOTES_REQUIRED' | translate}}</label>
+          </div>
+
+          <textarea [ngStyle]="isInvalidFormControl(applicationResponseForm, 'responseNotes') && {'border-color': '#ff0000'}" rows="8" class="form-control mb-2" 
+          placeholder="{{'PLACEHOLDER.ENTER_DETAILS' | translate}}" formControlName="responseNotes"></textarea>
+        </div>
+        <button class="btn btn-primary float-right" (click)="applicationResponse(false)">{{'COMMON.SEND' | translate}}</button>
       </div>
     </form>
   </div>

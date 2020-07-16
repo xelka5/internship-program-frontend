@@ -9,6 +9,8 @@ import { environment } from 'src/environments/environment';
 import { ReportService } from 'src/app/services/api/report/report.service';
 import { Report } from 'src/app/interfaces/report/report';
 import { InternshipStatus } from 'src/app/shared/enums/internship-status';
+import { switchMap } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-active-internships',
@@ -33,7 +35,7 @@ export class ActiveInternshipsComponent implements OnInit {
   isEdit: boolean = false;
 
   constructor(private internshipService: InternshipService, private modalService: BsModalService, 
-    private toastr: ToastrService, private reportService: ReportService) { }
+    private toastr: ToastrService, private reportService: ReportService, private translateService: TranslateService) { }
 
   ngOnInit(): void {
     this.getActiveInternInternships();
@@ -86,17 +88,25 @@ export class ActiveInternshipsComponent implements OnInit {
   addNewReport(): void {
     let newReportData: Report = Object.assign(this.reportForm.value, { internshipTrackingNumber: this.selectedInternship.trackingNumber});
     
-    this.reportService.addNewInternshipReport(newReportData).subscribe(result => {
-      this.toastr.success('Added new report');
+    this.reportService.addNewInternshipReport(newReportData).pipe(
+      switchMap(result => {
+        return this.translateService.get('TOASTR.REPORT_ADDED')
+      })
+    ).subscribe(result => {
+      this.toastr.success(result);
     })
 
     this.modalRef.hide();
   }
 
   deleteReport(): void {
-    this.reportService.deleteReport(this.reportTrackingNumber).subscribe(result => {
+    this.reportService.deleteReport(this.reportTrackingNumber).pipe(
+      switchMap(result => {
+        return this.translateService.get('TOASTR.REPORT_DELETED')
+      })
+    ).subscribe(result => {
       this.fetchAllReportsForInternship(this.selectedInternship.trackingNumber);
-      this.toastr.success('Report deleted');
+      this.toastr.success(result);
     });
 
     this.modalRef.hide();
@@ -105,9 +115,13 @@ export class ActiveInternshipsComponent implements OnInit {
   editReport(): void {
     let updatedReportData: Report = Object.assign(this.reportForm.value, { internshipTrackingNumber: this.selectedInternship.trackingNumber});
 
-    this.reportService.editReport(updatedReportData, this.reportTrackingNumber).subscribe(result => {
+    this.reportService.editReport(updatedReportData, this.reportTrackingNumber).pipe(
+      switchMap(result => {
+        return this.translateService.get('TOASTR.REPORT_UPDATED')
+      })
+    ).subscribe(result => {
       this.fetchAllReportsForInternship(this.selectedInternship.trackingNumber);
-      this.toastr.success('Report updated');
+      this.toastr.success(result);
     })
 
     this.isEdit = false;
@@ -124,8 +138,6 @@ export class ActiveInternshipsComponent implements OnInit {
   private fetchAllReportsForInternship(trackingNumber: string): void {
     this.reportService.getAllInternshipsReports(trackingNumber).subscribe(result => {
       this.myReportsForInternship = result;
-    }, () =>  {
-      this.toastr.error('Something went wrong')
     });
   }
 
@@ -136,6 +148,14 @@ export class ActiveInternshipsComponent implements OnInit {
 
   checkFormValid(): boolean {
     return this.reportForm.valid;
+  }
+
+  getDurationLabel(duration: number, durationUnit: string): string {
+    if(duration === 1) {
+      return duration + ' ' + durationUnit.toLocaleLowerCase();
+    }
+
+    return duration + ' ' + durationUnit.toLocaleLowerCase() + 's';
   }
   
   private initReportForm() {

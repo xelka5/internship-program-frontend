@@ -1,8 +1,8 @@
 <div class="card">
-  <h5 class="card-header">Pending applications</h5>
+  <h5 class="card-header">{{'DASHBOARD.PENDING_APPROVALS' | translate}}</h5>
 
   <div class="card-body">
-    <p *ngIf="pendingApprovals && pendingApprovals.length == 0 else showPendingApprovals">No pending approvals.</p>
+    <p *ngIf="pendingApprovals && pendingApprovals.length == 0 else showPendingApprovals">{{'DASHBOARD.NO_PENDING_APPROVALS' | translate}}</p>
     
     <ng-template #showPendingApprovals>
       <div *ngFor="let pendingApproval of pendingApprovals | paginate: { itemsPerPage: 2, currentPage: pageNumber }">
@@ -22,29 +22,29 @@
               <div class="row">
                 <div class="col-12 col-lg-6">
                   <div>
-                    <label>Username:</label>
+                    <label>{{'USER.USERNAME' | translate}}:</label>
                     <p>{{pendingApproval.account.username}}</p>
                   </div>
                   <div>
-                    <label>Role:</label>
+                    <label>{{'USER.ROLE' | translate}}:</label>
                     <p>{{pendingApproval.role}}</p>
                   </div>
                   <div>
-                    <label>History notes:</label>
+                    <label>{{'USER.HISTORY_NOTES' | translate}}:</label>
                     <p>{{pendingApproval.userDetails.historyNotes}}</p>
                   </div>
                 </div>
                 <div class="col-12 col-lg-6">
                   <div>
-                    <label>Email:</label>
+                    <label>{{'USER.EMAIL' | translate}}:</label>
                     <p>{{pendingApproval.account.email}}</p>
                   </div>
                   <div>
-                    <label>Number of workers:</label>
+                    <label>{{'USER.NUMBER_OF_WORKERS' | translate}}:</label>
                     <p>{{pendingApproval.userDetails.numberOfWorkers}}</p>
                   </div>
                   <div>
-                    <label>Description notes:</label>
+                    <label>{{'USER.DESCRIPTION_NOTES' | translate}}:</label>
                     <p>{{pendingApproval.userDetails.descriptionNotes}}</p>
                   </div>
                 </div>
@@ -64,13 +64,13 @@
 
 <ng-template #showConfirmationModal>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Update user status</h4>
+    <h4 class="modal-title pull-left">{{'DASHBOARD.UPDATE_USER_STATUS' | translate}}</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body d-inline-flex m-auto">
-    <button class="btn btn-danger btn-short mr-3" (click)="modalRef.hide()">No</button>
-    <button class="btn btn-primary btn-short" (click)="updatePendingUserStatus()">Yes</button>
+    <button class="btn btn-danger btn-short mr-3" (click)="modalRef.hide()">{{'COMMON.NO' | translate}}</button>
+    <button class="btn btn-primary btn-short" (click)="updatePendingUserStatus()">{{'COMMON.YES' | translate}}</button>
   </div>
 </ng-template>

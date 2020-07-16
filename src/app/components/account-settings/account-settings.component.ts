@@ -7,6 +7,7 @@ import { UserRole } from 'src/app/shared/enums/user-role';
 import { environment } from 'src/environments/environment';
 import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-account-settings',
@@ -29,7 +30,7 @@ export class AccountSettingsComponent implements OnInit {
   EMPLOYER: string =  UserRole.EMPLOYER;
   ADMIN: string = UserRole.ADMIN;
 
-  constructor(private userService: UserService, private toastr: ToastrService) { }
+  constructor(private userService: UserService, private toastr: ToastrService, private translateService: TranslateService) { }
 
   ngOnInit(): void {
     this.accountForm = new FormGroup({
@@ -123,7 +124,10 @@ export class AccountSettingsComponent implements OnInit {
   onFileChanged(event): void {
 
     if(!event.target.files[0].type.includes('image')) {
-      this.toastr.warning('Please upload an image');
+      this.translateService.get('TOASTR.UPLOAD_IMAGE').subscribe(result => {
+        this.toastr.warning(result);
+      })
+      
       return;
     }
 
@@ -159,8 +163,12 @@ export class AccountSettingsComponent implements OnInit {
         }
         return of(result);
       })
+    ).pipe(
+      switchMap(result => {
+        return this.translateService.get('TOASTR.SUCCESSFULLY_UPDATED_PROFILE')
+      })
     ).subscribe(result => {
-      this.toastr.success('Successfully updated account');
+      this.toastr.success(result);
     })
   }
 

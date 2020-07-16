@@ -9,6 +9,8 @@ import { ToastrService } from 'ngx-toastr';
 import { ApplicationResponse } from 'src/app/interfaces/application/application-response';
 import { ApplicationStatus } from 'src/app/shared/enums/application-status';
 import { ApplicationDetails } from 'src/app/interfaces/application/application-details';
+import { switchMap } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-pending-applications',
@@ -30,7 +32,7 @@ export class PendingApplicationsComponent implements OnInit {
   applicationTrackingNumber: string;
 
   constructor(private applicationService: ApplicationService, private modalService: BsModalService,
-    private userService: UserService, private toastr: ToastrService) { }
+    private userService: UserService, private toastr: ToastrService, private translateService: TranslateService) { }
 
   ngOnInit(): void {
     this.getPendingApplications();
@@ -71,15 +73,27 @@ export class PendingApplicationsComponent implements OnInit {
       status: responseStatus
     }
 
-    this.applicationService.updateApplication(applicationResponse).subscribe(() => {
-      this.toastr.success('Application response sent');
+    this.applicationService.updateApplication(applicationResponse).pipe(
+      switchMap(result => {
+        return this.translateService.get('TOASTR.APPLICATION_RESPONSE_SENT')
+      })
+    ).subscribe(result => {
+      this.toastr.success(result);
       this.getPendingApplications();
-    }, () => {
-      this.toastr.error('Something went wrong');
     }).add(() => {
       this.modalRef.hide();
     });
   }
+
+  isInvalidFormControl(form: FormGroup, control: string): boolean {
+    return form.controls[control].invalid && 
+      (form.controls[control].dirty || form.controls[control].touched);
+  }
+
+  checkFormValid(): boolean {
+    return this.applicationResponseForm.valid;
+  }
+
 
   initForm(): void {
     this.applicationResponseForm = new FormGroup({
