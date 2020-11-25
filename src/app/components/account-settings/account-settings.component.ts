@@ -47,7 +47,7 @@ export class AccountSettingsComponent implements OnInit {
       course: new FormControl('', [
         Validators.required
       ]),
-      startDate: new FormControl(null, [
+      startDate: new FormControl('', [
         Validators.required
       ]),
       previousEducation: new FormControl('', [

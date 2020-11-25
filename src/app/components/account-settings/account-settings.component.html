@@ -108,7 +108,7 @@
           </div>
 
           <input [ngStyle]="isInvalidFormControl(internDetailsForm, 'startDate') && {'border-color': '#ff0000'}" type="text" 
-          class="form-control mb-3" placeholder="{{'PLACEHOLDER.ENTER_START_DATE_OF_STUDYING' | translate}}" bsDatepicker formControlName="startDate" value="{{internDetailsForm.get('startDate').value | date: 'MM/dd/yyyy'}}"/>
+          class="form-control mb-3" placeholder="Datepicker" bsDatepicker formControlName="startDate" value="{{internDetailsForm.get('startDate').value | date: 'MM/dd/yyyy'}}"/>
         </div>
       </form>
     </div>

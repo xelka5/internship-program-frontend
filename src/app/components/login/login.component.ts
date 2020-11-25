@@ -9,7 +9,6 @@ import { ToastrService } from 'ngx-toastr';
 import { LoginResponse } from 'src/app/interfaces/login/login-response';
 import { UserService } from 'src/app/services/api/user/user.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-login',
@@ -73,29 +72,26 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   * Make a call to user information service to see if user has rights to
-   * login into the system. In case user still has some restrictions, clear 
-   * user session and notify with appropriate message.
+   * Check if user has rights to login into the system. 
+   * In case user still has some restrictions, clear user session and notify with appropriate message.
    * 
    * @param loginResponse - login response object containing user session details
    */
   private handleSuccessLoginResponse(loginResponse: LoginResponse) {
     this.authService.storeToken(loginResponse);
 
-    this.userService.getUserInformation().subscribe(result => {
-      if(result.userStatus === 'PENDING_CONFIRMATION') {
-        this.toastr.warning('Please confrim your registration to continue');
-        this.authService.clearTokenStorage();
-      } else if(result.userStatus === 'BLOCKED') {
-        this.toastr.warning('This account has been blocked by the administration');
-        this.authService.clearTokenStorage();
-      } else if(!result.userAllowed) {
-        this.toastr.warning('Your account is waiting to be confirmed by the administration');
-        this.authService.clearTokenStorage();
-      } else {
-        this.router.navigateByUrl('/dashboard');
-      }
-    });
+    if(loginResponse.user_status === 'PENDING_CONFIRMATION') {
+      this.toastr.warning('Please confrim your registration to continue');
+      this.authService.clearTokenStorage();
+    } else if(loginResponse.user_status === 'BLOCKED') {
+      this.toastr.warning('This account has been blocked by the administration');
+      this.authService.clearTokenStorage();
+    } else if(!loginResponse.user_allowed) {
+      this.toastr.warning('Your account is waiting to be confirmed by the administration');
+      this.authService.clearTokenStorage();
+    } else {
+      this.router.navigateByUrl('/dashboard');
+    }
   }
 
   /**
